@@ -1,0 +1,1091 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Little Wiki of YYYeung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Wen Yongyang">
+    
+
+    
+    <meta name="description" content="Faith without works is Dead.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Little Wiki of YYYeung">
+<meta property="og:url" content="http://myeung.xyz/index.html">
+<meta property="og:site_name" content="Little Wiki of YYYeung">
+<meta property="og:description" content="Faith without works is Dead.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Little Wiki of YYYeung">
+<meta name="twitter:description" content="Faith without works is Dead.">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
+				<h2 class="blog-motto">A wiki as a quick reference</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:myeung.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/14/iOS/Demos/MVVM 以及 更轻量的 View Controller Demo/" title="MVVM 更轻量的 View Controller Demo" itemprop="url">MVVM 更轻量的 View Controller Demo</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>阅读 <a href="http://objccn.io/issue-13-1/" target="_blank" rel="external">MVVM 介绍</a> 以及 <a href="http://objccn.io/issue-1-1/" target="_blank" rel="external">更轻量的 View Controllers</a>，还有 <a href="http://objccn.io/issue-5-4/" target="_blank" rel="external">从 NSURLConnection 到 NSURLSession</a></p>
+<p>一直听说 MVVM 要比 MVC 要好，所以，今天来学习了一下。</p>
+<p>首先，网络请求的 API 从 <a href="http://apistore.baidu.com/apiworks/servicedetail/1061.html" target="_blank" rel="external">百度 API Store</a> 获取的</p>
+<p>原本，重点是放在 MVVM 的 Demo 实现上的，所以网络请求准备是直接使用 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFN</a> 的，但是，想了一下，功能单一的网络请求，拉个 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFN</a> 来实现也未免太笨重了。所以，决定自己写一个简单的，顺便可以学习一下请求到底是怎么样实现的，因为之前用 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFN</a> 太多了。</p>
+<h4 id="网络请求代码是："><a href="#网络请求代码是：" class="headerlink" title="网络请求代码是："></a>网络请求代码是：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)request:(<span class="built_in">NSString</span> *)host args:(<span class="built_in">NSString</span> *)args completionHanderWithError:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> data, <span class="built_in">NSError</span> *error))completionHandler&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *urlString = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@?%@"</span>,host, args];</span><br><span class="line">    <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlString];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在过去的 iOS 系统中，我们用的是 NSURLConnection 来发出请求的，但后来，Apple 推出了 NSURLSession</span></span><br><span class="line">    <span class="comment">// 所以，这里还是使用最新的 NSURLSession</span></span><br><span class="line">    <span class="comment">// 然而，无论是 NSURLConnection 还是 NSURLSession，还是需要 NSURLRequest 来作支撑</span></span><br><span class="line">    <span class="comment">// 由于使用了百度 API Store 中的接口，需要额外在 http header 中添加信息，所以使用了 NSMutableRequest</span></span><br><span class="line">    <span class="built_in">NSMutableURLRequest</span> *request = [[<span class="built_in">NSMutableURLRequest</span> alloc] initWithURL:url cachePolicy:<span class="built_in">NSURLRequestUseProtocolCachePolicy</span> timeoutInterval:<span class="number">10.</span>f];</span><br><span class="line">    [request addValue:<span class="string">@"1976d7afad4d0c757778c89504c452fd"</span> forHTTPHeaderField:<span class="string">@"apikey"</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 这里使用的 sharedSession ，是功能最简单的 Session，在这个 Demo 中已经够用了</span></span><br><span class="line">    <span class="comment">// 其他的 Session, 就需要自己配置 NSSessionConfiguration</span></span><br><span class="line">    <span class="built_in">NSURLSession</span> *session = [<span class="built_in">NSURLSession</span> sharedSession];</span><br><span class="line">    <span class="comment">// NSLog(@"%@", session);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建一个任务来发出请求，这也是 sharedSession 的功能</span></span><br><span class="line">    <span class="built_in">NSURLSessionTask</span> *task = [session dataTaskWithRequest:request completionHandler:^(<span class="built_in">NSData</span> * _Nullable data, <span class="built_in">NSURLResponse</span> * _Nullable response, <span class="built_in">NSError</span> * _Nullable error) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSHTTPURLResponse</span> *httpResponse = (<span class="built_in">NSHTTPURLResponse</span> *)response;</span><br><span class="line">        <span class="keyword">if</span> (httpResponse.statusCode == <span class="number">200</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 这里，Session 默认的数据的格式是 JSON 的，若是其他格式，如 XML, 则需要另外配置</span></span><br><span class="line">            <span class="built_in">NSDictionary</span> *tastyData = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:data options:<span class="built_in">NSJSONReadingAllowFragments</span> error:<span class="literal">nil</span>];</span><br><span class="line">            completionHandler(tastyData, <span class="literal">nil</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            completionHandler(<span class="literal">nil</span>, error);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 最后，配置好 Session 的任务后，要记得 resume 一下</span></span><br><span class="line">    <span class="comment">// 任务分配完之后，默认是暂停的，主要是提供机会来修改 Configuration</span></span><br><span class="line">    <span class="comment">// 在其他 Session 中，Configuration 一旦配置在 Session 中，就无法修改</span></span><br><span class="line">    [task resume];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="主界面"><a href="#主界面" class="headerlink" title="主界面"></a>主界面</h4><ul>
+<li>变量们</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UITableView</span> *tableView;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面 tableView 的数据源，用来构建更加轻量的 View Controller</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) MyTableViewDataSource *tableViewDataSource;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面 tableView 的委托，用来构建更加轻量的 View Controller</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) MyTableViewDelegate *tableViewDelegate;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是数据们的容器</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *items;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其实，这个更加像是 Model 的网络请求处理模块</span></span><br><span class="line"><span class="comment">// 不过 ViewModel 主要还是隔绝 ViewController 与 Model 的直接接触吧</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) NewsViewModel *viewModel;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>viewDidLoad</code></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> setupSubviews];</span><br><span class="line">    </span><br><span class="line"><span class="keyword">self</span>.viewModel = [[NewsViewModel alloc] init];</span><br><span class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 拿到数据之后，更新界面的方式不用发送 notification 的形式</span></span><br><span class="line"><span class="comment">// 而是使用 Block, 虽然有出现 retain cycle 的风险</span></span><br><span class="line"><span class="comment">// 然而确实是很方便，减少代码的规模</span></span><br><span class="line">[<span class="keyword">self</span>.viewModel setSuccessBlock:^(<span class="keyword">id</span> data) &#123;</span><br><span class="line">	[weakSelf.items addObjectsFromArray:data];</span><br><span class="line">	[weakSelf.tableView reloadData];</span><br><span class="line">	&#125; failureBlock:^(<span class="keyword">id</span> error) &#123;</span><br><span class="line">		<span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, error);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.viewModel fetchData];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>setupSubviews</code> 搭建界面元素</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setupSubviews&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化 table view 的委托，而不是使用本 view controller，利于减少文件的代码规模</span></span><br><span class="line"><span class="comment">// 注意，需要本 view controller 的强引用，因为 table view 的 delegate 是 weak 的</span></span><br><span class="line"><span class="comment">// 否则，会出现一切代码写对的情况下，table view 仍然一片空白，因为出了这个作用域，delegate 就狗带了</span></span><br><span class="line">    <span class="keyword">self</span>.tableViewDelegate = [[MyTableViewDelegate alloc] initWithFromViewController:<span class="keyword">self</span> items:<span class="keyword">self</span>.items navigationBlock:^(<span class="built_in">UIViewController</span> *fromViewController, <span class="built_in">NSIndexPath</span> *indexPath, <span class="keyword">id</span> item) &#123;</span><br><span class="line">        DetailViewController *toVC = [[DetailViewController alloc] init];</span><br><span class="line">        toVC.newsInfo = item;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 这里的代码主要是想体现推出了不同的 view controller</span></span><br><span class="line">        <span class="keyword">if</span> (indexPath.row &lt; <span class="number">5</span>) &#123;</span><br><span class="line">            toVC.title = <span class="string">@"1"</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            toVC.title = <span class="string">@"2"</span>;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        [fromViewController.navigationController pushViewController:toVC animated:<span class="literal">YES</span>];</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化 table view 的数据源</span></span><br><span class="line">    <span class="comment">// 这个 Block 就是告诉 table view 如何配置 cell 的</span></span><br><span class="line">    <span class="keyword">void</span> (^configureCell)(<span class="built_in">UITableViewCell</span> *, NewsInfo *) = ^(<span class="built_in">UITableViewCell</span> *cell, NewsInfo *newsInfo)&#123;</span><br><span class="line">        [cell.imageView sd_setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:newsInfo.picURL]];</span><br><span class="line">        cell.textLabel.text       = newsInfo.title;</span><br><span class="line">        cell.detailTextLabel.text = newsInfo.time;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">self</span>.tableViewDataSource = [[MyTableViewDataSource alloc] initWithCellIdentifier:<span class="string">@"cell"</span> items:<span class="keyword">self</span>.items configureCellBlock:configureCell];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.tableView = [[<span class="built_in">UITableView</span> alloc] initWithFrame:<span class="keyword">self</span>.view.bounds style:<span class="built_in">UITableViewStylePlain</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 分配 table view 的委托与数据源，delegate 和 data source 都是弱引用</span></span><br><span class="line">    <span class="keyword">self</span>.tableView.delegate = <span class="keyword">self</span>.tableViewDelegate;</span><br><span class="line">    <span class="keyword">self</span>.tableView.dataSource = <span class="keyword">self</span>.tableViewDataSource;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.tableView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>MyTableViewDataSource</code></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  MyTableViewDataSource.h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义配置 cell 的 Block 格式</span></span><br><span class="line"><span class="comment">// 使用 typedef 的方法主要是可以在后面偷懒 ^_^</span></span><br><span class="line"><span class="comment">// cell 被配置的那个 cell, item 配置到 cell 的那条数据</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^ConfigureCell)(<span class="keyword">id</span> cell, <span class="keyword">id</span> item);</span><br><span class="line"></span><br><span class="line"><span class="comment">// identifier cell 的标识</span></span><br><span class="line"><span class="comment">// items 指向数据源（数组）的指针，使用指针的话，可以实时检测到变化</span></span><br><span class="line"><span class="comment">// configureCellBlock 配置 cell 的 Block</span></span><br><span class="line">- (instancetype)initWithCellIdentifier:(<span class="built_in">NSString</span> *)identifier items:(<span class="built_in">NSMutableArray</span> *)items configureCellBlock:(ConfigureCell)configureCellBlock;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>MyTableViewDelegate</code></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  MyTableViewDelegate.h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现页面跳转的 Block</span></span><br><span class="line"><span class="comment">// fromViewController 一般是 table view 所在的 controller</span></span><br><span class="line"><span class="comment">// indexPath 被点中的那个 cell, 和原委托方法一样的意思</span></span><br><span class="line"><span class="comment">// item 被点中那个 cell 对应的数据</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^NavigationBlock)(<span class="built_in">UIViewController</span> *fromViewController, <span class="built_in">NSIndexPath</span> *indexPath, <span class="keyword">id</span> item);</span><br><span class="line"></span><br><span class="line"><span class="comment">// fromVC 纪录着 table view 所在的 view controller， 当然是弱引用了</span></span><br><span class="line"><span class="comment">// items  数据们的指针，我们还要将数据传递到下一个页面的</span></span><br><span class="line"><span class="comment">// navigationBlock 实现跳转的 Block</span></span><br><span class="line">- (instancetype)initWithFromViewController:(<span class="built_in">UIViewController</span> *)fromVC items:(<span class="built_in">NSMutableArray</span> *)items navigationBlock:(NavigationBlock)navigationBlock;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>NewsViewModel</code></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^successBlock)(<span class="keyword">id</span> data);</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^failureBlock)(<span class="keyword">id</span> error);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NewsViewModel</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) successBlock successBlock;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) failureBlock failureBlock;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始抓去数据</span></span><br><span class="line">- (<span class="keyword">void</span>)fetchData;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置数据抓取成功后的行为 和 数据抓取失败后的行为</span></span><br><span class="line">- (<span class="keyword">void</span>)setSuccessBlock:(successBlock)successBlock failureBlock:(failureBlock)failureBlock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NewsViewModel</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fetchData&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *httpURL = <span class="string">@"http://apis.baidu.com/txapi/keji/keji"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *httpArgs = <span class="string">@"num=10&amp;page=1"</span>;</span><br><span class="line">    [NetworkRequest request:httpURL args:httpArgs completionHanderWithError:^(<span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            <span class="keyword">self</span>.failureBlock(error);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            [<span class="keyword">self</span> packupData:data];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setSuccessBlock:(successBlock)successBlock failureBlock:(failureBlock)failureBlock&#123;</span><br><span class="line">    _successBlock = successBlock;</span><br><span class="line">    _failureBlock = failureBlock;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)packupData:(<span class="keyword">id</span>)data&#123;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *datas = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSArray</span> *list = data[<span class="string">@"newslist"</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSDictionary</span> *info <span class="keyword">in</span> list) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> *time        = info[<span class="string">@"ctime"</span>];</span><br><span class="line">        <span class="built_in">NSString</span> *description = info[<span class="string">@"description"</span>];</span><br><span class="line">        <span class="built_in">NSString</span> *picUrl      = info[<span class="string">@"picUrl"</span>];</span><br><span class="line">        <span class="built_in">NSString</span> *title       = info[<span class="string">@"title"</span>];</span><br><span class="line">        <span class="built_in">NSString</span> *url         = info[<span class="string">@"url"</span>];</span><br><span class="line">        </span><br><span class="line">        NewsInfo *newsInfo = [[NewsInfo alloc] initWithTime:time</span><br><span class="line">                                                      title:title</span><br><span class="line">                                                description:description</span><br><span class="line">                                                     picURL:picUrl</span><br><span class="line">                                                        url:url];</span><br><span class="line">        </span><br><span class="line">        [datas addObject:newsInfo];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 主要是这里记得在主线程操作，不然成功抓取之后还是会一片空白的</span></span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        <span class="keyword">self</span>.successBlock([datas <span class="keyword">copy</span>]);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>所以，最后，主要的 DemoViewController 中的代码规模很小，table view 的数据源和委托方法全部被迁移出去</li>
+<li>虽然使用 Block 传值有点绕来绕去的感觉，但是一旦掌握了，好用的不得了，主要是代码规模能有效减少</li>
+<li>虽然说这个是 MVVM 的 Demo，但问题是，感觉这个 Demo 并没有很好地体现出 MVVM 的特点，反而是体现出了 <a href="http://objccn.io/issue-1-1/" target="_blank" rel="external">更轻量的 View Controllers</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Design-Patterns/">Design Patterns</a><a href="/tags/Demo/">Demo</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/18/Hexo/使用-Hexo-搭建个人-Wiki-Refs/" title="使用 Hexo 搭建个人 Wiki Refs" itemprop="url">使用 Hexo 搭建个人 Wiki Refs</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-18T15:53:01.000Z" itemprop="datePublished"> Published 2016-02-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="官方文献"><a href="#官方文献" class="headerlink" title="官方文献"></a>官方文献</h3><p><a href="https://hexo.io/zh-tw/" target="_blank" rel="external">Hexo</a></p>
+<h3 id="起步适用教程"><a href="#起步适用教程" class="headerlink" title="起步适用教程"></a>起步适用教程</h3><p><a href="https://segmentfault.com/a/1190000004076989" target="_blank" rel="external">使用 Hexo + Next 搭建静态博客</a></p>
+<h3 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h3><p><a href="https://google.com" target="_blank" rel="external">Google</a></p>
+<h3 id="Mac下git通过SSH进行免密码安全连接github"><a href="#Mac下git通过SSH进行免密码安全连接github" class="headerlink" title="Mac下git通过SSH进行免密码安全连接github"></a>Mac下git通过SSH进行免密码安全连接github</h3><p><a href="http://blog.csdn.net/phunxm/article/details/45083335" target="_blank" rel="external">点击这里 click here</a></p>
+<h3 id="Adding-a-new-SSH-key-to-your-GitHub-account"><a href="#Adding-a-new-SSH-key-to-your-GitHub-account" class="headerlink" title="Adding a new SSH key to your GitHub account"></a>Adding a new SSH key to your GitHub account</h3><p><a href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/" target="_blank" rel="external">Adding a new SSH key to your GitHub account</a></p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ol>
+<li><p>-bash: hexo: command not found</p>
+<pre><code>没有指定 node 的版本
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看已安装 node 的版本列表</span></span><br><span class="line">nvm ls</span><br><span class="line"><span class="comment"># 输出结果如：</span></span><br><span class="line"><span class="comment"># node -&gt; stable (-&gt; v5.6.0) (default)</span></span><br><span class="line"><span class="comment"># stable -&gt; 5.6 (-&gt; v5.6.0) (default)</span></span><br><span class="line"><span class="comment"># iojs -&gt; iojs- (-&gt; N/A) (default)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定 node 版本</span></span><br><span class="line">nvm use 5.6.0</span><br><span class="line"><span class="comment"># 输出结果：Now using node v5.6.0 (npm v3.6.0)</span></span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>发布到 Github 时：ERROR Deployer not found: git</p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先执行 (first)</span></span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再 (then)</span></span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>当 <code>hexo g</code> 时出现 <code>ERROR Process failed: ... TypeError: Cannot read property &#39;offset&#39; of null</code></p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 _config.yml 中</span></span><br><span class="line"><span class="comment"># 使用那一栏的数据</span></span><br><span class="line">timezone: Asia/Shanghai</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hexo/">Hexo</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/17/iOS/UI/在`AppDelegate`中通过代码(programmatically)加载Storyboard中的文件/" title="在`AppDelegate`中通过代码(programmatically)加载Storyboard中的文件" itemprop="url">在`AppDelegate`中通过代码(programmatically)加载Storyboard中的文件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> Published 2016-02-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <hr>
+<ul>
+<li><p>设置 Storyboard 文件的 ViewController 的 Attribute Inspector -&gt; Identity -&gt; Storyboard ID，写上唯一的标识符，等下会用到</p>
+</li>
+<li><p>转到 <code>AppDelegate.m</code> 中，在 <code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code> 中进行编写</p>
+<ul>
+<li><p>首先要实例化 <code>self.window</code></p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>代码加载 Storyboard</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//创建 Storyboard 的实例</span><br><span class="line">UIStoryboard *sb = [UIStoryboard storyboardWithName:@&quot;&lt;Storyboard 文件名&gt;&quot; bundle:nil];</span><br><span class="line">//从 storyboard 中创建 ViewController</span><br><span class="line">ViewController *vc = [sb instantiateViewControllerWithIdentifier:@&quot;&lt;上面步骤中添加的唯一标识符&gt;&quot;];</span><br><span class="line">//设置应用的根控制器</span><br><span class="line">self.window.rootViewController = vc;</span><br><span class="line">//最后要记得使窗口可见什么的，否则黑屏</span><br><span class="line">[self.window makeKeyAndVisible];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>注意</p>
+<ul>
+<li>若 ViewController 是Embed in Navigation Controller 的话，在加载时，唯一标识符应写上 Navigation Controller 的表示符；若写上 ViewController 的标识符，导航栏将不会出现</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/AppDelegate/">AppDelegate</a><a href="/tags/Storyboard/">Storyboard</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/01/Reading/Objective-C 高级编程/Chapter 1/" title="Objective-C 高级编程 Chapter 1" itemprop="url">Objective-C 高级编程 Chapter 1</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-31T16:00:00.000Z" itemprop="datePublished"> Published 2016-02-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="内存管理思考方式"><a href="#内存管理思考方式" class="headerlink" title="内存管理思考方式"></a>内存管理思考方式</h3><pre><code>自己：对象的使用环境
+
+- 自己生成的对象，自己持有
+- 非自己生成的对象，自己也能持有
+- 不再需要自己持有的对象时释放
+- 非自己持有的对象无法释放
+</code></pre><ul>
+<li><p>对象操作及其对应方法</p>
+<ul>
+<li>生成并持有 | alloc/new/copy/mutableCopy</li>
+<li>持有 | retain</li>
+<li>释放 | release</li>
+<li>废弃 | dealloc</li>
+</ul>
+</li>
+</ul>
+<h3 id="autorelease"><a href="#autorelease" class="headerlink" title="autorelease"></a>autorelease</h3><pre><code>- 使用方法
+    - 生成并持有 NSAutoreleasePool 对象
+    - 调用已分配对象的 autorelease 实例方法
+    - 废弃 NSAuroreleasePool 对象 （对对象逐一调用 release 方法）
+
+- NSAutoreleasePool 生命周期相当于 C 语言的变量作用域 （NSRunLoop 的一次周期）
+
+- 可手动嵌入多个 NSAutoreleasePool，如在图像处理过程中
+
+- 可通过 NSAutoreleasePool 中调试用的非公开类方法 `showPools` 确认已被 autorelease 的对象状况 (仅适用于 iOS)
+- 也可使用 `_objc_autoreleasePoolPrint`
+</code></pre><h3 id="ARC-规则"><a href="#ARC-规则" class="headerlink" title="ARC 规则"></a>ARC 规则</h3><ul>
+<li>一个项目中，可以以文件为单位指定 ARC 有效或无效</li>
+<li><p>ARC 式的内存管理属于编译器的工作</p>
+</li>
+<li><p>设置 ARC 有效的方法</p>
+<ul>
+<li>使用 clang(LLVM编译器) 3.0 或以上版本</li>
+<li>指定编译器属性为 “-fobjc-arc”</li>
+<li>Xcode 4.2 默认对所有文件为 ARC 有效</li>
+</ul>
+</li>
+<li><p>ARC 有效时的所有权修饰符</p>
+<ul>
+<li>__strong</li>
+<li>__weak</li>
+<li>__unsafe_unretained</li>
+<li>__autorelease</li>
+</ul>
+</li>
+<li><p>__strong</p>
+<ul>
+<li>id 类型和对象类型默认</li>
+</ul>
+</li>
+<li><p>__unsafe_unretained</p>
+<ul>
+<li>该变量不属于编译器的内存管理对象</li>
+<li>作用与 __weak 一样</li>
+<li>对象指针不会自动置 nil，会成为悬垂指针</li>
+<li>适配 iOS4 和 OS X Snow Leopard</li>
+</ul>
+</li>
+<li><p>__autorelease<br>  使用区块</p>
+  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@autorelease &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>- 编译器会检查方法名是否以 alloc/new/copy/mutableCopy 开始，若不是，自动将返回值的对象注册到 autoreleasepool
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Objective-C/">Objective-C</a><a href="/tags/Memory-Management/">Memory Management</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/14/iOS/UI/UIImage 拉伸/" title="UIImage 拉伸" itemprop="url">UIImage 拉伸</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>主要针对 9.png 格式的图片</p>
+<p>主要方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)resizableImageWithCapInsets:(<span class="built_in">UIEdgeInsets</span>)capInsets resizingMode:(<span class="built_in">UIImageResizingMode</span>)resizingMode</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/26210816-542ef6dfac654ae699c339fe0e4bb155.png" alt="A Picture"></p>
+<ul>
+<li>insets 根据上图设置，拉伸的是中间黑色部分</li>
+<li>resizingMode:<ol>
+<li><code>UIImageResizingModeStretch</code> 拉伸模式，通过拉伸UIEdgeInsets指定的矩形区域来填充图片</li>
+<li><code>UIImageResizingModeTile</code> 平铺模式，通过重复显示UIEdgeInsets指定的矩形区域来填充图片</li>
+</ol>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UIImage/">UIImage</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/14/iOS/UI/全屏滑动返回手势实现/" title="全屏滑动返回手势实现" itemprop="url">全屏滑动返回手势实现</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>链接 <a href="http://www.cocoachina.com/ios/20150811/12897.html" target="_blank" rel="external">这里</a></p>
+<h4 id="系统自身如何实现"><a href="#系统自身如何实现" class="headerlink" title="系统自身如何实现"></a>系统自身如何实现</h4><ul>
+<li>只能边缘触发</li>
+<li>系统本身已经实现，我们只需找出被调用的方法</li>
+</ul>
+<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
+<li>创建手势时，需要绑定监听者，触发手势会调用 target 的 action</li>
+<li>打印导航器的 <code>self.interactivePopGestureRecognizer</code> 可以看到蛛丝马迹</li>
+<li>以后调用系统本身实现的方法可以通过这种方法来观察</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// 获取系统自带滑动手势的target对象</span></span><br><span class="line">    <span class="keyword">id</span> target = <span class="keyword">self</span>.interactivePopGestureRecognizer.delegate;</span><br><span class="line">    <span class="comment">// 创建全屏滑动手势，调用系统自带滑动手势的target的action方法</span></span><br><span class="line">    <span class="built_in">UIPanGestureRecognizer</span> *pan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:target action:<span class="keyword">@selector</span>(handleNavigationTransition:)];</span><br><span class="line">    <span class="comment">// 设置手势代理，拦截手势触发</span></span><br><span class="line">    pan.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="comment">// 给导航控制器的view添加全屏滑动手势</span></span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:pan];</span><br><span class="line">    <span class="comment">// 禁止使用系统自带的滑动手势</span></span><br><span class="line">    <span class="keyword">self</span>.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 什么时候调用：每次触发手势之前都会询问下代理，是否触发。</span></span><br><span class="line"><span class="comment">// 作用：拦截手势触发</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizerShouldBegin:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 注意：只有非根控制器才有滑动返回功能，根控制器没有。</span></span><br><span class="line">    <span class="comment">// 判断导航控制器是否只有一个子控制器，如果只有一个子控制器，肯定是根控制器</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.childViewControllers.count == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 表示用户在根控制器界面，就不需要触发滑动手势，</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UIGesture/">UIGesture</a><a href="/tags/Transition/">Transition</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/12/iOS/System/nil - Nil - NULL - NSNull/" title="空指针 / 空对象" itemprop="url">空指针 / 空对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="nil-Nil-NULL-NSNull"><a href="#nil-Nil-NULL-NSNull" class="headerlink" title="nil / Nil / NULL / NSNull"></a>nil / Nil / NULL / NSNull</h1><p>在 C 语言中，用 <code>0</code> 表示 <code>不存在</code> 的原始值，<code>NULL</code> 作为指针 <code>不存在</code> 的原始值</p>
+<p>Objective-C 在 C 的基础上增加 <code>nil</code>，<code>nil</code> 指向不存在的对象指针，与 <code>NULL</code> 技术上相等</p>
+<p>Foundation 定义了 <code>NSNull</code>，只有一个类方法 <code>+ null</code>，单例模式，返回一个 <code>NSNull</code> 对象，是一个实际的对象，与 <code>nil</code>, <code>NULL</code> 不同</p>
+<blockquote>
+<p>The NSNull class defines a singleton object used to represent null values in collection objects (which don’t allow nil values).</p>
+</blockquote>
+<h4 id="Something-about-nil"><a href="#Something-about-nil" class="headerlink" title="Something about nil"></a>Something about nil</h4><ul>
+<li>刚被分配的 NSObject 内容被设置为 0，该对象的所有指针都从 <code>nil</code> 开始</li>
+<li>向 <code>nil</code> 发送消息，返回 0 值，避免在使用 <code>nil</code> 前进行检查</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 举个例子，这个表达...</span></span><br><span class="line"><span class="keyword">if</span> (name != <span class="literal">nil</span> &amp;&amp; [name isEqualToString:<span class="string">@"Steve"</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// …可以被简化为：</span></span><br><span class="line"><span class="keyword">if</span> ([name isEqualToString:<span class="string">@"steve"</span>]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Something-about-NSNull"><a href="#Something-about-NSNull" class="headerlink" title="Something about NSNull"></a>Something about NSNull</h4><ul>
+<li>解决如NSArray和NSDictionary之类的集合不能有nil值的缺陷</li>
+<li>可以将NSNull理解为有效的将 <code>NULL</code> 或者 <code>nil</code> 值封装 boxing</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableDictionary</span> *mutableDictionary = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">mutableDictionary[<span class="string">@"someKey"</span>] = [<span class="built_in">NSNull</span> null]; <span class="comment">// Sets value of NSNull singleton for `someKey`</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [mutableDictionary allKeys]); <span class="comment">// @[@"someKey"]</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/14525653795491.jpg" alt="A Picture"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Objective-C/">Objective-C</a><a href="/tags/pointer/">pointer</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/12/iOS/UI/自定义 Tab Bar 步骤/" title="自定义 Tab Bar 步骤" itemprop="url">自定义 Tab Bar 步骤</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h4 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h4><p>继承 UITabBar</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyTabBar : <span class="built_in">UITabBar</span></span><br></pre></td></tr></table></figure>
+<h4 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h4><ol>
+<li>重写 MyTabBar 的 <code>layoutSubviews</code></li>
+<li><p>获取 UITabBarButton 私有类</p>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class class = <span class="built_in">NSClassFromString</span>(<span class="string">@"UITabBarButton"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历 MyTabBar 的子视图，对 UITabBarButton 实例进行重新布局</p>
+</li>
+<li>添加自定义的控件</li>
+<li>在 Tab Bar Controller 中利用 KVC 替换系统 Tab Bar</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITabBar/">UITabBar</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/12/iOS/iPhone Functionality/控制闪光灯/" title="控制闪光灯" itemprop="url">控制闪光灯</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVCaptureDevice</span> *device = [<span class="built_in">AVCaptureDevice</span> defaultDeviceWithMediaType:<span class="built_in">AVMediaTypeVideo</span>];</span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line"><span class="keyword">if</span> (device.hasTorch) &#123;  <span class="comment">// 判断设备是否有散光灯</span></span><br><span class="line">    <span class="built_in">BOOL</span> b = [device lockForConfiguration:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (!b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            DLog(<span class="string">@"lock torch configuration error:%@"</span>, error.localizedDescription);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    device.torchMode =</span><br><span class="line">    (device.torchMode == <span class="built_in">AVCaptureTorchModeOff</span> ? <span class="built_in">AVCaptureTorchModeOn</span> : <span class="built_in">AVCaptureTorchModeOff</span>);</span><br><span class="line">    [device unlockForConfiguration];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Camera/">Camera</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/12/iOS/System/[RunLoop](http:--blog.ibireme.com-2015-05-18-runloop-)/" title="Run Loop" itemprop="url">Run Loop</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">RunLoop</a></p>
+<h4 id="关于-RunLoop，系统提供的对象"><a href="#关于-RunLoop，系统提供的对象" class="headerlink" title="关于 RunLoop，系统提供的对象:"></a>关于 RunLoop，系统提供的对象:</h4><ol>
+<li>CFRunLoopRef 位于 CoreFoundation 框架内，提供纯 C 函数 API，所有 API 线程安全</li>
+<li>NSRunLoop 基于 CFRunLoopRef 的封装，提供面向对象的 API，但线程不安全</li>
+</ol>
+<h4 id="关于线程，重要的对象："><a href="#关于线程，重要的对象：" class="headerlink" title="关于线程，重要的对象："></a>关于线程，重要的对象：</h4><ol>
+<li>pthread_t</li>
+<li>NSThread</li>
+</ol>
+<h4 id="Apple-不允许直接创建-RunLoop，提供自动获取的函数"><a href="#Apple-不允许直接创建-RunLoop，提供自动获取的函数" class="headerlink" title="Apple 不允许直接创建 RunLoop，提供自动获取的函数"></a>Apple 不允许直接创建 RunLoop，提供自动获取的函数</h4><ol>
+<li>CFRunLoopGetMain()</li>
+<li>CFRunLoopGetCurrent()</li>
+</ol>
+<p>线程与 RunLoop 一一对应，关系保存在一个全局 Dictionary<br>线程刚创建时没有 RunLoop，该 RunLoop 需主动获取才有</p>
+<p>主线程的 RunLoop 两个预置的 Mode，均被标记为 Common(后面用到):</p>
+<ol>
+<li>kCFRunLoopDefaultMode App 平时所处的状态</li>
+<li>UITrackingRunLoopMode 追踪 Scroll View 滑动时的状态</li>
+</ol>
+<blockquote>
+<p>当创建一个 Timer 添加到 DefaultMode 时，Timer 会重复调用，但滑动一个 Table View 时，RunLoop 切换到 Tracking Mode，暂停 Timer 调用</p>
+<p>解决方法，在两个 Mode 中得到回调：<br>方法1：将 Timer 加入两个 Mode 中<br>方法2：将 Timer 加入到顶层 RunLoop 的 commonModeItems，commonModeItems 会被 RunLoop 自动更新到具有 Common 属性的 Mode 中，即上述的两种 Mode</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/RunLoop/">RunLoop</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="https://github.com/Y-YYeung" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>34</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UITableView/" title="UITableView">UITableView<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Faith without works is Dead. <br/>
+			null</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:monwingyeung@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Wen Yongyang">Wen Yongyang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

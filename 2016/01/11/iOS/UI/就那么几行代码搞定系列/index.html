@@ -1,0 +1,524 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>就那么几行代码搞定系列 | Little Wiki of YYYeung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Wen Yongyang">
+    
+
+    
+    <meta name="description" content="获取应用程序图标 AppIcon1[UIImage imageNamed: [[[[[[NSBundle mainBundle] infoDictionary] objectForKey:@&quot;CFBundleIcons&quot;] objectForKey:@&quot;CFBundlePrimaryIcon&quot;] objectForKey:@&quot;CFBundleIconFiles&quot;] objectAtIndex:0]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="就那么几行代码搞定系列">
+<meta property="og:url" content="http://myeung.xyz/2016/01/11/iOS/UI/就那么几行代码搞定系列/index.html">
+<meta property="og:site_name" content="Little Wiki of YYYeung">
+<meta property="og:description" content="获取应用程序图标 AppIcon1[UIImage imageNamed: [[[[[[NSBundle mainBundle] infoDictionary] objectForKey:@&quot;CFBundleIcons&quot;] objectForKey:@&quot;CFBundlePrimaryIcon&quot;] objectForKey:@&quot;CFBundleIconFiles&quot;] objectAtIndex:0]">
+<meta property="og:image" content="http://7xqzwt.com1.z0.glb.clouddn.com/Screen%20Shot%202015-08-12%20at%2015.45.10.png">
+<meta property="og:updated_time" content="2016-02-20T04:00:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="就那么几行代码搞定系列">
+<meta name="twitter:description" content="获取应用程序图标 AppIcon1[UIImage imageNamed: [[[[[[NSBundle mainBundle] infoDictionary] objectForKey:@&quot;CFBundleIcons&quot;] objectForKey:@&quot;CFBundlePrimaryIcon&quot;] objectForKey:@&quot;CFBundleIconFiles&quot;] objectAtIndex:0]">
+<meta name="twitter:image" content="http://7xqzwt.com1.z0.glb.clouddn.com/Screen%20Shot%202015-08-12%20at%2015.45.10.png">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
+				<h2 class="blog-motto">A wiki as a quick reference</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:myeung.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/11/iOS/UI/就那么几行代码搞定系列/" title="就那么几行代码搞定系列" itemprop="url">就那么几行代码搞定系列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T05:50:00.000Z" itemprop="datePublished"> Published 2016-01-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取应用程序图标-AppIcon"><span class="toc-number">1.</span> <span class="toc-text">获取应用程序图标 AppIcon</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取-view-所在的控制器"><span class="toc-number">2.</span> <span class="toc-text">获取 view 所在的控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#取消-scroll-view-适应状态栏而在顶部增添-20-的属性"><span class="toc-number">3.</span> <span class="toc-text">取消 scroll view 适应状态栏而在顶部增添 20 的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#点击状态栏返回-scroll-view-顶部"><span class="toc-number">4.</span> <span class="toc-text">点击状态栏返回 scroll view 顶部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iOS-9-中设置状态栏文字颜色"><span class="toc-number">5.</span> <span class="toc-text">iOS 9 中设置状态栏文字颜色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使-tableView-多余的-cell-清空"><span class="toc-number">6.</span> <span class="toc-text">使 tableView 多余的 cell 清空</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使-UISearhBar-支持空搜索"><span class="toc-number">7.</span> <span class="toc-text">使 UISearhBar 支持空搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取当前时间，并且按照指定格式生成字符串"><span class="toc-number">8.</span> <span class="toc-text">获取当前时间，并且按照指定格式生成字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置-导航栏按钮-步骤："><span class="toc-number">9.</span> <span class="toc-text">设置 导航栏按钮 步骤：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置控件边框"><span class="toc-number">10.</span> <span class="toc-text">设置控件边框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免系统渲染图片"><span class="toc-number">11.</span> <span class="toc-text">避免系统渲染图片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UITableView-滑动到顶部"><span class="toc-number">12.</span> <span class="toc-text">UITableView 滑动到顶部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取-手势-操作的对象"><span class="toc-number">13.</span> <span class="toc-text">获取 手势 操作的对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UIButton-UITextField-添加到-UIImageView-上不能响应事件"><span class="toc-number">14.</span> <span class="toc-text">UIButton, UITextField 添加到 UIImageView 上不能响应事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组-makeObjectPerformSelector-withObject"><span class="toc-number">15.</span> <span class="toc-text">[数组 makeObjectPerformSelector:withObject:]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读取-plist-配置文件可用宏定义"><span class="toc-number">16.</span> <span class="toc-text">读取 plist 配置文件可用宏定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tab-Bar-遮挡-Table-View-下部分"><span class="toc-number">17.</span> <span class="toc-text">Tab Bar 遮挡 Table View 下部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调整-Tab-Bar-高度"><span class="toc-number">18.</span> <span class="toc-text">调整 Tab Bar 高度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Push-时隐藏-Tab-Bar-Pop-时显示-Tab-Bar"><span class="toc-number">19.</span> <span class="toc-text">Push 时隐藏 Tab Bar, Pop 时显示 Tab Bar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导航栏按钮偏移问题"><span class="toc-number">20.</span> <span class="toc-text">导航栏按钮偏移问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取上个月的日期"><span class="toc-number">21.</span> <span class="toc-text">获取上个月的日期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#消灭导航栏下面的分割线"><span class="toc-number">22.</span> <span class="toc-text">消灭导航栏下面的分割线</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UILabel-layer-cornerRadius-不起作用"><span class="toc-number"></span> <span class="toc-text">UILabel layer.cornerRadius 不起作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NavigationController-执行-push-时，出现卡顿的情况"><span class="toc-number">1.</span> <span class="toc-text">NavigationController 执行 push 时，出现卡顿的情况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目成功编译但并没有在模拟器上运行"><span class="toc-number"></span> <span class="toc-text">项目成功编译但并没有在模拟器上运行</span></a>
+		
+		</div>
+		
+		<h4 id="获取应用程序图标-AppIcon"><a href="#获取应用程序图标-AppIcon" class="headerlink" title="获取应用程序图标 AppIcon"></a>获取应用程序图标 AppIcon</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIImage</span> imageNamed: [[[[[[<span class="built_in">NSBundle</span> mainBundle] infoDictionary] objectForKey:<span class="string">@"CFBundleIcons"</span>] objectForKey:<span class="string">@"CFBundlePrimaryIcon"</span>] objectForKey:<span class="string">@"CFBundleIconFiles"</span>] objectAtIndex:<span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
+<h4 id="获取-view-所在的控制器"><a href="#获取-view-所在的控制器" class="headerlink" title="获取 view 所在的控制器"></a>获取 view 所在的控制器</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIViewController</span> *)viewController&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="built_in">UIView</span> *view = <span class="keyword">self</span>.superview; view; view = view.superview)&#123;</span><br><span class="line">			<span class="built_in">UIResponder</span> *responder = [view nextResponder];</span><br><span class="line">			<span class="keyword">if</span>	([responder isKindOfClass:[<span class="built_in">UIViewController</span> class]])&#123;</span><br><span class="line">					<span class="keyword">return</span> (<span class="built_in">UIViewController</span> *)responder;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="取消-scroll-view-适应状态栏而在顶部增添-20-的属性"><a href="#取消-scroll-view-适应状态栏而在顶部增添-20-的属性" class="headerlink" title="取消 scroll view 适应状态栏而在顶部增添 20 的属性"></a>取消 scroll view 适应状态栏而在顶部增添 20 的属性</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrollView.automaticallyAdjustsScrollViewInsets = <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="点击状态栏返回-scroll-view-顶部"><a href="#点击状态栏返回-scroll-view-顶部" class="headerlink" title="点击状态栏返回 scroll view 顶部"></a>点击状态栏返回 scroll view 顶部</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrollView.scrollsToTop = <span class="literal">YES</span>;</span><br><span class="line"><span class="comment">// 视图中仅有一个 scroll view 的 scrollsToTop 为 YES 才有效</span></span><br></pre></td></tr></table></figure>
+<h4 id="iOS-9-中设置状态栏文字颜色"><a href="#iOS-9-中设置状态栏文字颜色" class="headerlink" title="iOS 9 中设置状态栏文字颜色"></a>iOS 9 中设置状态栏文字颜色</h4><ol>
+<li>在 .plist 文件中，添加 <code>View controller-based status bar appearance</code>，并设置值为 <code>NO</code></li>
+<li>在 AppDelegate.m 中，设置 <code>application.statusBarStyle = UIStatusBarStyleLightContent;</code> 或其它值</li>
+<li>或在每个控制器中设置 <code>[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];</code>，但此方法已在 iOS 9 中废弃</li>
+</ol>
+<h4 id="使-tableView-多余的-cell-清空"><a href="#使-tableView-多余的-cell-清空" class="headerlink" title="使 tableView 多余的 cell 清空"></a>使 tableView 多余的 cell 清空</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_tableView.tableFooterView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br></pre></td></tr></table></figure>
+<h4 id="使-UISearhBar-支持空搜索"><a href="#使-UISearhBar-支持空搜索" class="headerlink" title="使 UISearhBar 支持空搜索"></a>使 UISearhBar 支持空搜索</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchBar.enablesReturnKeyAutomatically = <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="获取当前时间，并且按照指定格式生成字符串"><a href="#获取当前时间，并且按照指定格式生成字符串" class="headerlink" title="获取当前时间，并且按照指定格式生成字符串"></a>获取当前时间，并且按照指定格式生成字符串</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取当前时间</span></span><br><span class="line"><span class="built_in">NSDate</span> *now = [<span class="built_in">NSDate</span> date];</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置日期格式</span></span><br><span class="line"><span class="built_in">NSDateFormatter</span> *dateFormatter = [[<span class="built_in">NSDateFormatter</span> alloc] init];</span><br><span class="line">[dateFormatter setDateFormat:<span class="string">@"yyyyMMddHHmmssSSS"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取日期字符串</span></span><br><span class="line"><span class="built_in">NSString</span> *dateString = [dateFormatter stringFromDate:now];</span><br></pre></td></tr></table></figure>
+<h4 id="设置-导航栏按钮-步骤："><a href="#设置-导航栏按钮-步骤：" class="headerlink" title="设置 导航栏按钮 步骤："></a>设置 导航栏按钮 步骤：</h4><p>假设已经实例化了一个 UIButton，名曰 btn</p>
+<p>那么：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建并初始化一个 UIBarButtonItem 实例</span></span><br><span class="line"><span class="built_in">UIBarButtonItem</span> *item = [[<span class="built_in">UIBarButtonItem</span> alloc] initWithCustomView: btn];</span><br><span class="line"></span><br><span class="line"><span class="comment">//再将 item 与 导航栏 关联起来</span></span><br><span class="line"><span class="keyword">self</span>.navigationItem.leftBarButton = item;</span><br></pre></td></tr></table></figure>
+<h4 id="设置控件边框"><a href="#设置控件边框" class="headerlink" title="设置控件边框"></a>设置控件边框</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置边框宽度：</span></span><br><span class="line">[控件.layer setBorderWidth:]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置边框颜色</span></span><br><span class="line">[控件.layer setBorderColor:[<span class="built_in">UIColor</span> aColor].CGColor]</span><br></pre></td></tr></table></figure>
+<h4 id="避免系统渲染图片"><a href="#避免系统渲染图片" class="headerlink" title="避免系统渲染图片"></a>避免系统渲染图片</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如 <span class="built_in">UITabBar</span> 上的图片显示</span><br><span class="line">- (<span class="built_in">UIImage</span> *)imageWithRenderMode:</span><br></pre></td></tr></table></figure>
+<h4 id="UITableView-滑动到顶部"><a href="#UITableView-滑动到顶部" class="headerlink" title="UITableView 滑动到顶部"></a>UITableView 滑动到顶部</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[tableView setContentOffset:<span class="built_in">CGPointMake</span>(<span class="number">0</span>,<span class="number">0</span>) animated:<span class="literal">NO</span>];</span><br></pre></td></tr></table></figure>
+<h4 id="获取-手势-操作的对象"><a href="#获取-手势-操作的对象" class="headerlink" title="获取 手势 操作的对象"></a>获取 手势 操作的对象</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关键在于 sender.self.view</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)imageViewDidPressed:(<span class="built_in">UITapGestureRecognizer</span> *)sender&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSInteger</span> index = [<span class="keyword">self</span>.slides indexOfObject:sender.self.view];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%ld"</span>,index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="UIButton-UITextField-添加到-UIImageView-上不能响应事件"><a href="#UIButton-UITextField-添加到-UIImageView-上不能响应事件" class="headerlink" title="UIButton, UITextField 添加到 UIImageView 上不能响应事件"></a>UIButton, UITextField 添加到 UIImageView 上不能响应事件</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.userInteractionEnabled = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="数组-makeObjectPerformSelector-withObject"><a href="#数组-makeObjectPerformSelector-withObject" class="headerlink" title="[数组 makeObjectPerformSelector:withObject:]"></a>[数组 makeObjectPerformSelector:withObject:]</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">若参数为 BOOL 类型，不起作用，即使使用 @(YES), @(NO) 手段</span><br><span class="line">此时，若参数为 NO，我们可以通过设置 nil 来设置</span><br></pre></td></tr></table></figure>
+<h4 id="读取-plist-配置文件可用宏定义"><a href="#读取-plist-配置文件可用宏定义" class="headerlink" title="读取 plist 配置文件可用宏定义"></a>读取 plist 配置文件可用宏定义</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define PlistInfos [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@<span class="meta-string">"文件名称"</span> ofType:@<span class="meta-string">"plist"</span>]]</span></span><br></pre></td></tr></table></figure>
+<h4 id="Tab-Bar-遮挡-Table-View-下部分"><a href="#Tab-Bar-遮挡-Table-View-下部分" class="headerlink" title="Tab Bar 遮挡 Table View 下部分"></a>Tab Bar 遮挡 Table View 下部分</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tableView所在的控制器.edgesForExtendedLayout = <span class="built_in">UIRectEdgeNone</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="调整-Tab-Bar-高度"><a href="#调整-Tab-Bar-高度" class="headerlink" title="调整 Tab Bar 高度"></a>调整 Tab Bar 高度</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tabBar.height = tabBarHeight;</span><br><span class="line"><span class="built_in">UIView</span> *transitionView = [[<span class="keyword">self</span>.view subviews] objectAtIndex:<span class="number">0</span>];</span><br><span class="line">transitionView.height = tabBarHeight;</span><br></pre></td></tr></table></figure>
+<h4 id="Push-时隐藏-Tab-Bar-Pop-时显示-Tab-Bar"><a href="#Push-时隐藏-Tab-Bar-Pop-时显示-Tab-Bar" class="headerlink" title="Push 时隐藏 Tab Bar, Pop 时显示 Tab Bar"></a>Push 时隐藏 Tab Bar, Pop 时显示 Tab Bar</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不要这么做</span></span><br><span class="line"><span class="keyword">self</span>.tabBarController.hidesBottomBarWhenPushed = <span class="literal">YES</span>;</span><br><span class="line"><span class="comment">// Push 时可以隐藏 Tab Bar，但 Pop 时不会显示，即使设置 hidden = NO;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正确做法</span></span><br><span class="line"><span class="comment">// 若使用 UINavigatioinController，在需要隐藏的 view controller 中重写</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)hidesBottomBarWhenPushed&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span>.navigationController.visibleViewController isEqual:<span class="keyword">self</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="导航栏按钮偏移问题"><a href="#导航栏按钮偏移问题" class="headerlink" title="导航栏按钮偏移问题"></a>导航栏按钮偏移问题</h4><p>代码新建导航栏按钮出现按钮向中心偏移的问题</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(([[[<span class="built_in">UIDevice</span> currentDevice] systemVersion] floatValue]&gt;=<span class="number">7.0</span>?<span class="number">20</span>:<span class="number">0</span>))&#123;</span><br><span class="line">        <span class="built_in">UIBarButtonItem</span> *negativeSpacer = [[<span class="built_in">UIBarButtonItem</span> alloc]initWithBarButtonSystemItem: <span class="built_in">UIBarButtonSystemItemFixedSpace</span> target:<span class="literal">nil</span> action:<span class="literal">nil</span>];</span><br><span class="line">        negativeSpacer.width = <span class="number">-10</span>;<span class="comment">//这个数值可以根据情况自由变化</span></span><br><span class="line">        <span class="keyword">self</span>.navigationItem.rightBarButtonItems = @[negativeSpacer,itemAdd, itemSearch];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.navigationItem.rightBarButtonItems = @[itemAdd, itemSearch];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>建立 导航栏按钮 UIBarButtonSystemItemFixedSpace 样式<br>设置其宽度为负数进行移位</p>
+<h4 id="获取上个月的日期"><a href="#获取上个月的日期" class="headerlink" title="获取上个月的日期"></a>获取上个月的日期</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSCalendar</span> *calendar = [<span class="built_in">NSCalendar</span> currentCalendar];</span><br><span class="line"><span class="built_in">NSDateComponents</span> *dateComponents = [calendar components:<span class="built_in">NSYearCalendarUnit</span> | <span class="built_in">NSMonthCalendarUnit</span> fromDate:[[<span class="built_in">NSDate</span> alloc] init]];</span><br><span class="line">[dateComponents setMonth:dateComponents.month - <span class="number">1</span>];</span><br><span class="line"><span class="built_in">NSDate</span> *lastMonthDate = [calendar dateFromComponents:dateComponents];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSDateFormatter</span> *dateFormatter = [[<span class="built_in">NSDateFormatter</span> alloc] init];</span><br><span class="line">dateFormatter.dateFormat = <span class="string">@"yyyyMM"</span>;</span><br><span class="line">lastMonthDateString = [dateFormatter stringFromDate:lastMonthDate];</span><br></pre></td></tr></table></figure>
+<h4 id="消灭导航栏下面的分割线"><a href="#消灭导航栏下面的分割线" class="headerlink" title="消灭导航栏下面的分割线"></a>消灭导航栏下面的分割线</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 其实就是一个shadow image</span></span><br><span class="line"><span class="keyword">self</span>.navigationController.navigationBar.shadowImage = [[<span class="built_in">UIImage</span> alloc] init];</span><br></pre></td></tr></table></figure>
+<h3 id="UILabel-layer-cornerRadius-不起作用"><a href="#UILabel-layer-cornerRadius-不起作用" class="headerlink" title="UILabel layer.cornerRadius 不起作用"></a>UILabel layer.cornerRadius 不起作用</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">label.layer.cornerRadius = <span class="number">5.0</span>f;</span><br><span class="line">label.layer.clipsToBounds = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="NavigationController-执行-push-时，出现卡顿的情况"><a href="#NavigationController-执行-push-时，出现卡顿的情况" class="headerlink" title="NavigationController 执行 push 时，出现卡顿的情况"></a>NavigationController 执行 push 时，出现卡顿的情况</h4><ul>
+<li>想目的的 VC 添加背景色，如 [UIColor whiteColor];</li>
+</ul>
+<h3 id="项目成功编译但并没有在模拟器上运行"><a href="#项目成功编译但并没有在模拟器上运行" class="headerlink" title="项目成功编译但并没有在模拟器上运行"></a>项目成功编译但并没有在模拟器上运行</h3><hr>
+<p>解决方案</p>
+<p><code>Product -&gt; Edit Scheme -&gt; choose Run {your app} on the left -&gt; check launch Automatically radio button</code></p>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/Screen%20Shot%202015-08-12%20at%2015.45.10.png" alt="A Picture"></p>
+<hr>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://myeung.xyz/2016/01/11/iOS/UI/就那么几行代码搞定系列/" data-title="就那么几行代码搞定系列 | Little Wiki of YYYeung" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/12/iOS/System/[RunLoop](http:--blog.ibireme.com-2015-05-18-runloop-)/" title="Run Loop">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Run Loop</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/01/05/iOS/System/关联对象/"  title="关联对象">
+ <strong>下一篇：</strong><br/> 
+ <span>关联对象
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取应用程序图标-AppIcon"><span class="toc-number">1.</span> <span class="toc-text">获取应用程序图标 AppIcon</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取-view-所在的控制器"><span class="toc-number">2.</span> <span class="toc-text">获取 view 所在的控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#取消-scroll-view-适应状态栏而在顶部增添-20-的属性"><span class="toc-number">3.</span> <span class="toc-text">取消 scroll view 适应状态栏而在顶部增添 20 的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#点击状态栏返回-scroll-view-顶部"><span class="toc-number">4.</span> <span class="toc-text">点击状态栏返回 scroll view 顶部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iOS-9-中设置状态栏文字颜色"><span class="toc-number">5.</span> <span class="toc-text">iOS 9 中设置状态栏文字颜色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使-tableView-多余的-cell-清空"><span class="toc-number">6.</span> <span class="toc-text">使 tableView 多余的 cell 清空</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使-UISearhBar-支持空搜索"><span class="toc-number">7.</span> <span class="toc-text">使 UISearhBar 支持空搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取当前时间，并且按照指定格式生成字符串"><span class="toc-number">8.</span> <span class="toc-text">获取当前时间，并且按照指定格式生成字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置-导航栏按钮-步骤："><span class="toc-number">9.</span> <span class="toc-text">设置 导航栏按钮 步骤：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置控件边框"><span class="toc-number">10.</span> <span class="toc-text">设置控件边框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免系统渲染图片"><span class="toc-number">11.</span> <span class="toc-text">避免系统渲染图片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UITableView-滑动到顶部"><span class="toc-number">12.</span> <span class="toc-text">UITableView 滑动到顶部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取-手势-操作的对象"><span class="toc-number">13.</span> <span class="toc-text">获取 手势 操作的对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UIButton-UITextField-添加到-UIImageView-上不能响应事件"><span class="toc-number">14.</span> <span class="toc-text">UIButton, UITextField 添加到 UIImageView 上不能响应事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组-makeObjectPerformSelector-withObject"><span class="toc-number">15.</span> <span class="toc-text">[数组 makeObjectPerformSelector:withObject:]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读取-plist-配置文件可用宏定义"><span class="toc-number">16.</span> <span class="toc-text">读取 plist 配置文件可用宏定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tab-Bar-遮挡-Table-View-下部分"><span class="toc-number">17.</span> <span class="toc-text">Tab Bar 遮挡 Table View 下部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调整-Tab-Bar-高度"><span class="toc-number">18.</span> <span class="toc-text">调整 Tab Bar 高度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Push-时隐藏-Tab-Bar-Pop-时显示-Tab-Bar"><span class="toc-number">19.</span> <span class="toc-text">Push 时隐藏 Tab Bar, Pop 时显示 Tab Bar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导航栏按钮偏移问题"><span class="toc-number">20.</span> <span class="toc-text">导航栏按钮偏移问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取上个月的日期"><span class="toc-number">21.</span> <span class="toc-text">获取上个月的日期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#消灭导航栏下面的分割线"><span class="toc-number">22.</span> <span class="toc-text">消灭导航栏下面的分割线</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UILabel-layer-cornerRadius-不起作用"><span class="toc-number"></span> <span class="toc-text">UILabel layer.cornerRadius 不起作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NavigationController-执行-push-时，出现卡顿的情况"><span class="toc-number">1.</span> <span class="toc-text">NavigationController 执行 push 时，出现卡顿的情况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目成功编译但并没有在模拟器上运行"><span class="toc-number"></span> <span class="toc-text">项目成功编译但并没有在模拟器上运行</span></a>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="https://github.com/Y-YYeung" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>34</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UITableView/" title="UITableView">UITableView<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Faith without works is Dead. <br/>
+			null</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:monwingyeung@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Wen Yongyang">Wen Yongyang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

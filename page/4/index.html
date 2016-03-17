@@ -1,0 +1,1672 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Little Wiki of YYYeung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Wen Yongyang">
+    
+
+    
+    <meta name="description" content="Faith without works is Dead.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Little Wiki of YYYeung">
+<meta property="og:url" content="http://myeung.xyz/page/4/index.html">
+<meta property="og:site_name" content="Little Wiki of YYYeung">
+<meta property="og:description" content="Faith without works is Dead.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Little Wiki of YYYeung">
+<meta name="twitter:description" content="Faith without works is Dead.">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
+				<h2 class="blog-motto">A wiki as a quick reference</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:myeung.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/16/iOS/System/IDFV 和 IDFA/" title="IDFV 和 IDFA" itemprop="url">IDFV 和 IDFA</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-15T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li><p>追踪和识别用户</p>
+</li>
+<li><p>IDFV</p>
+<ul>
+<li>IDentifier For Verdor</li>
+<li>分析应用内用户的行为</li>
+<li>vender 指的是应用提供商，通过 Bundle ID 的 DNS 反转的前两部分进行匹配，相同则是同一个应用提供商</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>IDFA<ul>
+<li>IDentifier For Advertising</li>
+<li>广告推广等跨应用的用户追踪</li>
+<li>统一设备上所有 App 都会获取相同的值</li>
+<li>可在 <code>设置|隐私|广告追踪</code> 中重置此值或限制此值的使用，所以可能取不到值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;AdSupport/AdSupport.h&gt;</span><br><span class="line"></span><br><span class="line">  NSString *adId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/10/iOS/UI/解决UITableView分割线距左边有距离的办法/" title="解决UITableView分割线距左边有距离的办法" itemprop="url">解决UITableView分割线距左边有距离的办法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="step-1-设置-tableView-属性"><a href="#step-1-设置-tableView-属性" class="headerlink" title="step 1 设置 tableView 属性"></a>step 1 设置 tableView 属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if ([_recommendTableView respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">if ([_recommendTableView respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="step-2-设置-tableView-代理方法"><a href="#step-2-设置-tableView-代理方法" class="headerlink" title="step 2 设置 tableView 代理方法"></a>step 2 设置 tableView 代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITableView/">UITableView</a><a href="/tags/UITableViewCell/">UITableViewCell</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/10/Linux/[建立硬盘分区](https:--wiki.archlinux.org-index.php-Partitioning_(简体中文))/" title="建立硬盘分区" itemprop="url">建立硬盘分区</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://wiki.archlinux.org/index.php/Partitioning_(简体中文" target="_blank" rel="external">建立硬盘分区</a>)</p>
+<ul>
+<li>genw划分多个逻辑区块，区块间的访问相互独立</li>
+<li>可从逻辑上隔离数据</li>
+<li>每个分区使用前需格式化为<strong>文件系统</strong></li>
+</ul>
+<h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
+<li>分区信息存放地点</li>
+<li>主流模式：<ul>
+<li>传统：Master Boot Record (MBR)</li>
+<li>新型：GUID Partition Table (GPT)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Master-Boot-Record"><a href="#Master-Boot-Record" class="headerlink" title="Master Boot Record"></a>Master Boot Record</h2><ul>
+<li>最多支持4个分区</li>
+<li>利用扩展分区和逻辑分区绕过上述限制</li>
+<li>分区类型<ul>
+<li>主分区 (Primary)</li>
+<li>扩展分区 (Extended)<ul>
+<li>逻辑分区 (Logical)</li>
+<li>扩展分区 可看作 逻辑分区 的容器</li>
+<li>扩展分区包含的逻辑分区没有限制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>通常习惯<ul>
+<li>创建主分区 sda1 到 sda3，建立一个扩展分区 sda4</li>
+<li>sda4 中包含 sda5，sda6 等逻辑分区</li>
+</ul>
+</li>
+</ul>
+<h2 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h2><ul>
+<li>只有一种分区类型：主分区</li>
+</ul>
+<h2 id="必须使用-MBR-情况"><a href="#必须使用-MBR-情况" class="headerlink" title="必须使用 MBR 情况"></a>必须使用 MBR 情况</h2><ul>
+<li>使用 GRUB legacy 作为 bootloader</li>
+<li>使用传统的 BIOS，且双启动中包含 Windows(32/64)</li>
+</ul>
+<h2 id="必须使用-GPT"><a href="#必须使用-GPT" class="headerlink" title="必须使用 GPT"></a>必须使用 GPT</h2><ul>
+<li>使用 UEFI 而不是 BIOS，且双启动中包含 Windows 64</li>
+</ul>
+<h2 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h2><ul>
+<li>单 root 分区</li>
+<li>多分区<ul>
+<li>将某个路径挂载为独立分区，使其拥有不同的文件系统和挂在参数，可被多个操作系统共享</li>
+</ul>
+</li>
+</ul>
+<h2 id="挂载点"><a href="#挂载点" class="headerlink" title="挂载点"></a>挂载点</h2><ul>
+<li>/ (根分区)<ul>
+<li>目录树顶层</li>
+<li>主文件系统挂载和其它文件系统挂载的地方</li>
+<li>其中的内容应满足于：<ul>
+<li>启动</li>
+<li>恢复</li>
+<li>修复系统</li>
+</ul>
+</li>
+<li>其下特定目录不能作为独立分区</li>
+</ul>
+</li>
+<li>/boot<ul>
+<li>包含<ul>
+<li>内核</li>
+<li>ramdisk 镜像</li>
+<li>bootloader 配置文件</li>
+<li>bootloader stage</li>
+</ul>
+</li>
+<li>内核在使用用户态程序前使用的其它数据</li>
+<li>日常系统运行并不需要，只在启动，内核升级（重建 initial ramdisk）时用到</li>
+</ul>
+</li>
+<li>/home<ul>
+<li>包含<ul>
+<li>用户定义的配置文件、缓存、应用程序数据、媒体文件</li>
+<li>可在不修改 /home 内容情况下重装 Arch，删除其它顶级目录，执行 <code>pacstrap</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/var<ul>
+<li>存储：<ul>
+<li>变量数据，如 spool 目录和文件</li>
+<li>管理和登录数据</li>
+<li>pacman 的缓存</li>
+<li>ABS 树。。。。</li>
+</ul>
+</li>
+<li>常用做 缓存或日志记录，读写频繁</li>
+<li>独立作用：避免由于大量日志写入造成磁盘空间耗尽</li>
+</ul>
+</li>
+<li>/tmp<ul>
+<li>默认情况下，已经是独立分区</li>
+</ul>
+</li>
+<li>Swap<ul>
+<li>虚拟内存空间</li>
+</ul>
+</li>
+</ul>
+<h2 id="分区大小设置"><a href="#分区大小设置" class="headerlink" title="分区大小设置"></a>分区大小设置</h2><ul>
+<li>/boot<ul>
+<li>200MB</li>
+<li>实际需要约 100MB</li>
+</ul>
+</li>
+<li>/<ul>
+<li>15-20GB</li>
+<li>传统上包括 /usr 目录</li>
+</ul>
+</li>
+<li>/var<ul>
+<li>8-12GB</li>
+</ul>
+</li>
+<li>/home<ul>
+<li>不定</li>
+<li>在桌面系统中，通常是最大的文件系统</li>
+</ul>
+</li>
+<li>Swap<ul>
+<li>不定，通常是物理内存的2倍</li>
+</ul>
+</li>
+</ul>
+<h2 id="分区工具"><a href="#分区工具" class="headerlink" title="分区工具"></a>分区工具</h2><ul>
+<li><code>fdisk</code> Linux 自带命令行分区工具</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/iOS持久化存储/" title="iOS持久化存储" itemprop="url">iOS持久化存储</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>plist 文件</li>
+<li>preference</li>
+<li>NSKeyArchiver</li>
+<li>SQLite 3</li>
+<li>CoreData</li>
+</ul>
+<h2 id="沙盒目录结构"><a href="#沙盒目录结构" class="headerlink" title="沙盒目录结构"></a>沙盒目录结构</h2><ul>
+<li>应用程序包</li>
+<li>Documents</li>
+<li>Library<ul>
+<li>Caches</li>
+<li>Preferences</li>
+</ul>
+</li>
+<li>tmp</li>
+</ul>
+<h2 id="应用程序包"><a href="#应用程序包" class="headerlink" title="应用程序包"></a>应用程序包</h2><ul>
+<li><p>存放应用程序源文件，含资源文件，可执行文件</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSBundle mainBundle] bundlePath];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Documents"><a href="#Documents" class="headerlink" title="Documents"></a>Documents</h2><ul>
+<li><p>常用目录，iTunes 同步，适合存放重要数据</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Library-Caches"><a href="#Library-Caches" class="headerlink" title="Library / Caches"></a>Library / Caches</h2><ul>
+<li><p>iTunes 不会同步，适合存放体积大，不需要备份的非重要数据</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Library-Preferences"><a href="#Library-Preferences" class="headerlink" title="Library / Preferences"></a>Library / Preferences</h2><ul>
+<li>iTunes 同步，保存应用的设置信息</li>
+</ul>
+<h2 id="tmp"><a href="#tmp" class="headerlink" title="tmp"></a>tmp</h2><ul>
+<li><p>iTunes 不会同步，系统在应用不运行时删除该目录下的文件</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSTemporaryDirectory();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="plist-文件"><a href="#plist-文件" class="headerlink" title="plist 文件"></a>plist 文件</h2><ul>
+<li><p>将某些特定的类，通过XML文件方式保存在目录中</p>
+</li>
+<li><p>获取文件路径</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</span><br><span class="line">MSString *fileName = [path stringByAppendingPathComponent:@&quot;xxx.plist&quot;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>存储</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSArray *array = @[@&quot;123&quot;,@&quot;456&quot;,@&quot;789&quot;];</span><br><span class="line">[array writeToFile:fileName atomically:YES];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>atomically:</code> 是否需要先写入一个辅助文件，再把辅助文件拷贝到目标文件地址，安全写入文件的做法</li>
+</ul>
+<ul>
+<li><p>读取</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSArray *result = [NSArray arrayWithContentsOfFile:fileName];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>就是使用 <code>arrayWithContentsOfFile:</code> 来读取！</li>
+</ul>
+<h2 id="Preference"><a href="#Preference" class="headerlink" title="Preference"></a>Preference</h2><ul>
+<li><p>专门用来保存应用程序的配置信息，最好不要保存其他数据</p>
+</li>
+<li><p>会将所有数据保存到同一个文件中 -&gt; preference 目录下一个以此应用包命名的 plist 文件</p>
+</li>
+<li><p>获取 <code>NSUserDefaults</code> 文件</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>向文件中写入内容</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[userDefaults setObject:@&quot;AAA&quot; forKey:@&quot;a&quot;];</span><br><span class="line">[userDefaults setBool:YES forKey:@&quot;lala&quot;];</span><br><span class="line">[userDefaults setInteger:21 forKey:@&quot;age&quot;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>立即同步</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[userDefaults synchronize];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>读取文件</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *name = [userDefaults objectForKey:@&quot;a&quot;];</span><br><span class="line">BOOL lala = [userDefaults boolForKey:@&quot;lala&quot;];</span><br><span class="line">NSInteger age = [userDefaults integerForKey:@&quot;age&quot;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="NSKeyedArchiver"><a href="#NSKeyedArchiver" class="headerlink" title="NSKeyedArchiver"></a>NSKeyedArchiver</h2><ul>
+<li><p>归档 -&gt; 遵循 <code>NSCoding</code> 协议的对象可以通过它来实现 序列化</p>
+</li>
+<li><p>大多数指出数据存储的 Foundation 和 Cocoa Touch 类都遵循来 NSCoding 协议</p>
+</li>
+<li><p>遵循协议和设置属性</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface Person: NSObject &lt;NSCoding&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (strong, nonatomic) UIImage *avatar;</span><br><span class="line">@property (copy, nonatomic) NSString *name;</span><br><span class="line">@property (assign, nonatomic) NSInteger age;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>实现协议方法</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//解档</span><br><span class="line">- (id)initWithCoder:(NSCoder *)aDecoder&#123;</span><br><span class="line">  	if ([super init])&#123;</span><br><span class="line">  		self.avatar = [aDecoder decodeObjectForKey:@&quot;avatar&quot;];</span><br><span class="line">      	self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];</span><br><span class="line">      	self.age = [aDecoder decodeObjectForKey:@&quot;age&quot;];</span><br><span class="line">	&#125;</span><br><span class="line">  	</span><br><span class="line">  	return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//归档</span><br><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder&#123;</span><br><span class="line">  	[aCoder encodeObject:self.avatar forKey:@&quot;avatar&quot;];</span><br><span class="line">    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];</span><br><span class="line">    [aCoder encodeInteger:self.age forKey:@&quot;age&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>将对象归档 <code>archiveRootObject: toFile:</code></p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</span><br><span class="line"></span><br><span class="line">  Person *person = [[Person alloc] init];</span><br><span class="line">  person.avatar = self.avatarView.image;</span><br><span class="line">  person.name = self.nameField.text;</span><br><span class="line">  person.age = [self.ageField.text integerValue];</span><br><span class="line"></span><br><span class="line">  [NSKeyedArchiver archiveRootObject:person toFile:file];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>从文件中解档对象 <code>unarchiveObjectWithFile:</code></p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</span><br><span class="line"></span><br><span class="line">  Person *person = [NSKeyedUnarchiver unarchiveObjectWithFile:file];</span><br><span class="line">  if (person) &#123;</span><br><span class="line">     self.avatarView.image = person.avatar;</span><br><span class="line">     self.nameField.text = person.name;</span><br><span class="line">     self.ageField.text = [NSString stringWithFormat:@&quot;%ld&quot;, person.age];</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>保存的文件扩展名可随意</p>
+</li>
+<li><p>继承时必须先调用父类的归档解档方法</p>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Persistence-Storage/">Persistence Storage</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/iOS多线程/" title="iOS多线程" itemprop="url">iOS多线程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>###多线程编程层次</p>
+<ul>
+<li><code>Thread</code><ul>
+<li>层次最低</li>
+<li>线程的管理，线程锁设置与释放等需要开发者负责</li>
+<li>使用<code>NSThread</code>来创建和管理</li>
+</ul>
+</li>
+<li><code>Cocoa Operations</code><ul>
+<li>使用<code>NSOperation</code>类来管理线程</li>
+<li>已封装好关于线程的管理，锁等问题</li>
+<li><code>NSOperation</code>是抽象基类</li>
+<li>iOS提供的默认实现：<code>NSInvocationOperation</code>，<code>NSBlockOperation</code></li>
+<li>实现多线程技术方法：Operation Queue 操作队列<ul>
+<li>开发者任务：定义需要执行的任务，将其加入到操作队列中</li>
+<li>操作队列负责调度和执行任务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>Grand Central Dispatch (GCD)</code></p>
+<ul>
+<li>可将应用程序需要执行的工作拆分为可分散在多个线程和多个CPU上更小的块</li>
+<li>大部分API使用<code>Block</code>来访问</li>
+<li>异步启动任务的技术之一，GCD负责线程管理的代码，并将线程管理移到更低端的系统层面</li>
+<li>开发者的任务：定义需要执行的任务，并把任务添加到合适的派遣队列 Dispatch Queue中</li>
+</ul>
+</li>
+<li><p>iOS基础框架中所有Objective-C的基础类，如<code>NSString</code>，<code>NSArray</code>等被视为线程安全</p>
+</li>
+<li>UIKit框架包含的用于构建GUI的类，如<code>UIApplication</code>，<code>UIView</code>及其所有子类是线程不安全的<ul>
+<li>处理UIKit对象的所有方法都放在主线程中</li>
+</ul>
+</li>
+</ul>
+<p>###GCD提供的默认派遣队列</p>
+<ul>
+<li>Private Dispatch Queue 顺序队列<ul>
+<li>通常用于同步访问特定的资源</li>
+<li>一个队列中按照队列的性质，一次执行一个任务</li>
+<li>可创建任意多个顺序队列，每一个队列同步地独立于其他队列而运行</li>
+</ul>
+</li>
+<li>Global Dispatch Queue 并发队列，全局派遣队列<ul>
+<li>同步地执行一个或多个任务，而启动顺序按照队列性质</li>
+<li>管理多个不同的线程，并发的任务在管理的不同线程中执行</li>
+<li>某个时间点队列里执行的任务数是可变的</li>
+<li>开发者不能创建自己的并发队列，只可使用iOS提供的3个全局并发队列</li>
+</ul>
+</li>
+<li>主队列<ul>
+<li>在应用程序的主线程执行的队列，与应用程序的运行循环交错执行</li>
+</ul>
+</li>
+</ul>
+<p>###派遣队列的创建与执行</p>
+<ul>
+<li><p>顺序队列</p>
+<ul>
+<li><p>异步执行</p>
+<pre><code>dispatch_queue_t queue;
+queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);//由于这是C语言，使用NULL
+//异步执行
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Running in the queue&quot;);
+});
+</code></pre></li>
+<li><p>同步执行</p>
+<pre><code>dispatch_queue_t queue;
+queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);
+//同步执行
+dispatch_sync(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Running in the queue&quot;);
+});
+</code></pre><ul>
+<li>用于防止资源访问冲突 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>并发队列</p>
+<pre><code>dispatch_queue_t queue;
+queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;First task in the queue&quot;);
+});
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Second task in the queue&quot;);
+});
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Third task in the queue&quot;);
+});
+</code></pre><ul>
+<li>并发队列有3种优先级<ul>
+<li>高 <code>DISPATCH_QUEUE_PRIORITY_HIGH</code></li>
+<li>低 <code>DISPATCH_QUEUE_PRIORITY_LOW</code></li>
+<li>普通 <code>DISPATCH_QUEUE_PRIORITY_DEFAULT</code></li>
+</ul>
+</li>
+<li>第二个参数用来扩展使用，暂且为0</li>
+</ul>
+</li>
+<li><p>主线程队列</p>
+<pre><code>dipatch_queue_t queue;
+queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+dispatch_async(queue,^{
+    //做一些运算
+
+    //然后这里才是主线程调用
+    dispatch_async(dispatch_get_main_queue(),^{
+        aLabel.text = @&quot;Processed by the main queue&quot;;
+    });
+});
+</code></pre></li>
+</ul>
+<p>###添加任务到派遣队列</p>
+<ul>
+<li>同步<ul>
+<li>同步的添加方法与异步对应，但添加完后需等待代码执行完才返回</li>
+</ul>
+</li>
+<li><p>异步</p>
+<ul>
+<li><code>dispatch_async</code><ul>
+<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code></li>
+<li>arg1: 代码块要添加到的队列</li>
+<li>arg2: 要执行的代码块</li>
+<li>此方法添加完代码块后立即返回，不会等待代码执行</li>
+</ul>
+</li>
+<li><p><code>dispatch_async_f</code></p>
+<pre><code>void dispatch_async_f(
+    dispatch_queue_t queue,
+    void *context,
+    dispatch_function_t work
+);
+</code></pre><ul>
+<li>arg3: 需要执行的函数</li>
+<li>arg2: 函数的参数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>###执行 回调函数</p>
+<ol>
+<li>在创建任务的同时指定任务完成时的处理方法</li>
+<li>在队列中嵌套队列来实现，如主线程的创建与执行例子</li>
+</ol>
+<p>###派遣组技术</p>
+<ul>
+<li>允许阻止线程直到一个或者多个任务执行完成</li>
+<li><p>让一个或者多个队列等待执行完毕后再返回主线程</p>
+<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+dispatch_group_t group = dispatch_group_creat();
+
+dispatch_group_async(group,queue,^{
+    //执行异步操作
+});
+
+//一些其他处理
+
+//在派遣组中等待，阻止当前的线程继续执行
+dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+</code></pre></li>
+</ul>
+<p>###代码块<code>Block</code>用途</p>
+<ul>
+<li>枚举</li>
+<li>视图动画效果，如<code>animateWithDuration:animations:</code></li>
+<li>排序</li>
+<li>通知：当某种情形发生时执行指定代码块</li>
+<li>错误处理：当错误发生时，执行指定代码块</li>
+<li>事件完成处理器</li>
+<li><p>例子：对字符串数组进行排列</p>
+<pre><code>NSArray *strArray = [NSArray arrayWithObjects:@&quot;...&quot;,@&quot;...&quot;,...,nil];
+
+//获取当前语言环境
+NSLocale *currentLocale = [NSLocale currentLocale];
+NSArray *diacriticInsensitiveSortArray = [strArray soredArrayUsingComparator:^(id str1, id str2){
+    NSRange str1Range = NSMakeRange(0,[str1 length]);
+    NSComparisonResult comparisonResult = [str1 compare: str2 options: NSDiacriticInsensitiveSearch range: str1Range locale: currentLocale];
+    return comparisonResult;
+}];
+
+NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
+</code></pre><ul>
+<li><code>currentLocale</code>获取当前语言环境，用来确认排序的规则（因语言环境不同而不同）</li>
+<li><code>diacriticInsensitiveSortArray</code> 存储排列结果</li>
+<li>在代码块中，没有声明返回类型，因为iOS能根据代码块内部返回值类型推断</li>
+</ul>
+</li>
+</ul>
+<p>###异步编程方法</p>
+<ul>
+<li>使用队列</li>
+<li>通过<code>performSelector</code></li>
+<li>通过<code>NSTimer</code></li>
+</ul>
+<p>###通过<code>performSelector</code></p>
+<ul>
+<li><code>- (void) performSelector: (SEL)aSelector withObject: (id)anArgument afterDelay: (NSTimerInterval)delay;</code><ul>
+<li>arg3: 指定方法在多长时间以后开始执行</li>
+<li>arg1: 指定时间到了的时候执行的方法</li>
+<li>arg2: 传递给arg1的参数</li>
+<li>该方法调用后立即返回，时间到了会执行指定方法</li>
+<li>如：<code>[self.label performSelector:@selector(setText:) withObject:msg afterDelay:5.0];</code></li>
+</ul>
+</li>
+<li><code>- (void) performSelectorOnMainThread: (SEL)aSelector withObject: 
+(id)arg waitUntilDone: (BOOL)wait;</code><ul>
+<li>arg3: 是否阻塞队列来等待方法执行完毕</li>
+</ul>
+</li>
+</ul>
+<p>###通过<code>NSTimer</code></p>
+<ul>
+<li><code>+ (NSTimer *) scheduledTimerWithTimeInterval: (NSTimeInterval)ti target: (id)aTarget selector: (SEL)aSelector userInfo: (id)userInfo repeats: (BOOL)yesOrNo</code><ul>
+<li><code>(NSTimeInterval)ti</code> 时间间隔以秒为单位</li>
+<li><code>target: (id)aTarget</code> 被执行方法所处的类</li>
+<li><code>userInfo: (id)userInfo</code> 由<code>NSTimer</code>持有的信息，暂且为<code>nil</code></li>
+<li><code>repeats: (BOOL)yesOrNo</code> 是否重复调用</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Multi-Thread/">Multi-Thread</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/Json数据操作/" title="Json 数据操作" itemprop="url">Json 数据操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ol>
+<li><p>使用<code>NSDictionary</code></p>
+<pre><code>//创建一个字典
+NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;value1&quot;,@&quot;key1&quot;,@&quot;value2&quot;,@&quot;key2&quot;, nil];
+//或者是可以这样创建字典
+NSDictionary *dict = @{@&quot;key1&quot;:@&quot;value1&quot;,@&quot;key2&quot;:@&quot;value2&quot;};
+//创建一个 NSData 类型的东西，这就是Json数据
+NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+//将Json数据转换为字典
+NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+NSLog(@&quot;%@&quot;,dict1);
+</code></pre></li>
+<li><p>使用<code>NSArray</code></p>
+<pre><code>//从plist文件中读取一个数组
+NSArray *arr = [NSArray arrayWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@&quot;testlist&quot; ofType:@&quot;plist&quot;]]];
+//检查数组是否符合Json化的要求
+if ([NSJSONSerialization isValidJSONObject:arr]) {
+NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:nil];
+NSLog(@&quot;%@&quot;,jsonData);
+}
+</code></pre></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Json/">Json</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/崩溃信号/" title="崩溃信号" itemprop="url">崩溃信号</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>SIGABRT 异常终止</li>
+<li>SIGFPE 浮点异常</li>
+<li>SIGILL 无效指令</li>
+<li>SIGSEGV 访问到无效的内存地址</li>
+<li>SIGTERM 终止请求发送给应用</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Crash/">Crash</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/永久性数据储存方式/" title="随笔。。。" itemprop="url">随笔。。。</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ol>
+<li>User Defaults</li>
+<li>Property List</li>
+<li>Object archives</li>
+<li>SQLite 3</li>
+<li>Core Data</li>
+</ol>
+<p>###UserDefaults</p>
+<ul>
+<li>储存格式：Key-Value格式</li>
+<li>NSUserDefaults使用三部曲<ol>
+<li><b>通过<code>NSUserDefaults</code>的类方法获取到应用程序的共享实例(Shared Instance)</b><br><br> <code>NSUserDefaults *myUserDefaults = [NSUserDefaults standardUserDefaults];</code></li>
+<li><b>指定一个唯一的Key，并对该Key设定对象</b><br><br> <code>[myUserDefaults setArray: myArray forKey: @&quot;recentlyViewed&quot;];</code><br><br> 其他队数据的操作：<br><br> <code>- (void)setDouble: (double)aDouble forKey: (NSString *)key;</code><br><br> <code>- (NSInteger)integerForKey: (NSString *)key;</code><br><br> <code>- (void)setObject: (id)obj forKey: (NSString *)key</code>（常用）<br><br> 存储的Object格式要求：<ul>
+<li>必须是<code>propertylist</code>属性类型：NSArray, NSDictionary, NSNumber, NSString, NSDate, NSData及它们的Mutable版本</li>
+</ul>
+</li>
+<li><b>同步</b><br><br> <code>[[NSUserDefaults standardUserDefaults] synchronize];</code><br></li>
+</ol>
+</li>
+</ul>
+<p>###键盘消失</p>
+<ol>
+<li>Delegate应用（键盘回车）<ul>
+<li><code>ViewController</code>遵从<code>&lt;UITextFieldDelegate&gt;</code>协议</li>
+<li>在<code>textFieldShouldReturn:</code>中调用<code>resignFirstResponder</code></li>
+<li>关联委托者被委托者，将<code>UITextField</code>对象的<code>Delegate</code>指派给该对象所在的<code>ViewController</code></li>
+</ul>
+</li>
+<li>事件响应的调用（键盘回车）<ul>
+<li>声明<code>UITextField</code>的<code>return</code>单击事件<code>IBAction</code></li>
+<li>创建<code>UITextField</code>的输出口<code>IBOutlet</code></li>
+<li>在响应事件中撤销第一响应者<code>[textField resignFirstResponder];</code></li>
+</ul>
+</li>
+<li>将UIView改为UIControl<ul>
+<li>创建<code>UITextField</code>的输出口<code>IBOutlet</code></li>
+<li>声明<code>UIControl</code>的<code>IBAction</code>，事件为<code>Touch Up Inside</code></li>
+<li>在<code>UIControl</code>事件中撤销<code>UITextField</code>的第一响应者</li>
+</ul>
+</li>
+<li>利用UIButton<ul>
+<li>使用巨型<code>UIButton</code>覆盖<code>UIView</code></li>
+<li>响应事件</li>
+</ul>
+</li>
+</ol>
+<p>###消息</p>
+<ul>
+<li>一个对象接受到一个方法的调用时，会进行<b>运行时</b>查找，以决定要运行什么代码；C++及其他部分语言，在<b>编译时</b>执行查找</li>
+<li>一个方法被一个OC对象收到时，OC运行时回查找对象的类的实现方法列表<ul>
+<li>找到与收到的消息具有<b>相同的选择器</b>时，运行此方法的代码</li>
+<li>否则，递归查找此类的父类，直到找到为止</li>
+<li>再否则，运行时抛出异常</li>
+</ul>
+</li>
+</ul>
+<p>###属性特性</p>
+<ul>
+<li><code>strong</code><ul>
+<li>对一个对象拥有强引用</li>
+<li>所引用的对象保留在内存中</li>
+</ul>
+</li>
+<li><code>weak</code><ul>
+<li>对一个对象拥有弱引用，当该属性所引用的对象被释放时，这个属性将自动被设置为<code>nil</code></li>
+<li>不增加引用数</li>
+</ul>
+</li>
+<li><code>assign</code><ul>
+<li>属性的<code>setter</code>简单地把属性的变量赋值为任何传入的值，而不执行内存管理</li>
+</ul>
+</li>
+<li><code>copy</code><ul>
+<li>属性的<code>setter</code>将复制传入的任何对象，创建一个对象的副本</li>
+</ul>
+</li>
+<li><code>readwrite</code> <ul>
+<li>属性同时生成<code>getter</code>，<code>setter</code></li>
+<li>只有覆盖父类的一个属性时需要显式使用</li>
+<li>默认</li>
+</ul>
+</li>
+<li><code>readonly</code><ul>
+<li>属性不生成<code>setter</code></li>
+<li>类的实现代码仍然可以修改属性的变量</li>
+</ul>
+</li>
+<li><code>nonatomic</code><ul>
+<li>属性的<code>getter</code>，<code>setter</code>不会试图在对变量做出修改前获取互斥锁以及保证线程安全</li>
+</ul>
+</li>
+<li><p><code>@synthesize</code></p>
+<ul>
+<li><p>重新命名<code>getter</code>，<code>setter</code>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">@synthesize myProperty = _myCustomVariableName;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>@dynamic</code></p>
+<ul>
+<li>指示编译器不对属性和方法进行合成</li>
+<li>需自己实现<code>getter</code>，<code>setter</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><ul>
+<li>类要实现一系列方法的列表，标记类所拥有的功能：能够被复制，能够序列化和反序列化，能够作为其他类的数据源</li>
+<li><p>语法</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@protocol SomeProtocol</span><br><span class="line">[ method declarations ]</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标记一个类遵守一个协议    </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@interface SomeObject:NSObject &lt;SomeProtocol&gt;</span><br><span class="line">...</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用协议定义一个对象</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id &lt;SomeProtocol&gt; someObjectconfirmingToProtocol</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###类扩展</p>
+<ul>
+<li><p>语法</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@interface SomeClass()</span><br><span class="line">&#123;</span><br><span class="line">	[ additional instance variables ]</span><br><span class="line">&#125;</span><br><span class="line">[ additional instance or class method declarations ]</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>()</code>表明不能修改类本身的父类</li>
+</ul>
+</li>
+<li>类别，命名的类扩展<ul>
+<li><code>@interface SomeClass(SomeCategory)</code></li>
+</ul>
+</li>
+</ul>
+<p>###NSObject的生命周期</p>
+<ul>
+<li>分配和初始化<ul>
+<li><code>alloc</code> 为对象预留内存空间</li>
+<li><code>init</code> 指定初始化</li>
+</ul>
+</li>
+<li>保留和释放<br>  －通过引用计数进行内存管理</li>
+<li>终结和回收<ul>
+<li>对象从内存中被移除前拥有最后一个运行代码的机会 <code>dealloc</code></li>
+<li>对象引用为<code>0</code>，对象将收到<code>dealloc</code>消息，对象被回收内存前清理任何遗留工作：关闭文件什么的</li>
+</ul>
+</li>
+</ul>
+<p>###后台运行</p>
+<ul>
+<li>一个应用程序可以申请在后台运行一小段时间，这个运行时段不能超过<code>10min</code>  </li>
+<li><p>后台运行添加代码    </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	backgroudTask = [application beginBackgroundTaskWithExpirationHandler:^&#123;</span><br><span class="line">		//停止在后台正在执行的任务 （取消下载，停止计算。。。）</span><br><span class="line">		//这里负责处理超时的block    可选，建议使用</span><br><span class="line">		</span><br><span class="line">		//告知系统任务已经完成</span><br><span class="line">		[app endBackgroundTask:backgroundTask];</span><br><span class="line">		backgroundTask = UIBackgroundTaskInvalid;</span><br><span class="line">	&#125;];</span><br><span class="line">	</span><br><span class="line">	//开始在后台运行一个block完成相应的任务</span><br><span class="line">	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),</span><br><span class="line">	^&#123;</span><br><span class="line">		//开始进行后台工作：下载，写入，计算等</span><br><span class="line">		//工作完成后，告知系统任务已经完成		</span><br><span class="line">		[application endBackgroundTask:backgroundTask];</span><br><span class="line">		backgroundTAsk = UIBackgroundTaskInvalid;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可运行更长时间的后台</p>
+<ul>
+<li>后台播放音频，任意长时间保持活动转台，直至用户停止</li>
+<li>跟踪用户位置的应用程序</li>
+<li>IP语音(VoIP)应用程序，Skype，定期连接服务器，但不允许无限制的运行</li>
+</ul>
+</li>
+</ul>
+<p>###iOS应用程序约束</p>
+<ul>
+<li>iOS程序安装到设备后，会被放在一个文件夹下</li>
+<li><code>Documents</code><br>  － 存储属于该应用程序的所有文档</li>
+<li><code>Library</code><ul>
+<li>存储全部的设置和配置信息</li>
+</ul>
+</li>
+<li><code>Caches</code><ul>
+<li>包含有必要存储到磁盘上的数据，可以被重新生成</li>
+<li>系统需要清理空间时，此文件夹内容会被系统删除</li>
+</ul>
+</li>
+<li><code>Preferences</code><ul>
+<li>存储设置和偏好设置</li>
+</ul>
+</li>
+<li><code>tmp</code><ul>
+<li>临时文件，系统会定期删除</li>
+</ul>
+</li>
+<li><code>Application.app</code><ul>
+<li>应用程序包</li>
+</ul>
+</li>
+</ul>
+<p>###Nib文件加载</p>
+<ul>
+<li><code>输出口</code>与<code>操作</code>的连接定义在nib文件中</li>
+<li>nib文件加载是作为应用程序启动的一部分，根据存储在nib文件中的信息，所包含的对象会被重新创建<ul>
+<li>信息包括：类，位置，标签，大小。。。</li>
+</ul>
+</li>
+<li>所有对象都存在内存中时，nib文件中所定义的所有输出口都被连接起来</li>
+<li>所有输出口被连接起来后，每一个被加载的对象都会收到<code>awakeFromNib:</code>消息<ul>
+<li>即<code>awakeFromNib:</code>被调用时，每个输出口已经完成连接，对象间的所有关系都已被重新建立</li>
+</ul>
+</li>
+</ul>
+<p>###<code>Block</code>语法</p>
+<ul>
+<li><p>定义一个不带任何参数，没有返回值的<code>Block</code>变量</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)(void);</span><br><span class="line">// [Return Type] (^ [Variable Name]) (Parameters);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果<code>Block</code>没有参数，可以省略最后的<code>void</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义一个带参数的<code>Block</code>变量</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)(BOOL booleanParameter, NSString* objectParameter);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给已定义的<code>Block</code>分配一个<code>Block</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)(BOOL parameter);</span><br><span class="line">myBlockVariable = ^(BOOL parameter)&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Block</code>没有参数，可以省略<code>^</code>与<code>{</code>之间的参数列表</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)();</span><br><span class="line">myBlockVariable = ^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将声明与定义放同一行</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)() = ^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以像调用函数一样调用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myBlockVariable();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###<code>Block</code>的错误用法</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//myBlockProperty是类的一个属性，能够存储Block</span><br><span class="line"></span><br><span class="line">void(^myBlockVariable)() = ^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//错误：Block在函数返回之后不会存在，调用它会导致应用崩溃</span><br><span class="line">//myBlockVariable局部变量，存放在栈中</span><br><span class="line">self.myBlockProperty = myBlockVariable;</span><br><span class="line"></span><br><span class="line">//安全：这个Block会被复制并一直保存在堆中</span><br><span class="line">self.myBlockProperty = [myBlockVariable copy];</span><br></pre></td></tr></table></figure>
+</code></pre><p>###带<code>Block</code>参数的方法</p>
+<ul>
+<li><p>声明</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void) someMethod:(void(^)(BOOL aParameter)) handler;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void) someMethod:(void(^)(BOOL aParameter)) handler&#123;</span><br><span class="line">	//调用传入Block</span><br><span class="line">	handler(YES);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[anObject someMethod:^(BOOL aParameter)&#123;</span><br><span class="line">	//被调用的方法会调用该方法</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###优雅地使用<code>Block</code></p>
+<ul>
+<li><p>在源代码中的某处（函数或方法外）</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef void(^ABlockType)(BOOL aParameter);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在一个函数中可以使用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ABlockType myBlock = ^(BOOL aParameter)&#123;</span><br><span class="line">	//do something</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>声明方法时使用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void) someMethod:(ABlockType)handler;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用时需确保<code>Block</code>的参数类型相同</p>
+</li>
+</ul>
+<p>###队列</p>
+<ul>
+<li>按照先入先出的顺序执行操作</li>
+<li><p>操作：<code>NSOperation</code>的实例，定义完成工作的流程</p>
+<ul>
+<li><p><code>NSOperations</code>可以被加入到<code>NSOperationQueue</code>中，发送<code>addOperationWithBlock:</code>消息至<code>NSOperationQueue</code>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSOperationQueue* mainQueue = [NSOperationQueue mainQueue];</span><br><span class="line">[mainQueue addOperationWithBlock:^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>###队列的执行</p>
+<ul>
+<li><p>获取<code>NSOperationQueue</code>实例</p>
+<ul>
+<li><p>获取主队列，运行在主线程中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSOperationQueue* mainQueue = [NSOperationQueue mainQueue];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 创建一个新的队列，&lt;b&gt;可能&lt;/b&gt;运行在后台线程中
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSOperationQueue* newQueue = [[NSOperationQueue alloc] init];</span><br></pre></td></tr></table></figure>
+</code></pre><ul>
+<li>创建一个新的队列，并不能保证创建一个新的线程</li>
+<li>使用多个队列唯一可以保证：在其上运行的操作不会在同一时间相互拥塞</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/Objective-C正则表达式/" title="Objective-C正则表达式" itemprop="url">Objective-C正则表达式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <hr>
+<p>匹配所有字符: <code>[\\d\\D\\s\\S\\w\\W]*</code></p>
+<p><code>NSRegularExpression - (NSArray *)matchesInString:(NSString *)string options:</code></p>
+<p><code>(NSMatchingOptions)options range:(NSRange)range</code> 返回的是包含匹配范围的<code>NSTextCheckingResult</code>对象，而不是字符串对象</p>
+<hr>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Regular-Expression/">Regular Expression</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="https://github.com/Y-YYeung" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>34</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UITableView/" title="UITableView">UITableView<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Faith without works is Dead. <br/>
+			null</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:monwingyeung@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Wen Yongyang">Wen Yongyang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

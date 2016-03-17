@@ -1,0 +1,504 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>The View Controller Hierarchy 视图控制器的层次结构 | Little Wiki of YYYeung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Wen Yongyang">
+    
+
+    
+    <meta name="description" content="应用中的 view controllers 之间的关系定义了一系列每个 view controller 必要的行为方法。UIKit 希望开发者按照预定的思路来使用 view controllers。维持 view 正确控制的关联能够保证自动化的行为能够传递到正确的 view controllers 中。如果开发者不遵守原有的控制逻辑与呈现之间的关联，那么应用的部分功能将不会得到预期中的效果。
+Th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The View Controller Hierarchy 视图控制器的层次结构">
+<meta property="og:url" content="http://myeung.xyz/2015/11/29/Documentation Translation/The View Controller Hierarchy 视图控制器的层次结构/index.html">
+<meta property="og:site_name" content="Little Wiki of YYYeung">
+<meta property="og:description" content="应用中的 view controllers 之间的关系定义了一系列每个 view controller 必要的行为方法。UIKit 希望开发者按照预定的思路来使用 view controllers。维持 view 正确控制的关联能够保证自动化的行为能够传递到正确的 view controllers 中。如果开发者不遵守原有的控制逻辑与呈现之间的关联，那么应用的部分功能将不会得到预期中的效果。
+Th">
+<meta property="og:image" content="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-root-view-controller_2-1_2x.png">
+<meta property="og:image" content="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-container-acting-as-root-view-controller_2-2_2x.png">
+<meta property="og:image" content="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-presented-view-controllers_2-3_2x.png">
+<meta property="og:image" content="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-container-and-presented-view-controller_2-4_2x-1.png">
+<meta property="og:updated_time" content="2016-02-20T04:05:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The View Controller Hierarchy 视图控制器的层次结构">
+<meta name="twitter:description" content="应用中的 view controllers 之间的关系定义了一系列每个 view controller 必要的行为方法。UIKit 希望开发者按照预定的思路来使用 view controllers。维持 view 正确控制的关联能够保证自动化的行为能够传递到正确的 view controllers 中。如果开发者不遵守原有的控制逻辑与呈现之间的关联，那么应用的部分功能将不会得到预期中的效果。
+Th">
+<meta name="twitter:image" content="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-root-view-controller_2-1_2x.png">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
+				<h2 class="blog-motto">A wiki as a quick reference</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:myeung.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/29/Documentation Translation/The View Controller Hierarchy 视图控制器的层次结构/" title="The View Controller Hierarchy 视图控制器的层次结构" itemprop="url">The View Controller Hierarchy 视图控制器的层次结构</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Root-View-Controller-根控制器"><span class="toc-number">1.</span> <span class="toc-text">The Root View Controller 根控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Container-View-Controllers-容器类视图控制器"><span class="toc-number">2.</span> <span class="toc-text">Container View Controllers 容器类视图控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Presented-View-Controllers-呈现视图控制器"><span class="toc-number">3.</span> <span class="toc-text">Presented View Controllers 呈现视图控制器</span></a></li></ol>
+		
+		</div>
+		
+		<p>应用中的 view controllers 之间的关系定义了一系列每个 view controller 必要的行为方法。UIKit 希望开发者按照预定的思路来使用 view controllers。维持 view 正确控制的关联能够保证自动化的行为能够传递到正确的 view controllers 中。如果开发者不遵守原有的控制逻辑与呈现之间的关联，那么应用的部分功能将不会得到预期中的效果。</p>
+<h2 id="The-Root-View-Controller-根控制器"><a href="#The-Root-View-Controller-根控制器" class="headerlink" title="The Root View Controller 根控制器"></a>The Root View Controller 根控制器</h2><p>根控制器是整个视图控制器层次结构的基础。每一个窗口(window)都只有一个根控制器，而且这个控制器的内容填充整个屏幕。根控制器定义了所有用户能够看见的基础内容。Figure 2-1 展示了根控制器与其窗口的关系。因为窗口没有它自己的可视化内容，所以控制器的视图提供了所有要展示的内容。</p>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-root-view-controller_2-1_2x.png" alt="Figure 2-1"></p>
+<p>根控制器可以通过 <code>UIWindow</code> 对象的 <code>rootViewController</code> 属性访问得到。当你使用 storyboards 来设置你的控制器时，UIKits 会在应用启动阶段自动设置该属性。当你使用代码来创建 window 对象时，你必需亲自设置根控制器。</p>
+<h2 id="Container-View-Controllers-容器类视图控制器"><a href="#Container-View-Controllers-容器类视图控制器" class="headerlink" title="Container View Controllers 容器类视图控制器"></a>Container View Controllers 容器类视图控制器</h2><p>容器类视图控制器能让你使用可管理和可充用的部件来构建复杂的交互界面。容器类视图控制器融合了一个或多个拥有可定制化的视图的子视图控制器来创建它最终的界面。例如：<code>UINavigationController</code> 对象整合呈现了一个子视图控制器，一个导航栏和一个可选的工具栏，这些控件，都是通过导航栏控制器（navigation controller）来进行管理。UIKit 包含了多个容器类视图控制器，包括：<code>UINavigationController</code>, <code>UISplitViewController</code>, <code>UIPageViewController</code>。</p>
+<p>容器类视图控制器的视图，总是会填满提供给它的所有空间。容器类视图控制器通常会设置为窗口的根控制器（如 Figure 2-2 所示），但它们也可以模态显示或者作为其它容器的子控制器。容器控制器对设置它的子视图位置负责。在 Figure 中，容器控制器将两个子视图靠边摆放。尽管子视图的位置由容器的大小决定，但子视图控制器可以以最低限度来获知其它容器和其它同级的视图控制器。</p>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-container-acting-as-root-view-controller_2-2_2x.png" alt="Figure 2-2"></p>
+<p>由于容器视图控制器管理着它的子视图，所以 UIKit 定义了开发者如何在自定义的容器中设置容器的子视图控制器的规则。<br>见 Implementing a Container View Controller</p>
+<h2 id="Presented-View-Controllers-呈现视图控制器"><a href="#Presented-View-Controllers-呈现视图控制器" class="headerlink" title="Presented View Controllers 呈现视图控制器"></a>Presented View Controllers 呈现视图控制器</h2><p>呈现一个视图控制器将会取代正在呈现的视图控制器的内容，通常是隐藏当前的视图控制器的内容。Presentations 经常用于模态显示新的内容。例如：你可以呈现一个视图控制器来收集用户的输入。你也可以使用使用它们来作为应用交互界面基本构成。</p>
+<p>当你呈现一个视图控制器时，UIKit 会创建从正在呈现的视图控制器（presenting view controler）到之前呈现的视图控制器（presented view controller）之间的关系，如 Figure 2-3 所示（也有从之前呈现的视图控制器到正在呈现的视图控制器间的关系）。这些关系形成了视图控制器层次结构。同时，这些关系用于在运行时定位其它视图控制器。</p>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-presented-view-controllers_2-3_2x.png" alt="Figure 2-3"></p>
+<p>当使用到容器视图控制器时，UIKit 可以修改视图呈现链（presentation chain）来简化开发者需要编写的代码。不同的呈现风格由不同的呈现规则。例如：全凭的呈现方式总是覆盖整个屏幕。当你呈现一个视图控制器时，UIKit 会寻求一个视图控制器，该视图控制器提供一个合适的上下文环境来呈现。大多数情况下，UIKit 会选择最近的容器视图控制器，但它也可以选择窗口的根控制器。而其它情况下，你也可以告知 UIKit 使用哪个视图控制器来定义<strong>呈现的上下文</strong>和<strong>呈现的方式</strong>。</p>
+<p>Figure 2-4 展示了为什么容器经常为视图呈现提供上下文。当进行一个全屏的视图呈现时，新的视图控制器需要覆盖整个屏幕。这种情况下，是容器决定是否处理视图的呈现，而不是让子视图获知容器的尺寸大小。因为在这个例子中，导航栏控制器覆盖整个屏幕，因此，它就运行得像要呈现的视图一样，并且负责初始化视图的呈现。</p>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-container-and-presented-view-controller_2-4_2x-1.png" alt="Figure 2-4"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Documentation/">Documentation</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://myeung.xyz/2015/11/29/Documentation Translation/The View Controller Hierarchy 视图控制器的层次结构/" data-title="The View Controller Hierarchy 视图控制器的层次结构 | Little Wiki of YYYeung" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/11/29/Documentation Translation/The Role of View Controllers 视图管理器的作用/" title="The Role of View Controllers 视图管理器的作用">
+  <strong>上一篇：</strong><br/>
+  <span>
+  The Role of View Controllers 视图管理器的作用</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/11/24/iOS/单例模式/"  title="单例模式">
+ <strong>下一篇：</strong><br/> 
+ <span>单例模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Root-View-Controller-根控制器"><span class="toc-number">1.</span> <span class="toc-text">The Root View Controller 根控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Container-View-Controllers-容器类视图控制器"><span class="toc-number">2.</span> <span class="toc-text">Container View Controllers 容器类视图控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Presented-View-Controllers-呈现视图控制器"><span class="toc-number">3.</span> <span class="toc-text">Presented View Controllers 呈现视图控制器</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="https://github.com/Y-YYeung" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>34</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UITableView/" title="UITableView">UITableView<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Faith without works is Dead. <br/>
+			null</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:monwingyeung@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Wen Yongyang">Wen Yongyang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
