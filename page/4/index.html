@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -50,7 +50,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:myeung.xyz">
 					</form>
 					
@@ -75,7 +75,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-15T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-16</time>
+    <time datetime="2015-11-15T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-16</time>
     
   </p>
 </header>
@@ -144,62 +144,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/10/iOS/UI/解决UITableView分割线距左边有距离的办法/" title="解决UITableView分割线距左边有距离的办法" itemprop="url">解决UITableView分割线距左边有距离的办法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="step-1-设置-tableView-属性"><a href="#step-1-设置-tableView-属性" class="headerlink" title="step 1 设置 tableView 属性"></a>step 1 设置 tableView 属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if ([_recommendTableView respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">if ([_recommendTableView respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="step-2-设置-tableView-代理方法"><a href="#step-2-设置-tableView-代理方法" class="headerlink" title="step 2 设置 tableView 代理方法"></a>step 2 设置 tableView 代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITableView/">UITableView</a><a href="/tags/UITableViewCell/">UITableViewCell</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/11/10/Linux/[建立硬盘分区](https:--wiki.archlinux.org-index.php-Partitioning_(简体中文))/" title="建立硬盘分区" itemprop="url">建立硬盘分区</a>
   </h1>
   <p class="article-author">By
@@ -207,7 +151,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-10</time>
+    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-10</time>
     
   </p>
 </header>
@@ -386,181 +330,21 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/08/iOS/System/iOS持久化存储/" title="iOS持久化存储" itemprop="url">iOS持久化存储</a>
+      <a href="/2015/11/10/iOS/UI/解决UITableView分割线距左边有距离的办法/" title="解决UITableView分割线距左边有距离的办法" itemprop="url">解决UITableView分割线距左边有距离的办法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-10</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <ul>
-<li>plist 文件</li>
-<li>preference</li>
-<li>NSKeyArchiver</li>
-<li>SQLite 3</li>
-<li>CoreData</li>
-</ul>
-<h2 id="沙盒目录结构"><a href="#沙盒目录结构" class="headerlink" title="沙盒目录结构"></a>沙盒目录结构</h2><ul>
-<li>应用程序包</li>
-<li>Documents</li>
-<li>Library<ul>
-<li>Caches</li>
-<li>Preferences</li>
-</ul>
-</li>
-<li>tmp</li>
-</ul>
-<h2 id="应用程序包"><a href="#应用程序包" class="headerlink" title="应用程序包"></a>应用程序包</h2><ul>
-<li><p>存放应用程序源文件，含资源文件，可执行文件</p>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSBundle mainBundle] bundlePath];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Documents"><a href="#Documents" class="headerlink" title="Documents"></a>Documents</h2><ul>
-<li><p>常用目录，iTunes 同步，适合存放重要数据</p>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Library-Caches"><a href="#Library-Caches" class="headerlink" title="Library / Caches"></a>Library / Caches</h2><ul>
-<li><p>iTunes 不会同步，适合存放体积大，不需要备份的非重要数据</p>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Library-Preferences"><a href="#Library-Preferences" class="headerlink" title="Library / Preferences"></a>Library / Preferences</h2><ul>
-<li>iTunes 同步，保存应用的设置信息</li>
-</ul>
-<h2 id="tmp"><a href="#tmp" class="headerlink" title="tmp"></a>tmp</h2><ul>
-<li><p>iTunes 不会同步，系统在应用不运行时删除该目录下的文件</p>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSTemporaryDirectory();</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="plist-文件"><a href="#plist-文件" class="headerlink" title="plist 文件"></a>plist 文件</h2><ul>
-<li><p>将某些特定的类，通过XML文件方式保存在目录中</p>
-</li>
-<li><p>获取文件路径</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</span><br><span class="line">MSString *fileName = [path stringByAppendingPathComponent:@&quot;xxx.plist&quot;];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>存储</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSArray *array = @[@&quot;123&quot;,@&quot;456&quot;,@&quot;789&quot;];</span><br><span class="line">[array writeToFile:fileName atomically:YES];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><code>atomically:</code> 是否需要先写入一个辅助文件，再把辅助文件拷贝到目标文件地址，安全写入文件的做法</li>
-</ul>
-<ul>
-<li><p>读取</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSArray *result = [NSArray arrayWithContentsOfFile:fileName];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>就是使用 <code>arrayWithContentsOfFile:</code> 来读取！</li>
-</ul>
-<h2 id="Preference"><a href="#Preference" class="headerlink" title="Preference"></a>Preference</h2><ul>
-<li><p>专门用来保存应用程序的配置信息，最好不要保存其他数据</p>
-</li>
-<li><p>会将所有数据保存到同一个文件中 -&gt; preference 目录下一个以此应用包命名的 plist 文件</p>
-</li>
-<li><p>获取 <code>NSUserDefaults</code> 文件</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>向文件中写入内容</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[userDefaults setObject:@&quot;AAA&quot; forKey:@&quot;a&quot;];</span><br><span class="line">[userDefaults setBool:YES forKey:@&quot;lala&quot;];</span><br><span class="line">[userDefaults setInteger:21 forKey:@&quot;age&quot;];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>立即同步</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[userDefaults synchronize];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>读取文件</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *name = [userDefaults objectForKey:@&quot;a&quot;];</span><br><span class="line">BOOL lala = [userDefaults boolForKey:@&quot;lala&quot;];</span><br><span class="line">NSInteger age = [userDefaults integerForKey:@&quot;age&quot;];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="NSKeyedArchiver"><a href="#NSKeyedArchiver" class="headerlink" title="NSKeyedArchiver"></a>NSKeyedArchiver</h2><ul>
-<li><p>归档 -&gt; 遵循 <code>NSCoding</code> 协议的对象可以通过它来实现 序列化</p>
-</li>
-<li><p>大多数指出数据存储的 Foundation 和 Cocoa Touch 类都遵循来 NSCoding 协议</p>
-</li>
-<li><p>遵循协议和设置属性</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface Person: NSObject &lt;NSCoding&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (strong, nonatomic) UIImage *avatar;</span><br><span class="line">@property (copy, nonatomic) NSString *name;</span><br><span class="line">@property (assign, nonatomic) NSInteger age;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>实现协议方法</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//解档</span><br><span class="line">- (id)initWithCoder:(NSCoder *)aDecoder&#123;</span><br><span class="line">  	if ([super init])&#123;</span><br><span class="line">  		self.avatar = [aDecoder decodeObjectForKey:@&quot;avatar&quot;];</span><br><span class="line">      	self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];</span><br><span class="line">      	self.age = [aDecoder decodeObjectForKey:@&quot;age&quot;];</span><br><span class="line">	&#125;</span><br><span class="line">  	</span><br><span class="line">  	return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//归档</span><br><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder&#123;</span><br><span class="line">  	[aCoder encodeObject:self.avatar forKey:@&quot;avatar&quot;];</span><br><span class="line">    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];</span><br><span class="line">    [aCoder encodeInteger:self.age forKey:@&quot;age&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>将对象归档 <code>archiveRootObject: toFile:</code></p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</span><br><span class="line"></span><br><span class="line">  Person *person = [[Person alloc] init];</span><br><span class="line">  person.avatar = self.avatarView.image;</span><br><span class="line">  person.name = self.nameField.text;</span><br><span class="line">  person.age = [self.ageField.text integerValue];</span><br><span class="line"></span><br><span class="line">  [NSKeyedArchiver archiveRootObject:person toFile:file];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>从文件中解档对象 <code>unarchiveObjectWithFile:</code></p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</span><br><span class="line"></span><br><span class="line">  Person *person = [NSKeyedUnarchiver unarchiveObjectWithFile:file];</span><br><span class="line">  if (person) &#123;</span><br><span class="line">     self.avatarView.image = person.avatar;</span><br><span class="line">     self.nameField.text = person.name;</span><br><span class="line">     self.ageField.text = [NSString stringWithFormat:@&quot;%ld&quot;, person.age];</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>保存的文件扩展名可随意</p>
-</li>
-<li><p>继承时必须先调用父类的归档解档方法</p>
-</li>
-</ul>
+        <h2 id="step-1-设置-tableView-属性"><a href="#step-1-设置-tableView-属性" class="headerlink" title="step 1 设置 tableView 属性"></a>step 1 设置 tableView 属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if ([_recommendTableView respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">if ([_recommendTableView respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="step-2-设置-tableView-代理方法"><a href="#step-2-设置-tableView-代理方法" class="headerlink" title="step 2 设置 tableView 代理方法"></a>step 2 设置 tableView 代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -574,428 +358,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Persistence-Storage/">Persistence Storage</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/08/iOS/System/iOS多线程/" title="iOS多线程" itemprop="url">iOS多线程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>###多线程编程层次</p>
-<ul>
-<li><code>Thread</code><ul>
-<li>层次最低</li>
-<li>线程的管理，线程锁设置与释放等需要开发者负责</li>
-<li>使用<code>NSThread</code>来创建和管理</li>
-</ul>
-</li>
-<li><code>Cocoa Operations</code><ul>
-<li>使用<code>NSOperation</code>类来管理线程</li>
-<li>已封装好关于线程的管理，锁等问题</li>
-<li><code>NSOperation</code>是抽象基类</li>
-<li>iOS提供的默认实现：<code>NSInvocationOperation</code>，<code>NSBlockOperation</code></li>
-<li>实现多线程技术方法：Operation Queue 操作队列<ul>
-<li>开发者任务：定义需要执行的任务，将其加入到操作队列中</li>
-<li>操作队列负责调度和执行任务</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>Grand Central Dispatch (GCD)</code></p>
-<ul>
-<li>可将应用程序需要执行的工作拆分为可分散在多个线程和多个CPU上更小的块</li>
-<li>大部分API使用<code>Block</code>来访问</li>
-<li>异步启动任务的技术之一，GCD负责线程管理的代码，并将线程管理移到更低端的系统层面</li>
-<li>开发者的任务：定义需要执行的任务，并把任务添加到合适的派遣队列 Dispatch Queue中</li>
-</ul>
-</li>
-<li><p>iOS基础框架中所有Objective-C的基础类，如<code>NSString</code>，<code>NSArray</code>等被视为线程安全</p>
-</li>
-<li>UIKit框架包含的用于构建GUI的类，如<code>UIApplication</code>，<code>UIView</code>及其所有子类是线程不安全的<ul>
-<li>处理UIKit对象的所有方法都放在主线程中</li>
-</ul>
-</li>
-</ul>
-<p>###GCD提供的默认派遣队列</p>
-<ul>
-<li>Private Dispatch Queue 顺序队列<ul>
-<li>通常用于同步访问特定的资源</li>
-<li>一个队列中按照队列的性质，一次执行一个任务</li>
-<li>可创建任意多个顺序队列，每一个队列同步地独立于其他队列而运行</li>
-</ul>
-</li>
-<li>Global Dispatch Queue 并发队列，全局派遣队列<ul>
-<li>同步地执行一个或多个任务，而启动顺序按照队列性质</li>
-<li>管理多个不同的线程，并发的任务在管理的不同线程中执行</li>
-<li>某个时间点队列里执行的任务数是可变的</li>
-<li>开发者不能创建自己的并发队列，只可使用iOS提供的3个全局并发队列</li>
-</ul>
-</li>
-<li>主队列<ul>
-<li>在应用程序的主线程执行的队列，与应用程序的运行循环交错执行</li>
-</ul>
-</li>
-</ul>
-<p>###派遣队列的创建与执行</p>
-<ul>
-<li><p>顺序队列</p>
-<ul>
-<li><p>异步执行</p>
-<pre><code>dispatch_queue_t queue;
-queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);//由于这是C语言，使用NULL
-//异步执行
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Running in the queue&quot;);
-});
-</code></pre></li>
-<li><p>同步执行</p>
-<pre><code>dispatch_queue_t queue;
-queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);
-//同步执行
-dispatch_sync(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Running in the queue&quot;);
-});
-</code></pre><ul>
-<li>用于防止资源访问冲突 </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>并发队列</p>
-<pre><code>dispatch_queue_t queue;
-queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;First task in the queue&quot;);
-});
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Second task in the queue&quot;);
-});
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Third task in the queue&quot;);
-});
-</code></pre><ul>
-<li>并发队列有3种优先级<ul>
-<li>高 <code>DISPATCH_QUEUE_PRIORITY_HIGH</code></li>
-<li>低 <code>DISPATCH_QUEUE_PRIORITY_LOW</code></li>
-<li>普通 <code>DISPATCH_QUEUE_PRIORITY_DEFAULT</code></li>
-</ul>
-</li>
-<li>第二个参数用来扩展使用，暂且为0</li>
-</ul>
-</li>
-<li><p>主线程队列</p>
-<pre><code>dipatch_queue_t queue;
-queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-dispatch_async(queue,^{
-    //做一些运算
-
-    //然后这里才是主线程调用
-    dispatch_async(dispatch_get_main_queue(),^{
-        aLabel.text = @&quot;Processed by the main queue&quot;;
-    });
-});
-</code></pre></li>
-</ul>
-<p>###添加任务到派遣队列</p>
-<ul>
-<li>同步<ul>
-<li>同步的添加方法与异步对应，但添加完后需等待代码执行完才返回</li>
-</ul>
-</li>
-<li><p>异步</p>
-<ul>
-<li><code>dispatch_async</code><ul>
-<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code></li>
-<li>arg1: 代码块要添加到的队列</li>
-<li>arg2: 要执行的代码块</li>
-<li>此方法添加完代码块后立即返回，不会等待代码执行</li>
-</ul>
-</li>
-<li><p><code>dispatch_async_f</code></p>
-<pre><code>void dispatch_async_f(
-    dispatch_queue_t queue,
-    void *context,
-    dispatch_function_t work
-);
-</code></pre><ul>
-<li>arg3: 需要执行的函数</li>
-<li>arg2: 函数的参数</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>###执行 回调函数</p>
-<ol>
-<li>在创建任务的同时指定任务完成时的处理方法</li>
-<li>在队列中嵌套队列来实现，如主线程的创建与执行例子</li>
-</ol>
-<p>###派遣组技术</p>
-<ul>
-<li>允许阻止线程直到一个或者多个任务执行完成</li>
-<li><p>让一个或者多个队列等待执行完毕后再返回主线程</p>
-<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-dispatch_group_t group = dispatch_group_creat();
-
-dispatch_group_async(group,queue,^{
-    //执行异步操作
-});
-
-//一些其他处理
-
-//在派遣组中等待，阻止当前的线程继续执行
-dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-</code></pre></li>
-</ul>
-<p>###代码块<code>Block</code>用途</p>
-<ul>
-<li>枚举</li>
-<li>视图动画效果，如<code>animateWithDuration:animations:</code></li>
-<li>排序</li>
-<li>通知：当某种情形发生时执行指定代码块</li>
-<li>错误处理：当错误发生时，执行指定代码块</li>
-<li>事件完成处理器</li>
-<li><p>例子：对字符串数组进行排列</p>
-<pre><code>NSArray *strArray = [NSArray arrayWithObjects:@&quot;...&quot;,@&quot;...&quot;,...,nil];
-
-//获取当前语言环境
-NSLocale *currentLocale = [NSLocale currentLocale];
-NSArray *diacriticInsensitiveSortArray = [strArray soredArrayUsingComparator:^(id str1, id str2){
-    NSRange str1Range = NSMakeRange(0,[str1 length]);
-    NSComparisonResult comparisonResult = [str1 compare: str2 options: NSDiacriticInsensitiveSearch range: str1Range locale: currentLocale];
-    return comparisonResult;
-}];
-
-NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
-</code></pre><ul>
-<li><code>currentLocale</code>获取当前语言环境，用来确认排序的规则（因语言环境不同而不同）</li>
-<li><code>diacriticInsensitiveSortArray</code> 存储排列结果</li>
-<li>在代码块中，没有声明返回类型，因为iOS能根据代码块内部返回值类型推断</li>
-</ul>
-</li>
-</ul>
-<p>###异步编程方法</p>
-<ul>
-<li>使用队列</li>
-<li>通过<code>performSelector</code></li>
-<li>通过<code>NSTimer</code></li>
-</ul>
-<p>###通过<code>performSelector</code></p>
-<ul>
-<li><code>- (void) performSelector: (SEL)aSelector withObject: (id)anArgument afterDelay: (NSTimerInterval)delay;</code><ul>
-<li>arg3: 指定方法在多长时间以后开始执行</li>
-<li>arg1: 指定时间到了的时候执行的方法</li>
-<li>arg2: 传递给arg1的参数</li>
-<li>该方法调用后立即返回，时间到了会执行指定方法</li>
-<li>如：<code>[self.label performSelector:@selector(setText:) withObject:msg afterDelay:5.0];</code></li>
-</ul>
-</li>
-<li><code>- (void) performSelectorOnMainThread: (SEL)aSelector withObject: 
-(id)arg waitUntilDone: (BOOL)wait;</code><ul>
-<li>arg3: 是否阻塞队列来等待方法执行完毕</li>
-</ul>
-</li>
-</ul>
-<p>###通过<code>NSTimer</code></p>
-<ul>
-<li><code>+ (NSTimer *) scheduledTimerWithTimeInterval: (NSTimeInterval)ti target: (id)aTarget selector: (SEL)aSelector userInfo: (id)userInfo repeats: (BOOL)yesOrNo</code><ul>
-<li><code>(NSTimeInterval)ti</code> 时间间隔以秒为单位</li>
-<li><code>target: (id)aTarget</code> 被执行方法所处的类</li>
-<li><code>userInfo: (id)userInfo</code> 由<code>NSTimer</code>持有的信息，暂且为<code>nil</code></li>
-<li><code>repeats: (BOOL)yesOrNo</code> 是否重复调用</li>
-</ul>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Multi-Thread/">Multi-Thread</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/08/iOS/System/Json数据操作/" title="Json 数据操作" itemprop="url">Json 数据操作</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ol>
-<li><p>使用<code>NSDictionary</code></p>
-<pre><code>//创建一个字典
-NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;value1&quot;,@&quot;key1&quot;,@&quot;value2&quot;,@&quot;key2&quot;, nil];
-//或者是可以这样创建字典
-NSDictionary *dict = @{@&quot;key1&quot;:@&quot;value1&quot;,@&quot;key2&quot;:@&quot;value2&quot;};
-//创建一个 NSData 类型的东西，这就是Json数据
-NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-//将Json数据转换为字典
-NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
-NSLog(@&quot;%@&quot;,dict1);
-</code></pre></li>
-<li><p>使用<code>NSArray</code></p>
-<pre><code>//从plist文件中读取一个数组
-NSArray *arr = [NSArray arrayWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@&quot;testlist&quot; ofType:@&quot;plist&quot;]]];
-//检查数组是否符合Json化的要求
-if ([NSJSONSerialization isValidJSONObject:arr]) {
-NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:nil];
-NSLog(@&quot;%@&quot;,jsonData);
-}
-</code></pre></li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Json/">Json</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/08/iOS/System/崩溃信号/" title="崩溃信号" itemprop="url">崩溃信号</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>SIGABRT 异常终止</li>
-<li>SIGFPE 浮点异常</li>
-<li>SIGILL 无效指令</li>
-<li>SIGSEGV 访问到无效的内存地址</li>
-<li>SIGTERM 终止请求发送给应用</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Crash/">Crash</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITableView/">UITableView</a><a href="/tags/UITableViewCell/">UITableViewCell</a>
   </div>
 
 </div>
@@ -1030,7 +393,7 @@ NSLog(@&quot;%@&quot;,jsonData);
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-08</time>
     
   </p>
 </header>
@@ -1354,6 +717,427 @@ NSLog(@&quot;%@&quot;,jsonData);
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/08/iOS/System/崩溃信号/" title="崩溃信号" itemprop="url">崩溃信号</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>SIGABRT 异常终止</li>
+<li>SIGFPE 浮点异常</li>
+<li>SIGILL 无效指令</li>
+<li>SIGSEGV 访问到无效的内存地址</li>
+<li>SIGTERM 终止请求发送给应用</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Crash/">Crash</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/iOS多线程/" title="iOS多线程" itemprop="url">iOS多线程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>###多线程编程层次</p>
+<ul>
+<li><code>Thread</code><ul>
+<li>层次最低</li>
+<li>线程的管理，线程锁设置与释放等需要开发者负责</li>
+<li>使用<code>NSThread</code>来创建和管理</li>
+</ul>
+</li>
+<li><code>Cocoa Operations</code><ul>
+<li>使用<code>NSOperation</code>类来管理线程</li>
+<li>已封装好关于线程的管理，锁等问题</li>
+<li><code>NSOperation</code>是抽象基类</li>
+<li>iOS提供的默认实现：<code>NSInvocationOperation</code>，<code>NSBlockOperation</code></li>
+<li>实现多线程技术方法：Operation Queue 操作队列<ul>
+<li>开发者任务：定义需要执行的任务，将其加入到操作队列中</li>
+<li>操作队列负责调度和执行任务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>Grand Central Dispatch (GCD)</code></p>
+<ul>
+<li>可将应用程序需要执行的工作拆分为可分散在多个线程和多个CPU上更小的块</li>
+<li>大部分API使用<code>Block</code>来访问</li>
+<li>异步启动任务的技术之一，GCD负责线程管理的代码，并将线程管理移到更低端的系统层面</li>
+<li>开发者的任务：定义需要执行的任务，并把任务添加到合适的派遣队列 Dispatch Queue中</li>
+</ul>
+</li>
+<li><p>iOS基础框架中所有Objective-C的基础类，如<code>NSString</code>，<code>NSArray</code>等被视为线程安全</p>
+</li>
+<li>UIKit框架包含的用于构建GUI的类，如<code>UIApplication</code>，<code>UIView</code>及其所有子类是线程不安全的<ul>
+<li>处理UIKit对象的所有方法都放在主线程中</li>
+</ul>
+</li>
+</ul>
+<p>###GCD提供的默认派遣队列</p>
+<ul>
+<li>Private Dispatch Queue 顺序队列<ul>
+<li>通常用于同步访问特定的资源</li>
+<li>一个队列中按照队列的性质，一次执行一个任务</li>
+<li>可创建任意多个顺序队列，每一个队列同步地独立于其他队列而运行</li>
+</ul>
+</li>
+<li>Global Dispatch Queue 并发队列，全局派遣队列<ul>
+<li>同步地执行一个或多个任务，而启动顺序按照队列性质</li>
+<li>管理多个不同的线程，并发的任务在管理的不同线程中执行</li>
+<li>某个时间点队列里执行的任务数是可变的</li>
+<li>开发者不能创建自己的并发队列，只可使用iOS提供的3个全局并发队列</li>
+</ul>
+</li>
+<li>主队列<ul>
+<li>在应用程序的主线程执行的队列，与应用程序的运行循环交错执行</li>
+</ul>
+</li>
+</ul>
+<p>###派遣队列的创建与执行</p>
+<ul>
+<li><p>顺序队列</p>
+<ul>
+<li><p>异步执行</p>
+<pre><code>dispatch_queue_t queue;
+queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);//由于这是C语言，使用NULL
+//异步执行
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Running in the queue&quot;);
+});
+</code></pre></li>
+<li><p>同步执行</p>
+<pre><code>dispatch_queue_t queue;
+queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);
+//同步执行
+dispatch_sync(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Running in the queue&quot;);
+});
+</code></pre><ul>
+<li>用于防止资源访问冲突 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>并发队列</p>
+<pre><code>dispatch_queue_t queue;
+queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;First task in the queue&quot;);
+});
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Second task in the queue&quot;);
+});
+dispatch_async(queue,^{
+    [NSThread sleepForTimeInterval:5];
+    NSLog(@&quot;Third task in the queue&quot;);
+});
+</code></pre><ul>
+<li>并发队列有3种优先级<ul>
+<li>高 <code>DISPATCH_QUEUE_PRIORITY_HIGH</code></li>
+<li>低 <code>DISPATCH_QUEUE_PRIORITY_LOW</code></li>
+<li>普通 <code>DISPATCH_QUEUE_PRIORITY_DEFAULT</code></li>
+</ul>
+</li>
+<li>第二个参数用来扩展使用，暂且为0</li>
+</ul>
+</li>
+<li><p>主线程队列</p>
+<pre><code>dipatch_queue_t queue;
+queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+dispatch_async(queue,^{
+    //做一些运算
+
+    //然后这里才是主线程调用
+    dispatch_async(dispatch_get_main_queue(),^{
+        aLabel.text = @&quot;Processed by the main queue&quot;;
+    });
+});
+</code></pre></li>
+</ul>
+<p>###添加任务到派遣队列</p>
+<ul>
+<li>同步<ul>
+<li>同步的添加方法与异步对应，但添加完后需等待代码执行完才返回</li>
+</ul>
+</li>
+<li><p>异步</p>
+<ul>
+<li><code>dispatch_async</code><ul>
+<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code></li>
+<li>arg1: 代码块要添加到的队列</li>
+<li>arg2: 要执行的代码块</li>
+<li>此方法添加完代码块后立即返回，不会等待代码执行</li>
+</ul>
+</li>
+<li><p><code>dispatch_async_f</code></p>
+<pre><code>void dispatch_async_f(
+    dispatch_queue_t queue,
+    void *context,
+    dispatch_function_t work
+);
+</code></pre><ul>
+<li>arg3: 需要执行的函数</li>
+<li>arg2: 函数的参数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>###执行 回调函数</p>
+<ol>
+<li>在创建任务的同时指定任务完成时的处理方法</li>
+<li>在队列中嵌套队列来实现，如主线程的创建与执行例子</li>
+</ol>
+<p>###派遣组技术</p>
+<ul>
+<li>允许阻止线程直到一个或者多个任务执行完成</li>
+<li><p>让一个或者多个队列等待执行完毕后再返回主线程</p>
+<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+dispatch_group_t group = dispatch_group_creat();
+
+dispatch_group_async(group,queue,^{
+    //执行异步操作
+});
+
+//一些其他处理
+
+//在派遣组中等待，阻止当前的线程继续执行
+dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+</code></pre></li>
+</ul>
+<p>###代码块<code>Block</code>用途</p>
+<ul>
+<li>枚举</li>
+<li>视图动画效果，如<code>animateWithDuration:animations:</code></li>
+<li>排序</li>
+<li>通知：当某种情形发生时执行指定代码块</li>
+<li>错误处理：当错误发生时，执行指定代码块</li>
+<li>事件完成处理器</li>
+<li><p>例子：对字符串数组进行排列</p>
+<pre><code>NSArray *strArray = [NSArray arrayWithObjects:@&quot;...&quot;,@&quot;...&quot;,...,nil];
+
+//获取当前语言环境
+NSLocale *currentLocale = [NSLocale currentLocale];
+NSArray *diacriticInsensitiveSortArray = [strArray soredArrayUsingComparator:^(id str1, id str2){
+    NSRange str1Range = NSMakeRange(0,[str1 length]);
+    NSComparisonResult comparisonResult = [str1 compare: str2 options: NSDiacriticInsensitiveSearch range: str1Range locale: currentLocale];
+    return comparisonResult;
+}];
+
+NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
+</code></pre><ul>
+<li><code>currentLocale</code>获取当前语言环境，用来确认排序的规则（因语言环境不同而不同）</li>
+<li><code>diacriticInsensitiveSortArray</code> 存储排列结果</li>
+<li>在代码块中，没有声明返回类型，因为iOS能根据代码块内部返回值类型推断</li>
+</ul>
+</li>
+</ul>
+<p>###异步编程方法</p>
+<ul>
+<li>使用队列</li>
+<li>通过<code>performSelector</code></li>
+<li>通过<code>NSTimer</code></li>
+</ul>
+<p>###通过<code>performSelector</code></p>
+<ul>
+<li><code>- (void) performSelector: (SEL)aSelector withObject: (id)anArgument afterDelay: (NSTimerInterval)delay;</code><ul>
+<li>arg3: 指定方法在多长时间以后开始执行</li>
+<li>arg1: 指定时间到了的时候执行的方法</li>
+<li>arg2: 传递给arg1的参数</li>
+<li>该方法调用后立即返回，时间到了会执行指定方法</li>
+<li>如：<code>[self.label performSelector:@selector(setText:) withObject:msg afterDelay:5.0];</code></li>
+</ul>
+</li>
+<li><code>- (void) performSelectorOnMainThread: (SEL)aSelector withObject: 
+(id)arg waitUntilDone: (BOOL)wait;</code><ul>
+<li>arg3: 是否阻塞队列来等待方法执行完毕</li>
+</ul>
+</li>
+</ul>
+<p>###通过<code>NSTimer</code></p>
+<ul>
+<li><code>+ (NSTimer *) scheduledTimerWithTimeInterval: (NSTimeInterval)ti target: (id)aTarget selector: (SEL)aSelector userInfo: (id)userInfo repeats: (BOOL)yesOrNo</code><ul>
+<li><code>(NSTimeInterval)ti</code> 时间间隔以秒为单位</li>
+<li><code>target: (id)aTarget</code> 被执行方法所处的类</li>
+<li><code>userInfo: (id)userInfo</code> 由<code>NSTimer</code>持有的信息，暂且为<code>nil</code></li>
+<li><code>repeats: (BOOL)yesOrNo</code> 是否重复调用</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Multi-Thread/">Multi-Thread</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/Json数据操作/" title="Json 数据操作" itemprop="url">Json 数据操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ol>
+<li><p>使用<code>NSDictionary</code></p>
+<pre><code>//创建一个字典
+NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;value1&quot;,@&quot;key1&quot;,@&quot;value2&quot;,@&quot;key2&quot;, nil];
+//或者是可以这样创建字典
+NSDictionary *dict = @{@&quot;key1&quot;:@&quot;value1&quot;,@&quot;key2&quot;:@&quot;value2&quot;};
+//创建一个 NSData 类型的东西，这就是Json数据
+NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+//将Json数据转换为字典
+NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+NSLog(@&quot;%@&quot;,dict1);
+</code></pre></li>
+<li><p>使用<code>NSArray</code></p>
+<pre><code>//从plist文件中读取一个数组
+NSArray *arr = [NSArray arrayWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@&quot;testlist&quot; ofType:@&quot;plist&quot;]]];
+//检查数组是否符合Json化的要求
+if ([NSJSONSerialization isValidJSONObject:arr]) {
+NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:nil];
+NSLog(@&quot;%@&quot;,jsonData);
+}
+</code></pre></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Json/">Json</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/08/iOS/Objective-C正则表达式/" title="Objective-C正则表达式" itemprop="url">Objective-C正则表达式</a>
   </h1>
   <p class="article-author">By
@@ -1361,7 +1145,7 @@ NSLog(@&quot;%@&quot;,jsonData);
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-08</time>
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-08</time>
     
   </p>
 </header>
@@ -1407,22 +1191,238 @@ NSLog(@&quot;%@&quot;,jsonData);
 
 
 
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/08/iOS/System/iOS持久化存储/" title="iOS持久化存储" itemprop="url">iOS持久化存储</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>plist 文件</li>
+<li>preference</li>
+<li>NSKeyArchiver</li>
+<li>SQLite 3</li>
+<li>CoreData</li>
+</ul>
+<h2 id="沙盒目录结构"><a href="#沙盒目录结构" class="headerlink" title="沙盒目录结构"></a>沙盒目录结构</h2><ul>
+<li>应用程序包</li>
+<li>Documents</li>
+<li>Library<ul>
+<li>Caches</li>
+<li>Preferences</li>
+</ul>
+</li>
+<li>tmp</li>
+</ul>
+<h2 id="应用程序包"><a href="#应用程序包" class="headerlink" title="应用程序包"></a>应用程序包</h2><ul>
+<li><p>存放应用程序源文件，含资源文件，可执行文件</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSBundle mainBundle] bundlePath];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Documents"><a href="#Documents" class="headerlink" title="Documents"></a>Documents</h2><ul>
+<li><p>常用目录，iTunes 同步，适合存放重要数据</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Library-Caches"><a href="#Library-Caches" class="headerlink" title="Library / Caches"></a>Library / Caches</h2><ul>
+<li><p>iTunes 不会同步，适合存放体积大，不需要备份的非重要数据</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Library-Preferences"><a href="#Library-Preferences" class="headerlink" title="Library / Preferences"></a>Library / Preferences</h2><ul>
+<li>iTunes 同步，保存应用的设置信息</li>
+</ul>
+<h2 id="tmp"><a href="#tmp" class="headerlink" title="tmp"></a>tmp</h2><ul>
+<li><p>iTunes 不会同步，系统在应用不运行时删除该目录下的文件</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSTemporaryDirectory();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="plist-文件"><a href="#plist-文件" class="headerlink" title="plist 文件"></a>plist 文件</h2><ul>
+<li><p>将某些特定的类，通过XML文件方式保存在目录中</p>
+</li>
+<li><p>获取文件路径</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</span><br><span class="line">MSString *fileName = [path stringByAppendingPathComponent:@&quot;xxx.plist&quot;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>存储</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSArray *array = @[@&quot;123&quot;,@&quot;456&quot;,@&quot;789&quot;];</span><br><span class="line">[array writeToFile:fileName atomically:YES];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>atomically:</code> 是否需要先写入一个辅助文件，再把辅助文件拷贝到目标文件地址，安全写入文件的做法</li>
+</ul>
+<ul>
+<li><p>读取</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSArray *result = [NSArray arrayWithContentsOfFile:fileName];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>就是使用 <code>arrayWithContentsOfFile:</code> 来读取！</li>
+</ul>
+<h2 id="Preference"><a href="#Preference" class="headerlink" title="Preference"></a>Preference</h2><ul>
+<li><p>专门用来保存应用程序的配置信息，最好不要保存其他数据</p>
+</li>
+<li><p>会将所有数据保存到同一个文件中 -&gt; preference 目录下一个以此应用包命名的 plist 文件</p>
+</li>
+<li><p>获取 <code>NSUserDefaults</code> 文件</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>向文件中写入内容</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[userDefaults setObject:@&quot;AAA&quot; forKey:@&quot;a&quot;];</span><br><span class="line">[userDefaults setBool:YES forKey:@&quot;lala&quot;];</span><br><span class="line">[userDefaults setInteger:21 forKey:@&quot;age&quot;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>立即同步</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[userDefaults synchronize];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>读取文件</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *name = [userDefaults objectForKey:@&quot;a&quot;];</span><br><span class="line">BOOL lala = [userDefaults boolForKey:@&quot;lala&quot;];</span><br><span class="line">NSInteger age = [userDefaults integerForKey:@&quot;age&quot;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="NSKeyedArchiver"><a href="#NSKeyedArchiver" class="headerlink" title="NSKeyedArchiver"></a>NSKeyedArchiver</h2><ul>
+<li><p>归档 -&gt; 遵循 <code>NSCoding</code> 协议的对象可以通过它来实现 序列化</p>
+</li>
+<li><p>大多数指出数据存储的 Foundation 和 Cocoa Touch 类都遵循来 NSCoding 协议</p>
+</li>
+<li><p>遵循协议和设置属性</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface Person: NSObject &lt;NSCoding&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (strong, nonatomic) UIImage *avatar;</span><br><span class="line">@property (copy, nonatomic) NSString *name;</span><br><span class="line">@property (assign, nonatomic) NSInteger age;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>实现协议方法</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//解档</span><br><span class="line">- (id)initWithCoder:(NSCoder *)aDecoder&#123;</span><br><span class="line">  	if ([super init])&#123;</span><br><span class="line">  		self.avatar = [aDecoder decodeObjectForKey:@&quot;avatar&quot;];</span><br><span class="line">      	self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];</span><br><span class="line">      	self.age = [aDecoder decodeObjectForKey:@&quot;age&quot;];</span><br><span class="line">	&#125;</span><br><span class="line">  	</span><br><span class="line">  	return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//归档</span><br><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder&#123;</span><br><span class="line">  	[aCoder encodeObject:self.avatar forKey:@&quot;avatar&quot;];</span><br><span class="line">    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];</span><br><span class="line">    [aCoder encodeInteger:self.age forKey:@&quot;age&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>将对象归档 <code>archiveRootObject: toFile:</code></p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</span><br><span class="line"></span><br><span class="line">  Person *person = [[Person alloc] init];</span><br><span class="line">  person.avatar = self.avatarView.image;</span><br><span class="line">  person.name = self.nameField.text;</span><br><span class="line">  person.age = [self.ageField.text integerValue];</span><br><span class="line"></span><br><span class="line">  [NSKeyedArchiver archiveRootObject:person toFile:file];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>从文件中解档对象 <code>unarchiveObjectWithFile:</code></p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</span><br><span class="line"></span><br><span class="line">  Person *person = [NSKeyedUnarchiver unarchiveObjectWithFile:file];</span><br><span class="line">  if (person) &#123;</span><br><span class="line">     self.avatarView.image = person.avatar;</span><br><span class="line">     self.nameField.text = person.name;</span><br><span class="line">     self.ageField.text = [NSString stringWithFormat:@&quot;%ld&quot;, person.age];</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>保存的文件扩展名可随意</p>
+</li>
+<li><p>继承时必须先调用父类的归档解档方法</p>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Persistence-Storage/">Persistence Storage</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
-<div class="github-card" data-github="https://github.com/Y-YYeung" data-width="220" data-height="119" data-theme="medium">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="Y-YYeung" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
   </div>
@@ -1433,7 +1433,7 @@ NSLog(@&quot;%@&quot;,jsonData);
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
 		
 			
@@ -1461,15 +1461,19 @@ NSLog(@&quot;%@&quot;,jsonData);
 			
 		
 			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UITableViewCell/" title="UITableViewCell">UITableViewCell<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 			
@@ -1477,11 +1481,7 @@ NSLog(@&quot;%@&quot;,jsonData);
 			
 		
 			
-				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
 			
 		
 			
@@ -1489,11 +1489,11 @@ NSLog(@&quot;%@&quot;,jsonData);
 			
 		
 			
-				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
 			
 		
 			
@@ -1501,11 +1501,11 @@ NSLog(@&quot;%@&quot;,jsonData);
 			
 		
 			
-				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
 			
 		
 			
@@ -1513,7 +1513,7 @@ NSLog(@&quot;%@&quot;,jsonData);
 			
 		
 			
-				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -1528,13 +1528,13 @@ NSLog(@&quot;%@&quot;,jsonData);
 	
 	<section class="info">
 		<p> Faith without works is Dead. <br/>
-			null</p>
+			Just keep young and simple.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">
 		
 		
-		<a href="https://github.com/https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
+		<a href="https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
 		
 		
 		
@@ -1652,7 +1652,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -50,7 +50,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:myeung.xyz">
 					</form>
 					
@@ -68,6 +68,483 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/22/iOS/System/iOS 程序启动原理/" title="iOS 程序启动原理" itemprop="url">iOS 程序启动原理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在 main 方法中</p>
+<ol>
+<li>创建 UIApplication 对象</li>
+<li>创建 AppDelegate 对象，并成为 UIApplication 对象的代理属性</li>
+<li>开启主运行循环，监听事件</li>
+<li>加载 info.plist 文件，判断 info.plist 文件中是否指定了 nib 文件(xib, storyboard) 或 main.storyboard，若有，则加载指定文件</li>
+</ol>
+<p>makeKeyAndVisible 工作原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">application.keyWindow = self.window;</span><br><span class="line">self.window.hidden = NO;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/UI/验证输入是否为 数字 或者 小数点/" title="验证输入是否为 数字 或者 小数点" itemprop="url">验证输入是否为 数字 或者 小数点</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)validateNumber:(<span class="built_in">NSString</span>*)number &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> res = <span class="literal">YES</span>;</span><br><span class="line">    <span class="built_in">NSCharacterSet</span>* tmpSet = [<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@"0123456789."</span>];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; number.length) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> * string = [number substringWithRange:<span class="built_in">NSMakeRange</span>(i, <span class="number">1</span>)];</span><br><span class="line">        <span class="built_in">NSRange</span> range = [string rangeOfCharacterFromSet:tmpSet];</span><br><span class="line">        <span class="keyword">if</span> (range.length == <span class="number">0</span>) &#123;</span><br><span class="line">            res = <span class="literal">NO</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSString/">NSString</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/UI/模态显示问题/" title="模态显示问题" itemprop="url">模态显示问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>问题：<br>核心控制器A 通过 模态 方式呈现，在 A 中通过导航方式，到控制器 B，在 B 中 模态 呈现控制器 C，当 dismiss C 时，返回的控制器是 A，而不是B？？？！！！！</p>
+<p>解决：<br>在呈现 C 前，将 C 的 modalPresentationStyle 设置为 <code>UIModalPresentationCurrentContext</code></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Modal-Presentation/">Modal Presentation</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/System/Block 页面传值/" title="Block 页面传值" itemprop="url">Block 页面传值</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>假定有 B 回传值给 A</p>
+<ol>
+<li>在 B.h 中使用 typedef 定义一个 Block</li>
+<li>在 B.h 中定义一个一个方法，该方法使用上面定义的 Block 作为参数</li>
+<li>在 B.m 中定义一个属性，该属性就是上面定义的 Block</li>
+<li>在 B.m 实现 B.h 定义的方法，在方法中，将传入的参数 赋值 给 Block 属性</li>
+<li>在 B 消失之际，调用 Block 属性，调用前需检查是否为空</li>
+<li>在 A.m 中，实例化 B，并进行跳转前，通过 B.h 中暴露的方法，将要执行的代码作为参数传入 Block</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Block/">Block</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/System/使用 NSNotification/" title="消息传递" itemprop="url">消息传递</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="使用-NSNotification"><a href="#使用-NSNotification" class="headerlink" title="使用 NSNotification"></a>使用 NSNotification</h3><p>观察者模式</p>
+<p>注册，成为观察者，并在其中实现收到消息的处理方法<br><code>[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notice:) name:infoName object:nil];</code></p>
+<p><code>addObserever:self</code> 使自己成为观察者<br><code>selector:@selector()</code> 收到消息的处理方法<br><code>name:</code> 消息的专有名字<br><code>object:</code> 消息的发送者，只接受此发送者发送的消息，传 nil 接受任何发送者</p>
+<hr>
+<p>发送消息：<br><code>[[NSNotificationCenter defaultCenter] postNotificationName:infoName object:self userInfo:@{@&quot;info&quot;:@&quot;change background color&quot;}];</code></p>
+<p><code>postNotificationName:</code> 与上面观察者的消息专有名字一样<br><code>object:</code> 发送消息的对象<br><code>userInfo:</code> 消息包含的内容，将会传到消息接收者处</p>
+<p>最后要记得<br>remove 掉注册者</p>
+<h3 id="NSNotificationCenter"><a href="#NSNotificationCenter" class="headerlink" title="NSNotificationCenter"></a>NSNotificationCenter</h3><ul>
+<li>每一个 App 运行的时候都有的一个单例对象</li>
+<li>通知中心<strong><em>同步</em></strong>转发通知给观察者，就是说 <code>postNotification:</code> 方法直到接收并处理完通知才返回值</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSNotification/">NSNotification</a><a href="/tags/NSNotificationCenter/">NSNotificationCenter</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/UI/文本框代理方法/" title="文本框代理方法" itemprop="url">文本框代理方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>文本框代理方法<br><code>- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string</code> 注意事项：</p>
+<p>若需要使用此代理根据文本框内容进行实时更新，则注意：<br><code>replacementString</code> 在减少文本框内容时是为空的，只有当增加文本时才不为空</p>
+<p>同时，当增加文本时，若在此代理中获取文本框的内容，获取的结果是不包含新增的字符串的！！！<br>也许，需要使用 <code>- (NSString *)stringByAppendingString:aSting</code>;</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITextField/">UITextField</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/System/每一个类的罕见方法/" title="每一个类的罕见方法" itemprop="url">每一个类的罕见方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>程序一启动时，将所有类加载到内存，比 main 更先执行<br><code>+ (void)load</code></p>
+<p>第一次使用这个类或子类时调用<br><code>+ (void)initialize</code><br>在其中设置改类的全局配置，如共同的外观</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/适用 QuickTime 进行屏幕录制/" title="使用 QuickTime 进行屏幕录制" itemprop="url">使用 QuickTime 进行屏幕录制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>可用于展示 iOS 模拟器上 Demo</p>
+<ol>
+<li>打开 QuickTime</li>
+<li>File -&gt; New Screen Recording</li>
+<li>此时，弹出窗口</li>
+<li>点击红点进行开始录制</li>
+<li>根据出现在屏幕中央的提示，选择进行全屏录制 还是 局部录制</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/QuickTime/">QuickTime</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/22/iOS/UI/实现可伸缩的 tableViewCell/" title="实现可伸缩的 tableViewCell" itemprop="url">实现可伸缩的 tableViewCell</a>
   </h1>
   <p class="article-author">By
@@ -75,7 +552,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
     
   </p>
 </header>
@@ -156,123 +633,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/22/iOS/UI/验证输入是否为 数字 或者 小数点/" title="验证输入是否为 数字 或者 小数点" itemprop="url">验证输入是否为 数字 或者 小数点</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)validateNumber:(<span class="built_in">NSString</span>*)number &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> res = <span class="literal">YES</span>;</span><br><span class="line">    <span class="built_in">NSCharacterSet</span>* tmpSet = [<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@"0123456789."</span>];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; number.length) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> * string = [number substringWithRange:<span class="built_in">NSMakeRange</span>(i, <span class="number">1</span>)];</span><br><span class="line">        <span class="built_in">NSRange</span> range = [string rangeOfCharacterFromSet:tmpSet];</span><br><span class="line">        <span class="keyword">if</span> (range.length == <span class="number">0</span>) &#123;</span><br><span class="line">            res = <span class="literal">NO</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSString/">NSString</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/适用 QuickTime 进行屏幕录制/" title="使用 QuickTime 进行屏幕录制" itemprop="url">使用 QuickTime 进行屏幕录制</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>可用于展示 iOS 模拟器上 Demo</p>
-<ol>
-<li>打开 QuickTime</li>
-<li>File -&gt; New Screen Recording</li>
-<li>此时，弹出窗口</li>
-<li>点击红点进行开始录制</li>
-<li>根据出现在屏幕中央的提示，选择进行全屏录制 还是 局部录制</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/QuickTime/">QuickTime</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/11/22/iOS/检验 Xcode 合法性/" title="检验 Xcode 合法性" itemprop="url">检验 Xcode 合法性</a>
   </h1>
   <p class="article-author">By
@@ -280,7 +640,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-22</time>
     
   </p>
 </header>
@@ -328,382 +688,22 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/System/iOS 程序启动原理/" title="iOS 程序启动原理" itemprop="url">iOS 程序启动原理</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在 main 方法中</p>
-<ol>
-<li>创建 UIApplication 对象</li>
-<li>创建 AppDelegate 对象，并成为 UIApplication 对象的代理属性</li>
-<li>开启主运行循环，监听事件</li>
-<li>加载 info.plist 文件，判断 info.plist 文件中是否指定了 nib 文件(xib, storyboard) 或 main.storyboard，若有，则加载指定文件</li>
-</ol>
-<p>makeKeyAndVisible 工作原理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">application.keyWindow = self.window;</span><br><span class="line">self.window.hidden = NO;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/System/使用 NSNotification/" title="消息传递" itemprop="url">消息传递</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="使用-NSNotification"><a href="#使用-NSNotification" class="headerlink" title="使用 NSNotification"></a>使用 NSNotification</h3><p>观察者模式</p>
-<p>注册，成为观察者，并在其中实现收到消息的处理方法<br><code>[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notice:) name:infoName object:nil];</code></p>
-<p><code>addObserever:self</code> 使自己成为观察者<br><code>selector:@selector()</code> 收到消息的处理方法<br><code>name:</code> 消息的专有名字<br><code>object:</code> 消息的发送者，只接受此发送者发送的消息，传 nil 接受任何发送者</p>
-<hr>
-<p>发送消息：<br><code>[[NSNotificationCenter defaultCenter] postNotificationName:infoName object:self userInfo:@{@&quot;info&quot;:@&quot;change background color&quot;}];</code></p>
-<p><code>postNotificationName:</code> 与上面观察者的消息专有名字一样<br><code>object:</code> 发送消息的对象<br><code>userInfo:</code> 消息包含的内容，将会传到消息接收者处</p>
-<p>最后要记得<br>remove 掉注册者</p>
-<h3 id="NSNotificationCenter"><a href="#NSNotificationCenter" class="headerlink" title="NSNotificationCenter"></a>NSNotificationCenter</h3><ul>
-<li>每一个 App 运行的时候都有的一个单例对象</li>
-<li>通知中心<strong><em>同步</em></strong>转发通知给观察者，就是说 <code>postNotification:</code> 方法直到接收并处理完通知才返回值</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSNotification/">NSNotification</a><a href="/tags/NSNotificationCenter/">NSNotificationCenter</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/System/每一个类的罕见方法/" title="每一个类的罕见方法" itemprop="url">每一个类的罕见方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>程序一启动时，将所有类加载到内存，比 main 更先执行<br><code>+ (void)load</code></p>
-<p>第一次使用这个类或子类时调用<br><code>+ (void)initialize</code><br>在其中设置改类的全局配置，如共同的外观</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/UI/模态显示问题/" title="模态显示问题" itemprop="url">模态显示问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>问题：<br>核心控制器A 通过 模态 方式呈现，在 A 中通过导航方式，到控制器 B，在 B 中 模态 呈现控制器 C，当 dismiss C 时，返回的控制器是 A，而不是B？？？！！！！</p>
-<p>解决：<br>在呈现 C 前，将 C 的 modalPresentationStyle 设置为 <code>UIModalPresentationCurrentContext</code></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Modal-Presentation/">Modal Presentation</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/UI/文本框代理方法/" title="文本框代理方法" itemprop="url">文本框代理方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>文本框代理方法<br><code>- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string</code> 注意事项：</p>
-<p>若需要使用此代理根据文本框内容进行实时更新，则注意：<br><code>replacementString</code> 在减少文本框内容时是为空的，只有当增加文本时才不为空</p>
-<p>同时，当增加文本时，若在此代理中获取文本框的内容，获取的结果是不包含新增的字符串的！！！<br>也许，需要使用 <code>- (NSString *)stringByAppendingString:aSting</code>;</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITextField/">UITextField</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/System/Block 页面传值/" title="Block 页面传值" itemprop="url">Block 页面传值</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>假定有 B 回传值给 A</p>
-<ol>
-<li>在 B.h 中使用 typedef 定义一个 Block</li>
-<li>在 B.h 中定义一个一个方法，该方法使用上面定义的 Block 作为参数</li>
-<li>在 B.m 中定义一个属性，该属性就是上面定义的 Block</li>
-<li>在 B.m 实现 B.h 定义的方法，在方法中，将传入的参数 赋值 给 Block 属性</li>
-<li>在 B 消失之际，调用 Block 属性，调用前需检查是否为空</li>
-<li>在 A.m 中，实例化 B，并进行跳转前，通过 B.h 中暴露的方法，将要执行的代码作为参数传入 Block</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Block/">Block</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
-<div class="github-card" data-github="https://github.com/Y-YYeung" data-width="220" data-height="119" data-theme="medium">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="Y-YYeung" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
   </div>
@@ -714,7 +714,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
 		
 			
@@ -742,15 +742,19 @@
 			
 		
 			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UITableViewCell/" title="UITableViewCell">UITableViewCell<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 			
@@ -758,11 +762,7 @@
 			
 		
 			
-				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
 			
 		
 			
@@ -770,11 +770,11 @@
 			
 		
 			
-				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
 			
 		
 			
@@ -782,11 +782,11 @@
 			
 		
 			
-				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
 			
 		
 			
@@ -794,7 +794,7 @@
 			
 		
 			
-				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -809,13 +809,13 @@
 	
 	<section class="info">
 		<p> Faith without works is Dead. <br/>
-			null</p>
+			Just keep young and simple.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">
 		
 		
-		<a href="https://github.com/https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
+		<a href="https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
 		
 		
 		
@@ -933,7 +933,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
