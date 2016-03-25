@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -68,6 +68,275 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/12/iOS/System/nil - Nil - NULL - NSNull/" title="空指针 / 空对象" itemprop="url">空指针 / 空对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="nil-Nil-NULL-NSNull"><a href="#nil-Nil-NULL-NSNull" class="headerlink" title="nil / Nil / NULL / NSNull"></a>nil / Nil / NULL / NSNull</h1><p>在 C 语言中，用 <code>0</code> 表示 <code>不存在</code> 的原始值，<code>NULL</code> 作为指针 <code>不存在</code> 的原始值</p>
+<p>Objective-C 在 C 的基础上增加 <code>nil</code>，<code>nil</code> 指向不存在的对象指针，与 <code>NULL</code> 技术上相等</p>
+<p>Foundation 定义了 <code>NSNull</code>，只有一个类方法 <code>+ null</code>，单例模式，返回一个 <code>NSNull</code> 对象，是一个实际的对象，与 <code>nil</code>, <code>NULL</code> 不同</p>
+<blockquote>
+<p>The NSNull class defines a singleton object used to represent null values in collection objects (which don’t allow nil values).</p>
+</blockquote>
+<h4 id="Something-about-nil"><a href="#Something-about-nil" class="headerlink" title="Something about nil"></a>Something about nil</h4><ul>
+<li>刚被分配的 NSObject 内容被设置为 0，该对象的所有指针都从 <code>nil</code> 开始</li>
+<li>向 <code>nil</code> 发送消息，返回 0 值，避免在使用 <code>nil</code> 前进行检查</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 举个例子，这个表达...</span></span><br><span class="line"><span class="keyword">if</span> (name != <span class="literal">nil</span> &amp;&amp; [name isEqualToString:<span class="string">@"Steve"</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// …可以被简化为：</span></span><br><span class="line"><span class="keyword">if</span> ([name isEqualToString:<span class="string">@"steve"</span>]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Something-about-NSNull"><a href="#Something-about-NSNull" class="headerlink" title="Something about NSNull"></a>Something about NSNull</h4><ul>
+<li>解决如NSArray和NSDictionary之类的集合不能有nil值的缺陷</li>
+<li>可以将NSNull理解为有效的将 <code>NULL</code> 或者 <code>nil</code> 值封装 boxing</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableDictionary</span> *mutableDictionary = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">mutableDictionary[<span class="string">@"someKey"</span>] = [<span class="built_in">NSNull</span> null]; <span class="comment">// Sets value of NSNull singleton for `someKey`</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [mutableDictionary allKeys]); <span class="comment">// @[@"someKey"]</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/14525653795491.jpg" alt="A Picture"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Objective-C/">Objective-C</a><a href="/tags/pointer/">pointer</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/12/iOS/iPhone Functionality/控制闪光灯/" title="控制闪光灯" itemprop="url">控制闪光灯</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVCaptureDevice</span> *device = [<span class="built_in">AVCaptureDevice</span> defaultDeviceWithMediaType:<span class="built_in">AVMediaTypeVideo</span>];</span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line"><span class="keyword">if</span> (device.hasTorch) &#123;  <span class="comment">// 判断设备是否有散光灯</span></span><br><span class="line">    <span class="built_in">BOOL</span> b = [device lockForConfiguration:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (!b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            DLog(<span class="string">@"lock torch configuration error:%@"</span>, error.localizedDescription);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    device.torchMode =</span><br><span class="line">    (device.torchMode == <span class="built_in">AVCaptureTorchModeOff</span> ? <span class="built_in">AVCaptureTorchModeOn</span> : <span class="built_in">AVCaptureTorchModeOff</span>);</span><br><span class="line">    [device unlockForConfiguration];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Camera/">Camera</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/12/iOS/UI/自定义 Tab Bar 步骤/" title="自定义 Tab Bar 步骤" itemprop="url">自定义 Tab Bar 步骤</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h4 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h4><p>继承 UITabBar</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyTabBar : <span class="built_in">UITabBar</span></span><br></pre></td></tr></table></figure>
+<h4 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h4><ol>
+<li>重写 MyTabBar 的 <code>layoutSubviews</code></li>
+<li><p>获取 UITabBarButton 私有类</p>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class class = <span class="built_in">NSClassFromString</span>(<span class="string">@"UITabBarButton"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历 MyTabBar 的子视图，对 UITabBarButton 实例进行重新布局</p>
+</li>
+<li>添加自定义的控件</li>
+<li>在 Tab Bar Controller 中利用 KVC 替换系统 Tab Bar</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITabBar/">UITabBar</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/12/iOS/System/[RunLoop](http:--blog.ibireme.com-2015-05-18-runloop-)/" title="Run Loop" itemprop="url">Run Loop</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">RunLoop</a></p>
+<h4 id="关于-RunLoop，系统提供的对象"><a href="#关于-RunLoop，系统提供的对象" class="headerlink" title="关于 RunLoop，系统提供的对象:"></a>关于 RunLoop，系统提供的对象:</h4><ol>
+<li>CFRunLoopRef 位于 CoreFoundation 框架内，提供纯 C 函数 API，所有 API 线程安全</li>
+<li>NSRunLoop 基于 CFRunLoopRef 的封装，提供面向对象的 API，但线程不安全</li>
+</ol>
+<h4 id="关于线程，重要的对象："><a href="#关于线程，重要的对象：" class="headerlink" title="关于线程，重要的对象："></a>关于线程，重要的对象：</h4><ol>
+<li>pthread_t</li>
+<li>NSThread</li>
+</ol>
+<h4 id="Apple-不允许直接创建-RunLoop，提供自动获取的函数"><a href="#Apple-不允许直接创建-RunLoop，提供自动获取的函数" class="headerlink" title="Apple 不允许直接创建 RunLoop，提供自动获取的函数"></a>Apple 不允许直接创建 RunLoop，提供自动获取的函数</h4><ol>
+<li>CFRunLoopGetMain()</li>
+<li>CFRunLoopGetCurrent()</li>
+</ol>
+<p>线程与 RunLoop 一一对应，关系保存在一个全局 Dictionary<br>线程刚创建时没有 RunLoop，该 RunLoop 需主动获取才有</p>
+<p>主线程的 RunLoop 两个预置的 Mode，均被标记为 Common(后面用到):</p>
+<ol>
+<li>kCFRunLoopDefaultMode App 平时所处的状态</li>
+<li>UITrackingRunLoopMode 追踪 Scroll View 滑动时的状态</li>
+</ol>
+<blockquote>
+<p>当创建一个 Timer 添加到 DefaultMode 时，Timer 会重复调用，但滑动一个 Table View 时，RunLoop 切换到 Tracking Mode，暂停 Timer 调用</p>
+<p>解决方法，在两个 Mode 中得到回调：<br>方法1：将 Timer 加入两个 Mode 中<br>方法2：将 Timer 加入到顶层 RunLoop 的 commonModeItems，commonModeItems 会被 RunLoop 自动更新到具有 Common 属性的 Mode 中，即上述的两种 Mode</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/RunLoop/">RunLoop</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/11/iOS/UI/就那么几行代码搞定系列/" title="就那么几行代码搞定系列" itemprop="url">就那么几行代码搞定系列</a>
   </h1>
   <p class="article-author">By
@@ -75,7 +344,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-11T05:50:00.000Z" itemprop="datePublished"> 發表於 2016-01-11</time>
+    <time datetime="2016-01-11T05:50:00.000Z" itemprop="datePublished"> 发表于 2016-01-11</time>
     
   </p>
 </header>
@@ -169,7 +438,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-04T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-05</time>
+    <time datetime="2016-01-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-05</time>
     
   </p>
 </header>
@@ -244,7 +513,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-02T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-03</time>
+    <time datetime="2016-01-02T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-03</time>
     
   </p>
 </header>
@@ -300,7 +569,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-09T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-12-10</time>
+    <time datetime="2015-12-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-10</time>
     
   </p>
 </header>
@@ -362,7 +631,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-30</time>
+    <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-30</time>
     
   </p>
 </header>
@@ -417,74 +686,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/29/Documentation Translation/The View Controller Hierarchy 视图控制器的层次结构/" title="The View Controller Hierarchy 视图控制器的层次结构" itemprop="url">The View Controller Hierarchy 视图控制器的层次结构</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>应用中的 view controllers 之间的关系定义了一系列每个 view controller 必要的行为方法。UIKit 希望开发者按照预定的思路来使用 view controllers。维持 view 正确控制的关联能够保证自动化的行为能够传递到正确的 view controllers 中。如果开发者不遵守原有的控制逻辑与呈现之间的关联，那么应用的部分功能将不会得到预期中的效果。</p>
-<h2 id="The-Root-View-Controller-根控制器"><a href="#The-Root-View-Controller-根控制器" class="headerlink" title="The Root View Controller 根控制器"></a>The Root View Controller 根控制器</h2><p>根控制器是整个视图控制器层次结构的基础。每一个窗口(window)都只有一个根控制器，而且这个控制器的内容填充整个屏幕。根控制器定义了所有用户能够看见的基础内容。Figure 2-1 展示了根控制器与其窗口的关系。因为窗口没有它自己的可视化内容，所以控制器的视图提供了所有要展示的内容。</p>
-<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-root-view-controller_2-1_2x.png" alt="Figure 2-1"></p>
-<p>根控制器可以通过 <code>UIWindow</code> 对象的 <code>rootViewController</code> 属性访问得到。当你使用 storyboards 来设置你的控制器时，UIKits 会在应用启动阶段自动设置该属性。当你使用代码来创建 window 对象时，你必需亲自设置根控制器。</p>
-<h2 id="Container-View-Controllers-容器类视图控制器"><a href="#Container-View-Controllers-容器类视图控制器" class="headerlink" title="Container View Controllers 容器类视图控制器"></a>Container View Controllers 容器类视图控制器</h2><p>容器类视图控制器能让你使用可管理和可充用的部件来构建复杂的交互界面。容器类视图控制器融合了一个或多个拥有可定制化的视图的子视图控制器来创建它最终的界面。例如：<code>UINavigationController</code> 对象整合呈现了一个子视图控制器，一个导航栏和一个可选的工具栏，这些控件，都是通过导航栏控制器（navigation controller）来进行管理。UIKit 包含了多个容器类视图控制器，包括：<code>UINavigationController</code>, <code>UISplitViewController</code>, <code>UIPageViewController</code>。</p>
-<p>容器类视图控制器的视图，总是会填满提供给它的所有空间。容器类视图控制器通常会设置为窗口的根控制器（如 Figure 2-2 所示），但它们也可以模态显示或者作为其它容器的子控制器。容器控制器对设置它的子视图位置负责。在 Figure 中，容器控制器将两个子视图靠边摆放。尽管子视图的位置由容器的大小决定，但子视图控制器可以以最低限度来获知其它容器和其它同级的视图控制器。</p>
-<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-container-acting-as-root-view-controller_2-2_2x.png" alt="Figure 2-2"></p>
-<p>由于容器视图控制器管理着它的子视图，所以 UIKit 定义了开发者如何在自定义的容器中设置容器的子视图控制器的规则。<br>见 Implementing a Container View Controller</p>
-<h2 id="Presented-View-Controllers-呈现视图控制器"><a href="#Presented-View-Controllers-呈现视图控制器" class="headerlink" title="Presented View Controllers 呈现视图控制器"></a>Presented View Controllers 呈现视图控制器</h2><p>呈现一个视图控制器将会取代正在呈现的视图控制器的内容，通常是隐藏当前的视图控制器的内容。Presentations 经常用于模态显示新的内容。例如：你可以呈现一个视图控制器来收集用户的输入。你也可以使用使用它们来作为应用交互界面基本构成。</p>
-<p>当你呈现一个视图控制器时，UIKit 会创建从正在呈现的视图控制器（presenting view controler）到之前呈现的视图控制器（presented view controller）之间的关系，如 Figure 2-3 所示（也有从之前呈现的视图控制器到正在呈现的视图控制器间的关系）。这些关系形成了视图控制器层次结构。同时，这些关系用于在运行时定位其它视图控制器。</p>
-<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-presented-view-controllers_2-3_2x.png" alt="Figure 2-3"></p>
-<p>当使用到容器视图控制器时，UIKit 可以修改视图呈现链（presentation chain）来简化开发者需要编写的代码。不同的呈现风格由不同的呈现规则。例如：全凭的呈现方式总是覆盖整个屏幕。当你呈现一个视图控制器时，UIKit 会寻求一个视图控制器，该视图控制器提供一个合适的上下文环境来呈现。大多数情况下，UIKit 会选择最近的容器视图控制器，但它也可以选择窗口的根控制器。而其它情况下，你也可以告知 UIKit 使用哪个视图控制器来定义<strong>呈现的上下文</strong>和<strong>呈现的方式</strong>。</p>
-<p>Figure 2-4 展示了为什么容器经常为视图呈现提供上下文。当进行一个全屏的视图呈现时，新的视图控制器需要覆盖整个屏幕。这种情况下，是容器决定是否处理视图的呈现，而不是让子视图获知容器的尺寸大小。因为在这个例子中，导航栏控制器覆盖整个屏幕，因此，它就运行得像要呈现的视图一样，并且负责初始化视图的呈现。</p>
-<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG-container-and-presented-view-controller_2-4_2x-1.png" alt="Figure 2-4"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Documentation/">Documentation</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/11/29/Documentation Translation/The Role of View Controllers 视图管理器的作用/" title="The Role of View Controllers 视图管理器的作用" itemprop="url">The Role of View Controllers 视图管理器的作用</a>
   </h1>
   <p class="article-author">By
@@ -492,7 +693,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-29</time>
+    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-29</time>
     
   </p>
 </header>
@@ -571,227 +772,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/24/iOS/单例模式/" title="单例模式" itemprop="url">单例模式</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-23T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="方法1-（不考虑线程安全）"><a href="#方法1-（不考虑线程安全）" class="headerlink" title="方法1 （不考虑线程安全）"></a>方法1 （不考虑线程安全）</h3><p>以 <code>Singleton</code> 类为例</p>
-<ul>
-<li>在 <code>.h</code> 文件中定义</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@interface Singleton : NSObject</span><br><span class="line"></span><br><span class="line">+ (Singleton *) sharedInstance;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在 <code>.m</code> 文件中定义</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@implement Singleton</span><br><span class="line"></span><br><span class="line">static Singleton *sharedSingleton = nil;</span><br><span class="line"></span><br><span class="line">+ (Singleton *)sharedInstance&#123;</span><br><span class="line">		if	(sharedSingleton == nil)&#123;</span><br><span class="line">				sharedSingleton = [[Singleton alloc] init];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		return sharedSingleton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<ul>
-<li>上述方法的缺点之一是，使用者必须严格按照接口定义来创建单例，否则则会产生多个对象</li>
-</ul>
-<h3 id="方法2-（考虑线程安全）"><a href="#方法2-（考虑线程安全）" class="headerlink" title="方法2 （考虑线程安全）"></a>方法2 （考虑线程安全）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+ (Singleton *)sharedInstance&#123;</span><br><span class="line">		static Singleton *sharedSingleton = nil;</span><br><span class="line">		static dispatch_once_t predicate;</span><br><span class="line">		</span><br><span class="line">		dispatch_once(&amp;predicate, ^&#123;</span><br><span class="line">				shareSingleton = [[self alloc] init];</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		return shareSingleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Design-Patterns/">Design Patterns</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/23/Linux/Linux 中 profile, bashrc, bash.profile/" title="Linux 中 profile, bashrc, bash.profile" itemprop="url">Linux 中 profile, bashrc, bash.profile</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li><p><code>etc/profile</code></p>
-<ul>
-<li>为系统每个用户设置环境信息</li>
-<li>用户第一次登录时被执行</li>
-<li>并从 <code>/etc/profile.d</code> 目录的配置文件中搜集shell的设置</li>
-<li>需重启生效</li>
-</ul>
-</li>
-<li><p><code>/etc/bashrc</code></p>
-<ul>
-<li>为每一个运行 bash shell 用户执行此文件</li>
-<li>bash shell 被打开时，该文件被读取</li>
-</ul>
-</li>
-<li><p><code>~/.bash_profile</code></p>
-<ul>
-<li>每个用户使用该文件设置专用于自己的 shell 信息</li>
-<li>用户登录时，改文件仅执行一次</li>
-<li>需重启生效</li>
-</ul>
-</li>
-<li><p><code>~/.bashrc</code></p>
-<ul>
-<li>含专用于你的 bash shell 的 bash 信息</li>
-<li>登录时以及每次打开新的 shell 时,该文件被读取</li>
-<li>每个用户都有一个 <code>.bashrc1</code> 文件，在用户目录下</li>
-</ul>
-</li>
-<li><p><code>~/.bash_logout</code></p>
-<ul>
-<li>每次退出系统(退出bash shell)时,执行该文件</li>
-</ul>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/System-Configurations/">System Configurations</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/23/OS X/Mac 下删除 MySQL/" title="Mac 下删除 MySQL" itemprop="url">Mac 下删除 MySQL</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> 發表於 2015-11-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/local/mysql</span><br><span class="line">sudo rm -rf /usr/local/mysql*</span><br><span class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">sudo rm -rf /Library/PreferencePanes/My*</span><br><span class="line">vim /etc/hostconfig and removed the line MYSQLCOM=-YES-rm -rf ~/Library/PreferencePanes/My*</span><br><span class="line">sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">sudo rm -rf /var/db/receipts/com.mysql.*</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Mac/">Mac</a><a href="/tags/MySQL/">MySQL</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -808,11 +798,11 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">標簽</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>34</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>35</sup></a></li>
 			
 		
 			
@@ -828,27 +818,23 @@
 			
 		
 			
-				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
 			
 		
 			
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NSNotificationCenter/" title="NSNotificationCenter">NSNotificationCenter<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/UITableViewCell/" title="UITableViewCell">UITableViewCell<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 			
 		
 			
@@ -857,6 +843,10 @@
 		
 			
 				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 			
 		
 			
@@ -876,19 +866,19 @@
 			
 		
 			
-				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NSNotification/" title="NSNotification">NSNotification<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -1027,7 +1017,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -68,6 +68,364 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/25/iOS/Exercise/Ballon-like Animation/" title="在这个 Demo 里面，我知道了什么 #1" itemprop="url">在这个 Demo 里面，我知道了什么 #1</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="在这个-Demo-里面，我知道了什么-1"><a href="#在这个-Demo-里面，我知道了什么-1" class="headerlink" title="在这个 Demo 里面，我知道了什么 #1"></a>在这个 Demo 里面，我知道了什么 #1</h1><p>这里是 Demo -&gt; <a href="https://github.com/Y-YYeung/Circles" target="_blank" rel="external">Circles</a></p>
+<h3 id="1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks"><a href="#1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks" class="headerlink" title="1. 使用 CAShapeLayer 对视图进行绘制，可以参考 这个 gitbooks"></a>1. 使用 <code>CAShapeLayer</code> 对视图进行绘制，可以参考 <a href="https://zsisme.gitbooks.io/ios-/content/chapter6/cashapelayer.html" target="_blank" rel="external">这个 gitbooks</a></h3><p>优点是：</p>
+<blockquote>
+<p>   •    渲染快速。CAShapeLayer使用了硬件加速，绘制同一图形会比用Core Graphics快很多。<br>    •    高效使用内存。一个CAShapeLayer不需要像普通CALayer一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存。<br>    •    不会被图层边界剪裁掉。一个CAShapeLayer可以在边界之外绘制。你的图层路径不会像在使用Core Graphics的普通CALayer一样被剪裁掉（如我们在第二章所见）。<br>    •    不会出现像素化。当你给CAShapeLayer做3D变换时，它不像一个有寄宿图的普通图层一样变得像素化。</p>
+</blockquote>
+<h3 id="2-如何生成随机数，可以看-NSHipster"><a href="#2-如何生成随机数，可以看-NSHipster" class="headerlink" title="2. 如何生成随机数，可以看 NSHipster"></a>2. 如何生成随机数，可以看 <a href="http://nshipster.cn/random/" target="_blank" rel="external">NSHipster</a></h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机整数 0 ~ N-1：</span></span><br><span class="line"><span class="built_in">NSUInteger</span> r = arc4random_uniform(N);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机浮点数 0 ~ 1, double 类型</span></span><br><span class="line">srand48(time(<span class="number">0</span>)); <span class="comment">// 生成种子，只运行一次, time(0) 当前时间</span></span><br><span class="line"><span class="keyword">double</span> r = drand48();</span><br></pre></td></tr></table></figure>
+<h3 id="3-关于-NSTimer"><a href="#3-关于-NSTimer" class="headerlink" title="3. 关于 NSTimer"></a>3. 关于 <code>NSTimer</code></h3><ul>
+<li><code>NSTimer</code> 实例会 retain target</li>
+<li>尽量指定 <code>NSTimer</code> 实例运行的 <code>RunLoop</code>, 特别与 <code>UITableView</code> 等控件一起用时</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSRunloop</span> currentRunLoop] addTimer:<span class="keyword">self</span>.timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>暂停 <code>NSTimer</code>, 综合各种方法，其实就是把 <code>NSTimer</code> 实例杀了</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.timer invalidate];</span><br><span class="line"><span class="keyword">self</span>.timer = <span class="literal">nil</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow"><a href="#4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow" class="headerlink" title="4. 关于 NSMutableArray 的 KVC, 可以查看 stackoverflow"></a>4. 关于 <code>NSMutableArray</code> 的 KVC, 可以查看 <a href="http://stackoverflow.com/questions/10059279/observing-count-in-nsmutablearray" target="_blank" rel="external">stackoverflow</a></h3><p>得票最高的答案大致是：<br>由于其方法以及内容可变的原因， <code>NSMutableArray</code> 并不能进行 KVC。而解决方案是，使用 <code>proxying</code> 代理来进行（这有待进一步学习，代理模式），当然，设计继承于 <code>NSMutableArray</code> 也可以，但使用 <code>proxying</code> 可以更加简单。</p>
+<p><code>NSProxy</code> 是一个简单而强大的类。我们可以使用它来拦截那些发送到数组的消息，就像这个类就是数组自己一样。然后，我们再将此条信息传递给内部的数组。然而，这还是不能使用 KVC。但由于 KVC 是 <code>NSObject</code> 的一个特点，所以，我们可以利用这一点。（所以，这里应该还是利用的代理模式的思想罢了）</p>
+<p>这里，有两个比较亮点的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br><span class="line"><span class="comment">// Send some message...</span></span><br><span class="line">[<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/25/Python/`if __name__ == __main__`/" title="if __name__ == __main__" itemprop="url">if __name__ == __main__</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="if-name-main"><a href="#if-name-main" class="headerlink" title="if __name__ == __main__"></a><code>if __name__ == __main__</code></h1><ul>
+<li>Python 文件的后缀名为 <code>.py</code></li>
+<li><code>.py</code> 文件可直接执行，可作为（功能）模块被导入</li>
+<li><code>__name__</code> 是模块的内置属性，代表 <code>.py</code> 文件的调用方式</li>
+<li><code>__main__</code> 表示 <code>.py</code> 文件是直接执行的</li>
+<li>综上，<code>if __name__ == __main__</code> 表示：当前 <code>.py</code> 文件是作为直接调用的方式执行，而不是作为模块被调度执行</li>
+</ul>
+<h4 id="下面是来自官方文档对-main-的解释"><a href="#下面是来自官方文档对-main-的解释" class="headerlink" title="下面是来自官方文档对 __main__ 的解释"></a>下面是来自官方文档对 <code>__main__</code> 的解释</h4><blockquote>
+<p>‘<strong>main</strong>‘ is the name of the scope in which top-level code executes. A module’s <strong>name</strong> is set equal to ‘<strong>main</strong>‘ when read from standard input, a script, or from an interactive prompt.</p>
+<p>A module can discover whether or not it is running in the main scope by checking its own <strong>name</strong>, which allows a common idiom for conditionally executing code in a module when it is run as a script or with python -m but not when it is imported:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># execute only if run as a script</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>For a package, the same effect can be achieved by including a <strong>main</strong>.py module, the contents of which will be executed when the module is run with -m.</p>
+</blockquote>
+<h4 id="下面是来自官方文档对-name-的解释"><a href="#下面是来自官方文档对-name-的解释" class="headerlink" title="下面是来自官方文档对 __name__ 的解释"></a>下面是来自官方文档对 <code>__name__</code> 的解释</h4><blockquote>
+<p>The <strong>name</strong> attribute must be set to the fully-qualified name of the module. This name is used to uniquely identify the module in the import system.</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/25/DataBase/SQL 基本语句/" title="SQL 基本语句" itemprop="url">SQL 基本语句</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="SQL-基本语句"><a href="#SQL-基本语句" class="headerlink" title="SQL 基本语句"></a>SQL 基本语句</h1><p>SQL 执行过程须知：</p>
+<ul>
+<li>格式：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(8)<span class="keyword">SELECT</span> (<span class="number">9</span>)<span class="keyword">DISTINCT</span>  (<span class="number">11</span>)&lt;Top <span class="keyword">Num</span>&gt; &lt;<span class="keyword">select</span> <span class="keyword">list</span>&gt;</span><br><span class="line">(<span class="number">1</span>)<span class="keyword">FROM</span> [left_table]</span><br><span class="line">(<span class="number">3</span>)&lt;join_type&gt; <span class="keyword">JOIN</span> &lt;right_table&gt;</span><br><span class="line">(<span class="number">2</span>)        <span class="keyword">ON</span> &lt;join_condition&gt;</span><br><span class="line">(<span class="number">4</span>)<span class="keyword">WHERE</span> &lt;where_condition&gt;</span><br><span class="line">(<span class="number">5</span>)<span class="keyword">GROUP</span> <span class="keyword">BY</span> &lt;group_by_list&gt;</span><br><span class="line">(<span class="number">6</span>)<span class="keyword">WITH</span> &lt;<span class="keyword">CUBE</span> | <span class="keyword">RollUP</span>&gt;</span><br><span class="line">(<span class="number">7</span>)<span class="keyword">HAVING</span> &lt;having_condition&gt;</span><br><span class="line">(<span class="number">10</span>)<span class="keyword">ORDER</span> <span class="keyword">BY</span> &lt;order_by_list&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>每个步骤都会产生一个虚拟表，用作下一个步骤的输入，且这些虚拟表不对外开放</p>
+</li>
+<li><p>若没有在查询中指定某一子句，将跳过相应的步骤</p>
+</li>
+<li><p>执行顺序：  </p>
+<ol>
+<li><code>FROM</code> 对 <code>FROM</code> 子句中的前两个表执行笛卡尔积，-&gt; 虚拟表 VT1</li>
+<li><code>ON</code> 对 VT1 应用 <code>ON</code> 筛选器，-&gt; VT2</li>
+<li><code>OUTER (JOIN)</code> -&gt; VT3</li>
+<li><code>WHERE</code> 对 VT3 应用筛选器，<where condition=""> == true -&gt; VT4</where></li>
+<li><code>GROUP BY</code> 对 VT4 进行 行分组， -&gt; VT5</li>
+<li><code>CUBE | ROLLUP</code> 把超组添加到 VT5, -&gt; VT6</li>
+<li><code>HAVING</code> 对 VT6 应用筛选器，<having_condition> == true -&gt; VT7</having_condition></li>
+<li><code>SELECT</code> -&gt; VT8</li>
+<li><code>DISTINCT</code> 去除 VT8 中的重复行 -&gt; VT9</li>
+<li><code>ORDER BY</code> 对 VT9 按 <order_by_list> 进行排序，-&gt; 游标 arrow</order_by_list></li>
+<li><code>TOP</code> 根据 arrow 选择数量的行，-&gt; VT10, 结果返回</li>
+</ol>
+</li>
+</ul>
+<p>摘自：<a href="http://www.cnblogs.com/laodao1/archive/2010/01/07/1641259.html" target="_blank" rel="external">博客园</a></p>
+<h3 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h3><ul>
+<li><code>UPDATE</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ⚠️ Remember the WHERE clause, otherwise, the whole table will be updated</span></span><br><span class="line"><span class="keyword">UPDATE</span> table_name</span><br><span class="line"><span class="keyword">SET</span> column1=value1, column2=value2,...</span><br><span class="line"><span class="keyword">WHERE</span> some_column=some_value;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>DELETE</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ⚠️ Remember the WHERE clause, otherwise, all records will be deleted</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- Delete some records</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> some_column=some_value;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Delete all records</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name;</span><br><span class="line"><span class="keyword">DELETE</span> * <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>DISTINCT</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- DISTICT 去掉重复的结果</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> genre <span class="keyword">FROM</span> movies;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>LIKE</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- LIKE 中下划线(_)代表占一个字符，% 任意个字符</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> movies </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">name</span> <span class="keyword">LIKE</span> <span class="string">'Se_en'</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>BETWEEN...AND...</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Filters result set to only includes movies with name begin with letters "A" up to but not including "J"</span></span><br><span class="line"><span class="comment">-- Attention, NOT INCLUDING</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> movies </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">name</span> <span class="keyword">BETWEEN</span> <span class="string">'A'</span> <span class="keyword">AND</span> <span class="string">'J'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- Filters result set to only includes movies with year between 1990 up to and including 2000</span></span><br><span class="line"><span class="comment">-- Attention, INCLUDING</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> movies </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">year</span> <span class="keyword">BETWEEN</span> <span class="number">1990</span> <span class="keyword">AND</span> <span class="number">2000</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ORDER BY</code> <code>DESC</code> <code>ASC</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Sort the results by a particular column</span></span><br><span class="line"><span class="comment">-- DESC: high to low, Z-A</span></span><br><span class="line"><span class="comment">-- ASC: low to hight, A-Z</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> movies </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> imdb_rating <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>LIMIT</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Select the first three lowest rating movies</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> movies </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> imdb_rating <span class="keyword">ASC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>JOIN</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Use to combine rows from two or more tables</span></span><br><span class="line"><span class="comment">-- Most common type is INNER JOIN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- INNER JOIN, combines rows from different tables if the &lt;join condition&gt; is true</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> albums</span><br><span class="line"><span class="keyword">JOIN</span> artists <span class="keyword">ON</span> album.artist_id=artists.<span class="keyword">id</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>LEFT JOIN</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- OUTER JOIN, combines rows from two or more tables</span></span><br><span class="line"><span class="comment">-- Do not require the &lt;join condition&gt; to be met</span></span><br><span class="line"><span class="comment">-- Every row in the left table is returned int the result set</span></span><br><span class="line"><span class="comment">-- If &lt;join condition&gt; is not met, NULL values are used to fill in the columns from the right table</span></span><br><span class="line"><span class="comment">-- Left table: the first table appears, here is the table behind  FROM</span></span><br><span class="line"><span class="comment">-- right table: the second table appears, here is the table bebind JOIN</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> albums</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> artists <span class="keyword">ON</span></span><br><span class="line">albums.artist_id = artists.<span class="keyword">id</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>UNION</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Combines the result set of two or more SELECT statements</span></span><br><span class="line"><span class="comment">-- ⚠️ Each SELECT statement within UNION must have the same number of columns</span></span><br><span class="line"><span class="comment">-- ⚠️ The columns must also have similar data types.</span></span><br><span class="line"><span class="comment">-- ⚠️ Columns in each SEELCT statement must be in the same order</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> column_name(s) <span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">UNION</span> </span><br><span class="line"><span class="keyword">SELECT</span> column_name(s) <span class="keyword">FROM</span> table2</span><br><span class="line"></span><br><span class="line"><span class="comment">-- UNION selects only distinct values by default</span></span><br><span class="line"><span class="comment">-- ALL to allow duplicate values</span></span><br><span class="line"><span class="keyword">SELECT</span> column_name(s) <span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> column_name(s) <span class="keyword">FROM</span> table2</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>HAVING</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- WHERE clause can not be used with aggregate functions, that is why HAVING exists</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name &lt;<span class="keyword">operator</span>&gt; <span class="keyword">value</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name</span><br><span class="line"><span class="keyword">HAVING</span> aggregate_function(column_name) &lt;<span class="keyword">operator</span>&gt; <span class="keyword">value</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Aggregate-functions"><a href="#Aggregate-functions" class="headerlink" title="Aggregate functions"></a>Aggregate functions</h3><ul>
+<li><code>COUNT</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Count the number of rows</span></span><br><span class="line"><span class="comment">-- Fastest way</span></span><br><span class="line"><span class="comment">-- Takes the name of a column, count the number of row where the column is not NULL</span></span><br><span class="line"><span class="comment">-- We want to count every row, so we pass * as an argument</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> fake_apps;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>GROUP BY</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Only used with aggregate functions</span></span><br><span class="line"><span class="comment">-- Used in collaboration with the SELECT statement</span></span><br><span class="line"><span class="comment">-- Helpful to SELECT the column we will pass as an argument to GROUP BY</span></span><br><span class="line"><span class="keyword">SELECT</span> price, <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> fake_apps</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> price;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>SUM</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Takes the name of a column as an argument</span></span><br><span class="line"><span class="comment">-- Returns the sum of all the values in that column</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(downloads) <span class="keyword">FROM</span> fake_apps;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>MAX</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Takes the name of a column as an argument</span></span><br><span class="line"><span class="comment">-- Returns the largest value in that column</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(downloads) <span class="keyword">FROM</span> fake_apps;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>AVG</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Takes a column as an argument</span></span><br><span class="line"><span class="comment">-- Returns the average value for that column</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">aVG</span>(downloads) <span class="keyword">FROM</span> fake_apps;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ROUND</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Takes a column name and an integer as an argument</span></span><br><span class="line"><span class="comment">-- Rounds the values in the column to the number of decimal places specified by the integer</span></span><br><span class="line"><span class="keyword">SELECT</span> price, <span class="keyword">ROUND</span>(<span class="keyword">AVG</span>(downloads),<span class="number">2</span>) <span class="keyword">FROM</span> fake_apps</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> price;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/SQL/">SQL</a><a href="/tags/Database/">Database</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/25/Python/With 语句/" title="With 语句" itemprop="url">With 语句</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="With-语句"><a href="#With-语句" class="headerlink" title="With 语句"></a>With 语句</h1><ul>
+<li>with 语句需要与 Context Manager 一起</li>
+<li>with 语句规范一个动作进入与离开某个作用域是自动进行的一些动作</li>
+<li>如读写文件前后的打开或关闭文件操作，使用 <code>with</code> 语句就可以使得这两个动作自动进行，而不需要使用者繁琐地进行代码控制</li>
+<li><code>with</code> 语句自动调用 <code>__enter__()</code> 和 <code>__exit__()</code> 两个方法，因此，若我们需要为自己的类设置自动动作，则重写以上两个方法</li>
+<li><code>__enter__()</code> 返回一个供 <code>with</code> 语句使用的对象，通常也和 <code>as</code> 一起使用，如：</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">r'./python.txt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">	<span class="comment"># blah blah blab...</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>__exit__(self, exc_type, excc_value, traceback)</code> 三个参数分别为：异常类型，异常值，traceback，若执行 <code>with</code> 语句过程中没有产生异常，则3个参数都为 <code>None</code>，否则，则将3个参数的值返回给 <code>__exit__()</code> 使用</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/14/iOS/Demos/MVVM 以及 更轻量的 View Controller Demo/" title="MVVM 更轻量的 View Controller Demo" itemprop="url">MVVM 更轻量的 View Controller Demo</a>
   </h1>
   <p class="article-author">By
@@ -75,13 +433,13 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-13T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-03-14</time>
+    <time datetime="2016-03-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-14</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>阅读 <a href="http://objccn.io/issue-13-1/" target="_blank" rel="external">MVVM 介绍</a> 以及 <a href="http://objccn.io/issue-1-1/" target="_blank" rel="external">更轻量的 View Controllers</a>，还有 <a href="http://objccn.io/issue-5-4/" target="_blank" rel="external">从 NSURLConnection 到 NSURLSession</a></p>
+        <h1 id="MVVM-更轻量的-View-Controller-Demo"><a href="#MVVM-更轻量的-View-Controller-Demo" class="headerlink" title="MVVM 更轻量的 View Controller Demo"></a>MVVM 更轻量的 View Controller Demo</h1><p>阅读 <a href="http://objccn.io/issue-13-1/" target="_blank" rel="external">MVVM 介绍</a> 以及 <a href="http://objccn.io/issue-1-1/" target="_blank" rel="external">更轻量的 View Controllers</a>，还有 <a href="http://objccn.io/issue-5-4/" target="_blank" rel="external">从 NSURLConnection 到 NSURLSession</a></p>
 <p>一直听说 MVVM 要比 MVC 要好，所以，今天来学习了一下。</p>
 <p>首先，网络请求的 API 从 <a href="http://apistore.baidu.com/apiworks/servicedetail/1061.html" target="_blank" rel="external">百度 API Store</a> 获取的</p>
 <p>原本，重点是放在 MVVM 的 Demo 实现上的，所以网络请求准备是直接使用 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFN</a> 的，但是，想了一下，功能单一的网络请求，拉个 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFN</a> 来实现也未免太笨重了。所以，决定自己写一个简单的，顺便可以学习一下请求到底是怎么样实现的，因为之前用 <a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFN</a> 太多了。</p>
@@ -164,7 +522,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-18T15:53:01.000Z" itemprop="datePublished"> 發表於 2016-02-18</time>
+    <time datetime="2016-02-18T15:53:01.000Z" itemprop="datePublished"> 发表于 2016-02-18</time>
     
   </p>
 </header>
@@ -236,7 +594,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-02-17</time>
+    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-17</time>
     
   </p>
 </header>
@@ -321,7 +679,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-31T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-02-01</time>
+    <time datetime="2016-01-31T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-01</time>
     
   </p>
 </header>
@@ -439,7 +797,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-14</time>
+    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-14</time>
     
   </p>
 </header>
@@ -504,7 +862,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-14</time>
+    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-14</time>
     
   </p>
 </header>
@@ -557,285 +915,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/12/iOS/System/[RunLoop](http:--blog.ibireme.com-2015-05-18-runloop-)/" title="Run Loop" itemprop="url">Run Loop</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">RunLoop</a></p>
-<h4 id="关于-RunLoop，系统提供的对象"><a href="#关于-RunLoop，系统提供的对象" class="headerlink" title="关于 RunLoop，系统提供的对象:"></a>关于 RunLoop，系统提供的对象:</h4><ol>
-<li>CFRunLoopRef 位于 CoreFoundation 框架内，提供纯 C 函数 API，所有 API 线程安全</li>
-<li>NSRunLoop 基于 CFRunLoopRef 的封装，提供面向对象的 API，但线程不安全</li>
-</ol>
-<h4 id="关于线程，重要的对象："><a href="#关于线程，重要的对象：" class="headerlink" title="关于线程，重要的对象："></a>关于线程，重要的对象：</h4><ol>
-<li>pthread_t</li>
-<li>NSThread</li>
-</ol>
-<h4 id="Apple-不允许直接创建-RunLoop，提供自动获取的函数"><a href="#Apple-不允许直接创建-RunLoop，提供自动获取的函数" class="headerlink" title="Apple 不允许直接创建 RunLoop，提供自动获取的函数"></a>Apple 不允许直接创建 RunLoop，提供自动获取的函数</h4><ol>
-<li>CFRunLoopGetMain()</li>
-<li>CFRunLoopGetCurrent()</li>
-</ol>
-<p>线程与 RunLoop 一一对应，关系保存在一个全局 Dictionary<br>线程刚创建时没有 RunLoop，该 RunLoop 需主动获取才有</p>
-<p>主线程的 RunLoop 两个预置的 Mode，均被标记为 Common(后面用到):</p>
-<ol>
-<li>kCFRunLoopDefaultMode App 平时所处的状态</li>
-<li>UITrackingRunLoopMode 追踪 Scroll View 滑动时的状态</li>
-</ol>
-<blockquote>
-<p>当创建一个 Timer 添加到 DefaultMode 时，Timer 会重复调用，但滑动一个 Table View 时，RunLoop 切换到 Tracking Mode，暂停 Timer 调用</p>
-<p>解决方法，在两个 Mode 中得到回调：<br>方法1：将 Timer 加入两个 Mode 中<br>方法2：将 Timer 加入到顶层 RunLoop 的 commonModeItems，commonModeItems 会被 RunLoop 自动更新到具有 Common 属性的 Mode 中，即上述的两种 Mode</p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/RunLoop/">RunLoop</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/12/iOS/UI/自定义 Tab Bar 步骤/" title="自定义 Tab Bar 步骤" itemprop="url">自定义 Tab Bar 步骤</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h4 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h4><p>继承 UITabBar</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyTabBar : <span class="built_in">UITabBar</span></span><br></pre></td></tr></table></figure>
-<h4 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h4><ol>
-<li>重写 MyTabBar 的 <code>layoutSubviews</code></li>
-<li><p>获取 UITabBarButton 私有类</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class class = <span class="built_in">NSClassFromString</span>(<span class="string">@"UITabBarButton"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>遍历 MyTabBar 的子视图，对 UITabBarButton 实例进行重新布局</p>
-</li>
-<li>添加自定义的控件</li>
-<li>在 Tab Bar Controller 中利用 KVC 替换系统 Tab Bar</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITabBar/">UITabBar</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/12/iOS/iPhone Functionality/控制闪光灯/" title="控制闪光灯" itemprop="url">控制闪光灯</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVCaptureDevice</span> *device = [<span class="built_in">AVCaptureDevice</span> defaultDeviceWithMediaType:<span class="built_in">AVMediaTypeVideo</span>];</span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line"><span class="keyword">if</span> (device.hasTorch) &#123;  <span class="comment">// 判断设备是否有散光灯</span></span><br><span class="line">    <span class="built_in">BOOL</span> b = [device lockForConfiguration:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (!b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            DLog(<span class="string">@"lock torch configuration error:%@"</span>, error.localizedDescription);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    device.torchMode =</span><br><span class="line">    (device.torchMode == <span class="built_in">AVCaptureTorchModeOff</span> ? <span class="built_in">AVCaptureTorchModeOn</span> : <span class="built_in">AVCaptureTorchModeOff</span>);</span><br><span class="line">    [device unlockForConfiguration];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Camera/">Camera</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/12/iOS/System/nil - Nil - NULL - NSNull/" title="空指针 / 空对象" itemprop="url">空指针 / 空对象</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 發表於 2016-01-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="nil-Nil-NULL-NSNull"><a href="#nil-Nil-NULL-NSNull" class="headerlink" title="nil / Nil / NULL / NSNull"></a>nil / Nil / NULL / NSNull</h1><p>在 C 语言中，用 <code>0</code> 表示 <code>不存在</code> 的原始值，<code>NULL</code> 作为指针 <code>不存在</code> 的原始值</p>
-<p>Objective-C 在 C 的基础上增加 <code>nil</code>，<code>nil</code> 指向不存在的对象指针，与 <code>NULL</code> 技术上相等</p>
-<p>Foundation 定义了 <code>NSNull</code>，只有一个类方法 <code>+ null</code>，单例模式，返回一个 <code>NSNull</code> 对象，是一个实际的对象，与 <code>nil</code>, <code>NULL</code> 不同</p>
-<blockquote>
-<p>The NSNull class defines a singleton object used to represent null values in collection objects (which don’t allow nil values).</p>
-</blockquote>
-<h4 id="Something-about-nil"><a href="#Something-about-nil" class="headerlink" title="Something about nil"></a>Something about nil</h4><ul>
-<li>刚被分配的 NSObject 内容被设置为 0，该对象的所有指针都从 <code>nil</code> 开始</li>
-<li>向 <code>nil</code> 发送消息，返回 0 值，避免在使用 <code>nil</code> 前进行检查</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 举个例子，这个表达...</span></span><br><span class="line"><span class="keyword">if</span> (name != <span class="literal">nil</span> &amp;&amp; [name isEqualToString:<span class="string">@"Steve"</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// …可以被简化为：</span></span><br><span class="line"><span class="keyword">if</span> ([name isEqualToString:<span class="string">@"steve"</span>]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Something-about-NSNull"><a href="#Something-about-NSNull" class="headerlink" title="Something about NSNull"></a>Something about NSNull</h4><ul>
-<li>解决如NSArray和NSDictionary之类的集合不能有nil值的缺陷</li>
-<li>可以将NSNull理解为有效的将 <code>NULL</code> 或者 <code>nil</code> 值封装 boxing</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableDictionary</span> *mutableDictionary = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">mutableDictionary[<span class="string">@"someKey"</span>] = [<span class="built_in">NSNull</span> null]; <span class="comment">// Sets value of NSNull singleton for `someKey`</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [mutableDictionary allKeys]); <span class="comment">// @[@"someKey"]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/14525653795491.jpg" alt="A Picture"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Objective-C/">Objective-C</a><a href="/tags/pointer/">pointer</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -852,11 +941,11 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">標簽</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>34</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>35</sup></a></li>
 			
 		
 			
@@ -872,27 +961,23 @@
 			
 		
 			
-				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
 			
 		
 			
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NSNotificationCenter/" title="NSNotificationCenter">NSNotificationCenter<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/UITableViewCell/" title="UITableViewCell">UITableViewCell<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 			
 		
 			
@@ -901,6 +986,10 @@
 		
 			
 				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 			
 		
 			
@@ -920,19 +1009,19 @@
 			
 		
 			
-				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NSNotification/" title="NSNotification">NSNotification<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -1071,7 +1160,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
