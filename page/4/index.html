@@ -68,7 +68,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/22/iOS/UI/文本框代理方法/" title="文本框代理方法" itemprop="url">文本框代理方法</a>
+      <a href="/2015/11/22/iOS/适用 QuickTime 进行屏幕录制/" title="使用 QuickTime 进行屏幕录制" itemprop="url">使用 QuickTime 进行屏幕录制</a>
   </h1>
   <p class="article-author">By
        
@@ -81,9 +81,14 @@
 </header>
     <div class="article-content">
         
-        <p>文本框代理方法<br><code>- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string</code> 注意事项：</p>
-<p>若需要使用此代理根据文本框内容进行实时更新，则注意：<br><code>replacementString</code> 在减少文本框内容时是为空的，只有当增加文本时才不为空</p>
-<p>同时，当增加文本时，若在此代理中获取文本框的内容，获取的结果是不包含新增的字符串的！！！<br>也许，需要使用 <code>- (NSString *)stringByAppendingString:aSting</code>;</p>
+        <p>可用于展示 iOS 模拟器上 Demo</p>
+<ol>
+<li>打开 QuickTime</li>
+<li>File -&gt; New Screen Recording</li>
+<li>此时，弹出窗口</li>
+<li>点击红点进行开始录制</li>
+<li>根据出现在屏幕中央的提示，选择进行全屏录制 还是 局部录制</li>
+</ol>
 
         
         
@@ -97,7 +102,126 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITextField/">UITextField</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/QuickTime/">QuickTime</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/System/Block 页面传值/" title="Block 页面传值" itemprop="url">Block 页面传值</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>假定有 B 回传值给 A</p>
+<ol>
+<li>在 B.h 中使用 typedef 定义一个 Block</li>
+<li>在 B.h 中定义一个一个方法，该方法使用上面定义的 Block 作为参数</li>
+<li>在 B.m 中定义一个属性，该属性就是上面定义的 Block</li>
+<li>在 B.m 实现 B.h 定义的方法，在方法中，将传入的参数 赋值 给 Block 属性</li>
+<li>在 B 消失之际，调用 Block 属性，调用前需检查是否为空</li>
+<li>在 A.m 中，实例化 B，并进行跳转前，通过 B.h 中暴露的方法，将要执行的代码作为参数传入 Block</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Block/">Block</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/UI/模态显示问题/" title="模态显示问题" itemprop="url">模态显示问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>问题：<br>核心控制器A 通过 模态 方式呈现，在 A 中通过导航方式，到控制器 B，在 B 中 模态 呈现控制器 C，当 dismiss C 时，返回的控制器是 A，而不是B？？？！！！！</p>
+<p>解决：<br>在呈现 C 前，将 C 的 modalPresentationStyle 设置为 <code>UIModalPresentationCurrentContext</code></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Modal-Presentation/">Modal Presentation</a>
   </div>
 
 </div>
@@ -213,7 +337,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/22/iOS/System/Block 页面传值/" title="Block 页面传值" itemprop="url">Block 页面传值</a>
+      <a href="/2015/11/22/iOS/UI/验证输入是否为 数字 或者 小数点/" title="验证输入是否为 数字 或者 小数点" itemprop="url">验证输入是否为 数字 或者 小数点</a>
   </h1>
   <p class="article-author">By
        
@@ -226,15 +350,7 @@
 </header>
     <div class="article-content">
         
-        <p>假定有 B 回传值给 A</p>
-<ol>
-<li>在 B.h 中使用 typedef 定义一个 Block</li>
-<li>在 B.h 中定义一个一个方法，该方法使用上面定义的 Block 作为参数</li>
-<li>在 B.m 中定义一个属性，该属性就是上面定义的 Block</li>
-<li>在 B.m 实现 B.h 定义的方法，在方法中，将传入的参数 赋值 给 Block 属性</li>
-<li>在 B 消失之际，调用 Block 属性，调用前需检查是否为空</li>
-<li>在 A.m 中，实例化 B，并进行跳转前，通过 B.h 中暴露的方法，将要执行的代码作为参数传入 Block</li>
-</ol>
+        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)validateNumber:(<span class="built_in">NSString</span>*)number &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> res = <span class="literal">YES</span>;</span><br><span class="line">    <span class="built_in">NSCharacterSet</span>* tmpSet = [<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@"0123456789."</span>];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; number.length) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> * string = [number substringWithRange:<span class="built_in">NSMakeRange</span>(i, <span class="number">1</span>)];</span><br><span class="line">        <span class="built_in">NSRange</span> range = [string rangeOfCharacterFromSet:tmpSet];</span><br><span class="line">        <span class="keyword">if</span> (range.length == <span class="number">0</span>) &#123;</span><br><span class="line">            res = <span class="literal">NO</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -248,72 +364,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Block/">Block</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/System/使用 NSNotification/" title="消息传递" itemprop="url">消息传递</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="使用-NSNotification"><a href="#使用-NSNotification" class="headerlink" title="使用 NSNotification"></a>使用 NSNotification</h3><p>观察者模式</p>
-<p>注册，成为观察者，并在其中实现收到消息的处理方法<br><code>[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notice:) name:infoName object:nil];</code></p>
-<p><code>addObserever:self</code> 使自己成为观察者<br><code>selector:@selector()</code> 收到消息的处理方法<br><code>name:</code> 消息的专有名字<br><code>object:</code> 消息的发送者，只接受此发送者发送的消息，传 nil 接受任何发送者</p>
-<hr>
-<p>发送消息：<br><code>[[NSNotificationCenter defaultCenter] postNotificationName:infoName object:self userInfo:@{@&quot;info&quot;:@&quot;change background color&quot;}];</code></p>
-<p><code>postNotificationName:</code> 与上面观察者的消息专有名字一样<br><code>object:</code> 发送消息的对象<br><code>userInfo:</code> 消息包含的内容，将会传到消息接收者处</p>
-<p>最后要记得<br>remove 掉注册者</p>
-<h3 id="NSNotificationCenter"><a href="#NSNotificationCenter" class="headerlink" title="NSNotificationCenter"></a>NSNotificationCenter</h3><ul>
-<li>每一个 App 运行的时候都有的一个单例对象</li>
-<li>通知中心<strong><em>同步</em></strong>转发通知给观察者，就是说 <code>postNotification:</code> 方法直到接收并处理完通知才返回值</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSNotification/">NSNotification</a><a href="/tags/NSNotificationCenter/">NSNotificationCenter</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSString/">NSString</a>
   </div>
 
 </div>
@@ -390,62 +441,6 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/iOS/">iOS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/10/iOS/UI/解决UITableView分割线距左边有距离的办法/" title="解决UITableView分割线距左边有距离的办法" itemprop="url">解决UITableView分割线距左边有距离的办法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="step-1-设置-tableView-属性"><a href="#step-1-设置-tableView-属性" class="headerlink" title="step 1 设置 tableView 属性"></a>step 1 设置 tableView 属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if ([_recommendTableView respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">if ([_recommendTableView respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="step-2-设置-tableView-代理方法"><a href="#step-2-设置-tableView-代理方法" class="headerlink" title="step 2 设置 tableView 代理方法"></a>step 2 设置 tableView 代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITableView/">UITableView</a><a href="/tags/UITableViewCell/">UITableViewCell</a>
   </div>
 
 </div>
@@ -659,26 +654,21 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/08/iOS/System/崩溃信号/" title="崩溃信号" itemprop="url">崩溃信号</a>
+      <a href="/2015/11/10/iOS/UI/解决UITableView分割线距左边有距离的办法/" title="解决UITableView分割线距左边有距离的办法" itemprop="url">解决UITableView分割线距左边有距离的办法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-07T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-08</time>
+    <time datetime="2015-11-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-10</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <ul>
-<li>SIGABRT 异常终止</li>
-<li>SIGFPE 浮点异常</li>
-<li>SIGILL 无效指令</li>
-<li>SIGSEGV 访问到无效的内存地址</li>
-<li>SIGTERM 终止请求发送给应用</li>
-</ul>
+        <h2 id="step-1-设置-tableView-属性"><a href="#step-1-设置-tableView-属性" class="headerlink" title="step 1 设置 tableView 属性"></a>step 1 设置 tableView 属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if ([_recommendTableView respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">if ([_recommendTableView respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">            </span><br><span class="line">            [_recommendTableView setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="step-2-设置-tableView-代理方法"><a href="#step-2-设置-tableView-代理方法" class="headerlink" title="step 2 设置 tableView 代理方法"></a>step 2 设置 tableView 代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setSeparatorInset:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        [cell setLayoutMargins:UIEdgeInsetsZero];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -692,7 +682,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Crash/">Crash</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITableView/">UITableView</a><a href="/tags/UITableViewCell/">UITableViewCell</a>
   </div>
 
 </div>
@@ -796,7 +786,7 @@ NSLog(@&quot;%@&quot;,jsonData);
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/08/iOS/System/iOS多线程/" title="iOS多线程" itemprop="url">iOS多线程</a>
+      <a href="/2015/11/08/iOS/System/永久性数据储存方式/" title="随笔。。。" itemprop="url">随笔。。。</a>
   </h1>
   <p class="article-author">By
        
@@ -809,235 +799,282 @@ NSLog(@&quot;%@&quot;,jsonData);
 </header>
     <div class="article-content">
         
-        <p>###多线程编程层次</p>
-<ul>
-<li><code>Thread</code><ul>
-<li>层次最低</li>
-<li>线程的管理，线程锁设置与释放等需要开发者负责</li>
-<li>使用<code>NSThread</code>来创建和管理</li>
-</ul>
-</li>
-<li><code>Cocoa Operations</code><ul>
-<li>使用<code>NSOperation</code>类来管理线程</li>
-<li>已封装好关于线程的管理，锁等问题</li>
-<li><code>NSOperation</code>是抽象基类</li>
-<li>iOS提供的默认实现：<code>NSInvocationOperation</code>，<code>NSBlockOperation</code></li>
-<li>实现多线程技术方法：Operation Queue 操作队列<ul>
-<li>开发者任务：定义需要执行的任务，将其加入到操作队列中</li>
-<li>操作队列负责调度和执行任务</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>Grand Central Dispatch (GCD)</code></p>
-<ul>
-<li>可将应用程序需要执行的工作拆分为可分散在多个线程和多个CPU上更小的块</li>
-<li>大部分API使用<code>Block</code>来访问</li>
-<li>异步启动任务的技术之一，GCD负责线程管理的代码，并将线程管理移到更低端的系统层面</li>
-<li>开发者的任务：定义需要执行的任务，并把任务添加到合适的派遣队列 Dispatch Queue中</li>
-</ul>
-</li>
-<li><p>iOS基础框架中所有Objective-C的基础类，如<code>NSString</code>，<code>NSArray</code>等被视为线程安全</p>
-</li>
-<li>UIKit框架包含的用于构建GUI的类，如<code>UIApplication</code>，<code>UIView</code>及其所有子类是线程不安全的<ul>
-<li>处理UIKit对象的所有方法都放在主线程中</li>
-</ul>
-</li>
-</ul>
-<p>###GCD提供的默认派遣队列</p>
-<ul>
-<li>Private Dispatch Queue 顺序队列<ul>
-<li>通常用于同步访问特定的资源</li>
-<li>一个队列中按照队列的性质，一次执行一个任务</li>
-<li>可创建任意多个顺序队列，每一个队列同步地独立于其他队列而运行</li>
-</ul>
-</li>
-<li>Global Dispatch Queue 并发队列，全局派遣队列<ul>
-<li>同步地执行一个或多个任务，而启动顺序按照队列性质</li>
-<li>管理多个不同的线程，并发的任务在管理的不同线程中执行</li>
-<li>某个时间点队列里执行的任务数是可变的</li>
-<li>开发者不能创建自己的并发队列，只可使用iOS提供的3个全局并发队列</li>
-</ul>
-</li>
-<li>主队列<ul>
-<li>在应用程序的主线程执行的队列，与应用程序的运行循环交错执行</li>
-</ul>
-</li>
-</ul>
-<p>###派遣队列的创建与执行</p>
-<ul>
-<li><p>顺序队列</p>
-<ul>
-<li><p>异步执行</p>
-<pre><code>dispatch_queue_t queue;
-queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);//由于这是C语言，使用NULL
-//异步执行
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Running in the queue&quot;);
-});
-</code></pre></li>
-<li><p>同步执行</p>
-<pre><code>dispatch_queue_t queue;
-queue = dispatch_queue_create(&quot;Queue name&quot;,NULL);
-//同步执行
-dispatch_sync(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Running in the queue&quot;);
-});
-</code></pre><ul>
-<li>用于防止资源访问冲突 </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>并发队列</p>
-<pre><code>dispatch_queue_t queue;
-queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;First task in the queue&quot;);
-});
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Second task in the queue&quot;);
-});
-dispatch_async(queue,^{
-    [NSThread sleepForTimeInterval:5];
-    NSLog(@&quot;Third task in the queue&quot;);
-});
-</code></pre><ul>
-<li>并发队列有3种优先级<ul>
-<li>高 <code>DISPATCH_QUEUE_PRIORITY_HIGH</code></li>
-<li>低 <code>DISPATCH_QUEUE_PRIORITY_LOW</code></li>
-<li>普通 <code>DISPATCH_QUEUE_PRIORITY_DEFAULT</code></li>
-</ul>
-</li>
-<li>第二个参数用来扩展使用，暂且为0</li>
-</ul>
-</li>
-<li><p>主线程队列</p>
-<pre><code>dipatch_queue_t queue;
-queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-dispatch_async(queue,^{
-    //做一些运算
-
-    //然后这里才是主线程调用
-    dispatch_async(dispatch_get_main_queue(),^{
-        aLabel.text = @&quot;Processed by the main queue&quot;;
-    });
-});
-</code></pre></li>
-</ul>
-<p>###添加任务到派遣队列</p>
-<ul>
-<li>同步<ul>
-<li>同步的添加方法与异步对应，但添加完后需等待代码执行完才返回</li>
-</ul>
-</li>
-<li><p>异步</p>
-<ul>
-<li><code>dispatch_async</code><ul>
-<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code></li>
-<li>arg1: 代码块要添加到的队列</li>
-<li>arg2: 要执行的代码块</li>
-<li>此方法添加完代码块后立即返回，不会等待代码执行</li>
-</ul>
-</li>
-<li><p><code>dispatch_async_f</code></p>
-<pre><code>void dispatch_async_f(
-    dispatch_queue_t queue,
-    void *context,
-    dispatch_function_t work
-);
-</code></pre><ul>
-<li>arg3: 需要执行的函数</li>
-<li>arg2: 函数的参数</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>###执行 回调函数</p>
-<ol>
-<li>在创建任务的同时指定任务完成时的处理方法</li>
-<li>在队列中嵌套队列来实现，如主线程的创建与执行例子</li>
+        <ol>
+<li>User Defaults</li>
+<li>Property List</li>
+<li>Object archives</li>
+<li>SQLite 3</li>
+<li>Core Data</li>
 </ol>
-<p>###派遣组技术</p>
+<p>###UserDefaults</p>
 <ul>
-<li>允许阻止线程直到一个或者多个任务执行完成</li>
-<li><p>让一个或者多个队列等待执行完毕后再返回主线程</p>
-<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-dispatch_group_t group = dispatch_group_creat();
-
-dispatch_group_async(group,queue,^{
-    //执行异步操作
-});
-
-//一些其他处理
-
-//在派遣组中等待，阻止当前的线程继续执行
-dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-</code></pre></li>
+<li>储存格式：Key-Value格式</li>
+<li>NSUserDefaults使用三部曲<ol>
+<li><b>通过<code>NSUserDefaults</code>的类方法获取到应用程序的共享实例(Shared Instance)</b><br><br> <code>NSUserDefaults *myUserDefaults = [NSUserDefaults standardUserDefaults];</code></li>
+<li><b>指定一个唯一的Key，并对该Key设定对象</b><br><br> <code>[myUserDefaults setArray: myArray forKey: @&quot;recentlyViewed&quot;];</code><br><br> 其他队数据的操作：<br><br> <code>- (void)setDouble: (double)aDouble forKey: (NSString *)key;</code><br><br> <code>- (NSInteger)integerForKey: (NSString *)key;</code><br><br> <code>- (void)setObject: (id)obj forKey: (NSString *)key</code>（常用）<br><br> 存储的Object格式要求：<ul>
+<li>必须是<code>propertylist</code>属性类型：NSArray, NSDictionary, NSNumber, NSString, NSDate, NSData及它们的Mutable版本</li>
 </ul>
-<p>###代码块<code>Block</code>用途</p>
+</li>
+<li><b>同步</b><br><br> <code>[[NSUserDefaults standardUserDefaults] synchronize];</code><br></li>
+</ol>
+</li>
+</ul>
+<p>###键盘消失</p>
+<ol>
+<li>Delegate应用（键盘回车）<ul>
+<li><code>ViewController</code>遵从<code>&lt;UITextFieldDelegate&gt;</code>协议</li>
+<li>在<code>textFieldShouldReturn:</code>中调用<code>resignFirstResponder</code></li>
+<li>关联委托者被委托者，将<code>UITextField</code>对象的<code>Delegate</code>指派给该对象所在的<code>ViewController</code></li>
+</ul>
+</li>
+<li>事件响应的调用（键盘回车）<ul>
+<li>声明<code>UITextField</code>的<code>return</code>单击事件<code>IBAction</code></li>
+<li>创建<code>UITextField</code>的输出口<code>IBOutlet</code></li>
+<li>在响应事件中撤销第一响应者<code>[textField resignFirstResponder];</code></li>
+</ul>
+</li>
+<li>将UIView改为UIControl<ul>
+<li>创建<code>UITextField</code>的输出口<code>IBOutlet</code></li>
+<li>声明<code>UIControl</code>的<code>IBAction</code>，事件为<code>Touch Up Inside</code></li>
+<li>在<code>UIControl</code>事件中撤销<code>UITextField</code>的第一响应者</li>
+</ul>
+</li>
+<li>利用UIButton<ul>
+<li>使用巨型<code>UIButton</code>覆盖<code>UIView</code></li>
+<li>响应事件</li>
+</ul>
+</li>
+</ol>
+<p>###消息</p>
 <ul>
-<li>枚举</li>
-<li>视图动画效果，如<code>animateWithDuration:animations:</code></li>
-<li>排序</li>
-<li>通知：当某种情形发生时执行指定代码块</li>
-<li>错误处理：当错误发生时，执行指定代码块</li>
-<li>事件完成处理器</li>
-<li><p>例子：对字符串数组进行排列</p>
-<pre><code>NSArray *strArray = [NSArray arrayWithObjects:@&quot;...&quot;,@&quot;...&quot;,...,nil];
+<li>一个对象接受到一个方法的调用时，会进行<b>运行时</b>查找，以决定要运行什么代码；C++及其他部分语言，在<b>编译时</b>执行查找</li>
+<li>一个方法被一个OC对象收到时，OC运行时回查找对象的类的实现方法列表<ul>
+<li>找到与收到的消息具有<b>相同的选择器</b>时，运行此方法的代码</li>
+<li>否则，递归查找此类的父类，直到找到为止</li>
+<li>再否则，运行时抛出异常</li>
+</ul>
+</li>
+</ul>
+<p>###属性特性</p>
+<ul>
+<li><code>strong</code><ul>
+<li>对一个对象拥有强引用</li>
+<li>所引用的对象保留在内存中</li>
+</ul>
+</li>
+<li><code>weak</code><ul>
+<li>对一个对象拥有弱引用，当该属性所引用的对象被释放时，这个属性将自动被设置为<code>nil</code></li>
+<li>不增加引用数</li>
+</ul>
+</li>
+<li><code>assign</code><ul>
+<li>属性的<code>setter</code>简单地把属性的变量赋值为任何传入的值，而不执行内存管理</li>
+</ul>
+</li>
+<li><code>copy</code><ul>
+<li>属性的<code>setter</code>将复制传入的任何对象，创建一个对象的副本</li>
+</ul>
+</li>
+<li><code>readwrite</code> <ul>
+<li>属性同时生成<code>getter</code>，<code>setter</code></li>
+<li>只有覆盖父类的一个属性时需要显式使用</li>
+<li>默认</li>
+</ul>
+</li>
+<li><code>readonly</code><ul>
+<li>属性不生成<code>setter</code></li>
+<li>类的实现代码仍然可以修改属性的变量</li>
+</ul>
+</li>
+<li><code>nonatomic</code><ul>
+<li>属性的<code>getter</code>，<code>setter</code>不会试图在对变量做出修改前获取互斥锁以及保证线程安全</li>
+</ul>
+</li>
+<li><p><code>@synthesize</code></p>
+<ul>
+<li><p>重新命名<code>getter</code>，<code>setter</code>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">@synthesize myProperty = _myCustomVariableName;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>@dynamic</code></p>
+<ul>
+<li>指示编译器不对属性和方法进行合成</li>
+<li>需自己实现<code>getter</code>，<code>setter</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><ul>
+<li>类要实现一系列方法的列表，标记类所拥有的功能：能够被复制，能够序列化和反序列化，能够作为其他类的数据源</li>
+<li><p>语法</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@protocol SomeProtocol</span><br><span class="line">[ method declarations ]</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标记一个类遵守一个协议    </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@interface SomeObject:NSObject &lt;SomeProtocol&gt;</span><br><span class="line">...</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用协议定义一个对象</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id &lt;SomeProtocol&gt; someObjectconfirmingToProtocol</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###类扩展</p>
+<ul>
+<li><p>语法</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@interface SomeClass()</span><br><span class="line">&#123;</span><br><span class="line">	[ additional instance variables ]</span><br><span class="line">&#125;</span><br><span class="line">[ additional instance or class method declarations ]</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>()</code>表明不能修改类本身的父类</li>
+</ul>
+</li>
+<li>类别，命名的类扩展<ul>
+<li><code>@interface SomeClass(SomeCategory)</code></li>
+</ul>
+</li>
+</ul>
+<p>###NSObject的生命周期</p>
+<ul>
+<li>分配和初始化<ul>
+<li><code>alloc</code> 为对象预留内存空间</li>
+<li><code>init</code> 指定初始化</li>
+</ul>
+</li>
+<li>保留和释放<br>  －通过引用计数进行内存管理</li>
+<li>终结和回收<ul>
+<li>对象从内存中被移除前拥有最后一个运行代码的机会 <code>dealloc</code></li>
+<li>对象引用为<code>0</code>，对象将收到<code>dealloc</code>消息，对象被回收内存前清理任何遗留工作：关闭文件什么的</li>
+</ul>
+</li>
+</ul>
+<p>###后台运行</p>
+<ul>
+<li>一个应用程序可以申请在后台运行一小段时间，这个运行时段不能超过<code>10min</code>  </li>
+<li><p>后台运行添加代码    </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	backgroudTask = [application beginBackgroundTaskWithExpirationHandler:^&#123;</span><br><span class="line">		//停止在后台正在执行的任务 （取消下载，停止计算。。。）</span><br><span class="line">		//这里负责处理超时的block    可选，建议使用</span><br><span class="line">		</span><br><span class="line">		//告知系统任务已经完成</span><br><span class="line">		[app endBackgroundTask:backgroundTask];</span><br><span class="line">		backgroundTask = UIBackgroundTaskInvalid;</span><br><span class="line">	&#125;];</span><br><span class="line">	</span><br><span class="line">	//开始在后台运行一个block完成相应的任务</span><br><span class="line">	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),</span><br><span class="line">	^&#123;</span><br><span class="line">		//开始进行后台工作：下载，写入，计算等</span><br><span class="line">		//工作完成后，告知系统任务已经完成		</span><br><span class="line">		[application endBackgroundTask:backgroundTask];</span><br><span class="line">		backgroundTAsk = UIBackgroundTaskInvalid;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可运行更长时间的后台</p>
+<ul>
+<li>后台播放音频，任意长时间保持活动转台，直至用户停止</li>
+<li>跟踪用户位置的应用程序</li>
+<li>IP语音(VoIP)应用程序，Skype，定期连接服务器，但不允许无限制的运行</li>
+</ul>
+</li>
+</ul>
+<p>###iOS应用程序约束</p>
+<ul>
+<li>iOS程序安装到设备后，会被放在一个文件夹下</li>
+<li><code>Documents</code><br>  － 存储属于该应用程序的所有文档</li>
+<li><code>Library</code><ul>
+<li>存储全部的设置和配置信息</li>
+</ul>
+</li>
+<li><code>Caches</code><ul>
+<li>包含有必要存储到磁盘上的数据，可以被重新生成</li>
+<li>系统需要清理空间时，此文件夹内容会被系统删除</li>
+</ul>
+</li>
+<li><code>Preferences</code><ul>
+<li>存储设置和偏好设置</li>
+</ul>
+</li>
+<li><code>tmp</code><ul>
+<li>临时文件，系统会定期删除</li>
+</ul>
+</li>
+<li><code>Application.app</code><ul>
+<li>应用程序包</li>
+</ul>
+</li>
+</ul>
+<p>###Nib文件加载</p>
+<ul>
+<li><code>输出口</code>与<code>操作</code>的连接定义在nib文件中</li>
+<li>nib文件加载是作为应用程序启动的一部分，根据存储在nib文件中的信息，所包含的对象会被重新创建<ul>
+<li>信息包括：类，位置，标签，大小。。。</li>
+</ul>
+</li>
+<li>所有对象都存在内存中时，nib文件中所定义的所有输出口都被连接起来</li>
+<li>所有输出口被连接起来后，每一个被加载的对象都会收到<code>awakeFromNib:</code>消息<ul>
+<li>即<code>awakeFromNib:</code>被调用时，每个输出口已经完成连接，对象间的所有关系都已被重新建立</li>
+</ul>
+</li>
+</ul>
+<p>###<code>Block</code>语法</p>
+<ul>
+<li><p>定义一个不带任何参数，没有返回值的<code>Block</code>变量</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)(void);</span><br><span class="line">// [Return Type] (^ [Variable Name]) (Parameters);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果<code>Block</code>没有参数，可以省略最后的<code>void</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义一个带参数的<code>Block</code>变量</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)(BOOL booleanParameter, NSString* objectParameter);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给已定义的<code>Block</code>分配一个<code>Block</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)(BOOL parameter);</span><br><span class="line">myBlockVariable = ^(BOOL parameter)&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Block</code>没有参数，可以省略<code>^</code>与<code>{</code>之间的参数列表</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)();</span><br><span class="line">myBlockVariable = ^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将声明与定义放同一行</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void(^myBlockVariable)() = ^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以像调用函数一样调用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myBlockVariable();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###<code>Block</code>的错误用法</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//myBlockProperty是类的一个属性，能够存储Block</span><br><span class="line"></span><br><span class="line">void(^myBlockVariable)() = ^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//错误：Block在函数返回之后不会存在，调用它会导致应用崩溃</span><br><span class="line">//myBlockVariable局部变量，存放在栈中</span><br><span class="line">self.myBlockProperty = myBlockVariable;</span><br><span class="line"></span><br><span class="line">//安全：这个Block会被复制并一直保存在堆中</span><br><span class="line">self.myBlockProperty = [myBlockVariable copy];</span><br></pre></td></tr></table></figure>
+</code></pre><p>###带<code>Block</code>参数的方法</p>
+<ul>
+<li><p>声明</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void) someMethod:(void(^)(BOOL aParameter)) handler;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void) someMethod:(void(^)(BOOL aParameter)) handler&#123;</span><br><span class="line">	//调用传入Block</span><br><span class="line">	handler(YES);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[anObject someMethod:^(BOOL aParameter)&#123;</span><br><span class="line">	//被调用的方法会调用该方法</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###优雅地使用<code>Block</code></p>
+<ul>
+<li><p>在源代码中的某处（函数或方法外）</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef void(^ABlockType)(BOOL aParameter);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在一个函数中可以使用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ABlockType myBlock = ^(BOOL aParameter)&#123;</span><br><span class="line">	//do something</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>声明方法时使用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void) someMethod:(ABlockType)handler;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用时需确保<code>Block</code>的参数类型相同</p>
+</li>
+</ul>
+<p>###队列</p>
+<ul>
+<li>按照先入先出的顺序执行操作</li>
+<li><p>操作：<code>NSOperation</code>的实例，定义完成工作的流程</p>
+<ul>
+<li><p><code>NSOperations</code>可以被加入到<code>NSOperationQueue</code>中，发送<code>addOperationWithBlock:</code>消息至<code>NSOperationQueue</code>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSOperationQueue* mainQueue = [NSOperationQueue mainQueue];</span><br><span class="line">[mainQueue addOperationWithBlock:^&#123;</span><br><span class="line">	//here is the code</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>###队列的执行</p>
+<ul>
+<li><p>获取<code>NSOperationQueue</code>实例</p>
+<ul>
+<li><p>获取主队列，运行在主线程中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSOperationQueue* mainQueue = [NSOperationQueue mainQueue];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 创建一个新的队列，&lt;b&gt;可能&lt;/b&gt;运行在后台线程中
 
-//获取当前语言环境
-NSLocale *currentLocale = [NSLocale currentLocale];
-NSArray *diacriticInsensitiveSortArray = [strArray soredArrayUsingComparator:^(id str1, id str2){
-    NSRange str1Range = NSMakeRange(0,[str1 length]);
-    NSComparisonResult comparisonResult = [str1 compare: str2 options: NSDiacriticInsensitiveSearch range: str1Range locale: currentLocale];
-    return comparisonResult;
-}];
-
-NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSOperationQueue* newQueue = [[NSOperationQueue alloc] init];</span><br></pre></td></tr></table></figure>
 </code></pre><ul>
-<li><code>currentLocale</code>获取当前语言环境，用来确认排序的规则（因语言环境不同而不同）</li>
-<li><code>diacriticInsensitiveSortArray</code> 存储排列结果</li>
-<li>在代码块中，没有声明返回类型，因为iOS能根据代码块内部返回值类型推断</li>
-</ul>
-</li>
-</ul>
-<p>###异步编程方法</p>
-<ul>
-<li>使用队列</li>
-<li>通过<code>performSelector</code></li>
-<li>通过<code>NSTimer</code></li>
-</ul>
-<p>###通过<code>performSelector</code></p>
-<ul>
-<li><code>- (void) performSelector: (SEL)aSelector withObject: (id)anArgument afterDelay: (NSTimerInterval)delay;</code><ul>
-<li>arg3: 指定方法在多长时间以后开始执行</li>
-<li>arg1: 指定时间到了的时候执行的方法</li>
-<li>arg2: 传递给arg1的参数</li>
-<li>该方法调用后立即返回，时间到了会执行指定方法</li>
-<li>如：<code>[self.label performSelector:@selector(setText:) withObject:msg afterDelay:5.0];</code></li>
-</ul>
-</li>
-<li><code>- (void) performSelectorOnMainThread: (SEL)aSelector withObject: 
-(id)arg waitUntilDone: (BOOL)wait;</code><ul>
-<li>arg3: 是否阻塞队列来等待方法执行完毕</li>
-</ul>
-</li>
-</ul>
-<p>###通过<code>NSTimer</code></p>
-<ul>
-<li><code>+ (NSTimer *) scheduledTimerWithTimeInterval: (NSTimeInterval)ti target: (id)aTarget selector: (SEL)aSelector userInfo: (id)userInfo repeats: (BOOL)yesOrNo</code><ul>
-<li><code>(NSTimeInterval)ti</code> 时间间隔以秒为单位</li>
-<li><code>target: (id)aTarget</code> 被执行方法所处的类</li>
-<li><code>userInfo: (id)userInfo</code> 由<code>NSTimer</code>持有的信息，暂且为<code>nil</code></li>
-<li><code>repeats: (BOOL)yesOrNo</code> 是否重复调用</li>
-</ul>
-</li>
+<li>创建一个新的队列，并不能保证创建一个新的线程</li>
+<li>使用多个队列唯一可以保证：在其上运行的操作不会在同一时间相互拥塞</li>
 </ul>
 
         
@@ -1052,7 +1089,7 @@ NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Multi-Thread/">Multi-Thread</a>
+  <span></span> <a href="/tags/iOS/">iOS</a>
   </div>
 
 </div>
@@ -1104,7 +1141,7 @@ NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>35</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>36</sup></a></li>
 			
 		
 			
@@ -1124,23 +1161,19 @@ NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
 			
 		
 			
-				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python/" title="Python">Python<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/NSNotificationCenter/" title="NSNotificationCenter">NSNotificationCenter<sup>1</sup></a></li>
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 			
 		
 			
@@ -1148,11 +1181,19 @@ NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
 			
 		
 			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Database/" title="Database">Database<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
 			
 		
 			
@@ -1168,19 +1209,15 @@ NSLog(@&quot;%@&quot;,diacriticInsensitiveSortArray);
 			
 		
 			
-				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/NSNotification/" title="NSNotification">NSNotification<sup>1</sup></a></li>
 			
 		
 		</ul>

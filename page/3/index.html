@@ -136,6 +136,98 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/29/Documentation Translation/The Role of View Controllers 视图管理器的作用/" title="The Role of View Controllers 视图管理器的作用" itemprop="url">The Role of View Controllers 视图管理器的作用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>View Controller 视图控制器</p>
+<p>View Controllers 是应用内部结构的基础。每一个应用至少有一个 View Controllers，但大部分的应用会有多个。每一个 View Controllers 管理应用中部分的用户交互界面以及用户交互界面与低层数据的交互。同时，使用 View Controllers 也有利于应用中不同部分界面之间的相互过渡。</p>
+<p>View Controllers 在应用中扮演着非常重要的角色，因此，View Controllers 几乎是你工作的重心。<code>UIViewController</code> 类定义了多个方法(methods) 和属性(properties) 来管理视图(views)，事件处理(handling events)，视图控制器间的过渡切换(transitioning from one view controller to another)，协调处理应用的各部分。开发者应该继承 <code>UIViewController</code> （或其子类），并在这些类中添加自定义的代码来实现应用的功能。</p>
+<p>其中，有两种类型的 View Controllers:</p>
+<ul>
+<li>Content view controllers（内容类视图控制器），管理应用內零散的内容，这是开发者主要会创建的 view controller</li>
+<li>Container view controller（容器类视图管理器），从其他 view controllers（child view controllers）收集信息，并以导航的方式或以其他方式将其他的 view controllers 展现出来。</li>
+</ul>
+<p>大多数应用都是上述两类 view controller 的混合体。</p>
+<p>##View Management 视图管理</p>
+<p>View controller 最重要的功能就是管理视图之间的层次关系。每一个 view controller 都有唯一的一个 root view（根视图），该 root view 包含了 view controller 的所有内容。在这个 root view 上，开发者添加想要展现的内容。Figure 1-1 描述了 view controller 和它的 views 之间的内部关系。View controller 总是有对其 root view 的引用，而每一个 view 都有对其 subviews 的强引用。</p>
+<p>Figure 1-1Relationship between a view controller and its views<br><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG_ControllerHierarchy_fig_1-1_2x.png" alt="Figure 1-1"></p>
+<blockquote>
+<p>NOTE<br>使用 <code>outlet</code> 访问其他在 view controller 的 view 层次结构中的 view（如子控件）是一种很通用的做法。由于 view controller 管理其所有 view 的内容，因此，<code>outlet</code> 为开发者存储了对 views 进行访问时需要的引用。当 views 从 storyboard 加载时，<code>outlet</code> 会自动与 view 的实例关联起来。</p>
+</blockquote>
+<p>Content view controller 只管理自身包含的 views。Container view controller 管理自身包含的 views 以及它的一个或多个 child view controllers 中的 root views。Container 并不管理其子控制器的 content。它只管理 root view，根据 container 的设计来计算大小位置并进行放置。Figure 1-2 描述了 split view controller 和它的子控制器。Split view controller 管理其 child views 的总体大小和位置，但 child view controller 才是真正管理那些 views 的控制器。</p>
+<p>Figure 1-2 View controllers can manage content from other view controllers<br><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG_ContainerViewController_fig_1-2_2x.png" alt="Figure 1-2"></p>
+<p>##Data Marshaling 数据整理</p>
+<p>View controller 扮演一个中间人(intermediary)的角色，协调它管理的 views 和应用的数据。<code>UIViewController</code> 类中的方法和属性能够让开发者管理应用的界面呈现效果。当继承 <code>UIViewController</code> 后，开发者可以向这个子类添加管理数据所需要的变量，向这个子类添加自定义变量时，会创建如 Figure 1-3 所示的关联，在这里，view controller 对数据和呈现数据的 views 都会有 references（引用）。在 view controller 和 view 之间来回传递数据是开发者的职责。</p>
+<p>Figure 1-3A view controller mediates between data objects and views<br><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG_CustomSubclasses_fig_1-3_2x.png" alt="Figure 1-3A"></p>
+<p>开发者应明确清晰地对 view controllers 和数据对象有一种清晰的任务分工。大多数确保数据结构统一正确的逻辑工作应该被包含在数据对象自身中(即大多数数据处理逻辑代码应该写在数据类中)。而 view controller 则可以对从 views 来的数据进行验证并将数据打包成数据对象需要的特定格式，但要记住的是，要尽可能降低 view controller 在管理数据的任务。</p>
+<p>使用 <code>UIDocument</code> 对象是独立于 view controllers 外管理数据的一种方法。Document 对象是一个能如何进行持久化存储的 controller 对象。当继承这个类时，你可以在其中添加你需要的方法或逻辑来读取数据或将数据传递到其他控制器或其他部分。View controller 可以存储它接收到的数据的一份副本，以此来方便更新视图，但 document 对象仍然拥有着真正的数据。</p>
+<p>##User Interactions 用户交互</p>
+<p>View controllers 是响应事件的对象，并具有处理从 responder chain（响应链） 传递下来的事件的能力。尽管如此，view controllers 很少直接处理触摸事件。相反，views 通常会处理它们自身的触摸事件，并将结果返回到一个 associated delegate（关联的代理方法）或一个 target object（目标对象，通常为当前的 view controller）。因此，大多数在 view controller 中的事件会通过 delegate methods（代理方法）或 action methods（动作方法）来处理。</p>
+<blockquote>
+<p>More Info: Event Handling User Interactions And Event Handling Guide for iOS</p>
+</blockquote>
+<p>##Resource Management 资源管理</p>
+<p>View controller 默认对所有其创建的 views 和对象负责。<code>UIViewController</code> 类自动处理大多数层面的视图管理。例如：UIKit 自动释放那些不再需要的与视图关联的资源。在开发者自己创建的 <code>UIViewController</code> 子类中，开发者承担管理所有自己显式创建对象的责任。</p>
+<p>当可用内存空间不足时，UIKit 请求应用释放那些不再需要的资源。其中一个请求方法就是系统调用 view controllers 中的 <code>didReceiveMemoryWarning</code> 方法。开发者使用这个方法，在里面编写代码，移除那些不再需要或者可以稍后重新创建的资源的引用。例如：开发者可以使用这个方法来移除缓存数据。当内存空间不足时，开发者应释放尽可能多的内存空间。而消耗太多资源的应用可能会被系统终止并完全移出内存来恢复内存空间。</p>
+<p>##Adaptivity 适配</p>
+<p>View controller 负责呈现 views 和调整呈现方式来匹配低层环境的工作。每一个 iOS 应用都应该能运行在 iPad 和不同尺寸的 iPhone 上。简单的做法是使用单一的 view controller 来调整 views 来适配不同的空间变化，而不是为每一种设备编写不同的 view controllers 和 view 层次结构。</p>
+<p>在 iOS 中，view controller 需要处理 coarse-grained 变化和 fine-grained 变化。Coarse-grained 变化是当一个 view controller 的 trait 发生变化时产生。 Traits 是描述整体环境的属性，例如 display scale（显示比例）。其中最重要的两个 traits 是 view controller 的水平和垂直方向的 size classes （尺寸比列），这两个 traits 表示了 view controller 在给定的维度中有多大的空间。开发者可以使用 size class 变化来改变 views 的布局方式，如 Figure 1-4 所示。当水平 size class 为 regular 时，view controller   利用额外的水平空间来布局它的内容。当水平 size class 为 compact 时，view controller 垂直布局它的内容。</p>
+<p>Figure 1-4 Adapting views to size class changes<br><img src="http://7xqzwt.com1.z0.glb.clouddn.com/VCPG_SizeClassChanges_fig_1-4_2x.png" alt="Figure 1-4"></p>
+<p>在一个给定的 size class 中，给了 fine-grained 大小发生变化的可能。当用户将 iPhone 从 portrait（竖屏）转换为 landscape（横屏）时，size class 也许不会发生变化，但屏幕的尺寸却会发生改变。当开发者使用 Auto Layout （自动布局）时，UIKit 会自动调整 views 的大小和位置来适配新的尺寸。View controllers 可根据需要添加额外的调整。</p>
+<blockquote>
+<p>More Info: The Adaptive Model</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Documentation/">Documentation</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/24/iOS/单例模式/" title="单例模式" itemprop="url">单例模式</a>
   </h1>
   <p class="article-author">By
@@ -176,61 +268,6 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Design-Patterns/">Design Patterns</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/23/OS X/Mac 下删除 MySQL/" title="Mac 下删除 MySQL" itemprop="url">Mac 下删除 MySQL</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/local/mysql</span><br><span class="line">sudo rm -rf /usr/local/mysql*</span><br><span class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">sudo rm -rf /Library/PreferencePanes/My*</span><br><span class="line">vim /etc/hostconfig and removed the line MYSQLCOM=-YES-rm -rf ~/Library/PreferencePanes/My*</span><br><span class="line">sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">sudo rm -rf /var/db/receipts/com.mysql.*</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Mac/">Mac</a><a href="/tags/MySQL/">MySQL</a>
   </div>
 
 </div>
@@ -320,6 +357,124 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/System-Configurations/">System Configurations</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/23/OS X/Mac 下删除 MySQL/" title="Mac 下删除 MySQL" itemprop="url">Mac 下删除 MySQL</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/local/mysql</span><br><span class="line">sudo rm -rf /usr/local/mysql*</span><br><span class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">sudo rm -rf /Library/PreferencePanes/My*</span><br><span class="line">vim /etc/hostconfig and removed the line MYSQLCOM=-YES-rm -rf ~/Library/PreferencePanes/My*</span><br><span class="line">sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">sudo rm -rf /var/db/receipts/com.mysql.*</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Mac/">Mac</a><a href="/tags/MySQL/">MySQL</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/22/iOS/System/iOS 程序启动原理/" title="iOS 程序启动原理" itemprop="url">iOS 程序启动原理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在 main 方法中</p>
+<ol>
+<li>创建 UIApplication 对象</li>
+<li>创建 AppDelegate 对象，并成为 UIApplication 对象的代理属性</li>
+<li>开启主运行循环，监听事件</li>
+<li>加载 info.plist 文件，判断 info.plist 文件中是否指定了 nib 文件(xib, storyboard) 或 main.storyboard，若有，则加载指定文件</li>
+</ol>
+<p>makeKeyAndVisible 工作原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">application.keyWindow = self.window;</span><br><span class="line">self.window.hidden = NO;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
   </div>
 
 </div>
@@ -464,7 +619,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/22/iOS/UI/验证输入是否为 数字 或者 小数点/" title="验证输入是否为 数字 或者 小数点" itemprop="url">验证输入是否为 数字 或者 小数点</a>
+      <a href="/2015/11/22/iOS/UI/文本框代理方法/" title="文本框代理方法" itemprop="url">文本框代理方法</a>
   </h1>
   <p class="article-author">By
        
@@ -477,7 +632,9 @@
 </header>
     <div class="article-content">
         
-        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)validateNumber:(<span class="built_in">NSString</span>*)number &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> res = <span class="literal">YES</span>;</span><br><span class="line">    <span class="built_in">NSCharacterSet</span>* tmpSet = [<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@"0123456789."</span>];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; number.length) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> * string = [number substringWithRange:<span class="built_in">NSMakeRange</span>(i, <span class="number">1</span>)];</span><br><span class="line">        <span class="built_in">NSRange</span> range = [string rangeOfCharacterFromSet:tmpSet];</span><br><span class="line">        <span class="keyword">if</span> (range.length == <span class="number">0</span>) &#123;</span><br><span class="line">            res = <span class="literal">NO</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>文本框代理方法<br><code>- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string</code> 注意事项：</p>
+<p>若需要使用此代理根据文本框内容进行实时更新，则注意：<br><code>replacementString</code> 在减少文本框内容时是为空的，只有当增加文本时才不为空</p>
+<p>同时，当增加文本时，若在此代理中获取文本框的内容，获取的结果是不包含新增的字符串的！！！<br>也许，需要使用 <code>- (NSString *)stringByAppendingString:aSting</code>;</p>
 
         
         
@@ -491,7 +648,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSString/">NSString</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITextField/">UITextField</a>
   </div>
 
 </div>
@@ -519,7 +676,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/22/iOS/适用 QuickTime 进行屏幕录制/" title="使用 QuickTime 进行屏幕录制" itemprop="url">使用 QuickTime 进行屏幕录制</a>
+      <a href="/2015/11/22/iOS/System/使用 NSNotification/" title="消息传递" itemprop="url">消息传递</a>
   </h1>
   <p class="article-author">By
        
@@ -532,14 +689,17 @@
 </header>
     <div class="article-content">
         
-        <p>可用于展示 iOS 模拟器上 Demo</p>
-<ol>
-<li>打开 QuickTime</li>
-<li>File -&gt; New Screen Recording</li>
-<li>此时，弹出窗口</li>
-<li>点击红点进行开始录制</li>
-<li>根据出现在屏幕中央的提示，选择进行全屏录制 还是 局部录制</li>
-</ol>
+        <h3 id="使用-NSNotification"><a href="#使用-NSNotification" class="headerlink" title="使用 NSNotification"></a>使用 NSNotification</h3><p>观察者模式</p>
+<p>注册，成为观察者，并在其中实现收到消息的处理方法<br><code>[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notice:) name:infoName object:nil];</code></p>
+<p><code>addObserever:self</code> 使自己成为观察者<br><code>selector:@selector()</code> 收到消息的处理方法<br><code>name:</code> 消息的专有名字<br><code>object:</code> 消息的发送者，只接受此发送者发送的消息，传 nil 接受任何发送者</p>
+<hr>
+<p>发送消息：<br><code>[[NSNotificationCenter defaultCenter] postNotificationName:infoName object:self userInfo:@{@&quot;info&quot;:@&quot;change background color&quot;}];</code></p>
+<p><code>postNotificationName:</code> 与上面观察者的消息专有名字一样<br><code>object:</code> 发送消息的对象<br><code>userInfo:</code> 消息包含的内容，将会传到消息接收者处</p>
+<p>最后要记得<br>remove 掉注册者</p>
+<h3 id="NSNotificationCenter"><a href="#NSNotificationCenter" class="headerlink" title="NSNotificationCenter"></a>NSNotificationCenter</h3><ul>
+<li>每一个 App 运行的时候都有的一个单例对象</li>
+<li>通知中心<strong><em>同步</em></strong>转发通知给观察者，就是说 <code>postNotification:</code> 方法直到接收并处理完通知才返回值</li>
+</ul>
 
         
         
@@ -553,126 +713,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/QuickTime/">QuickTime</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/UI/模态显示问题/" title="模态显示问题" itemprop="url">模态显示问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>问题：<br>核心控制器A 通过 模态 方式呈现，在 A 中通过导航方式，到控制器 B，在 B 中 模态 呈现控制器 C，当 dismiss C 时，返回的控制器是 A，而不是B？？？！！！！</p>
-<p>解决：<br>在呈现 C 前，将 C 的 modalPresentationStyle 设置为 <code>UIModalPresentationCurrentContext</code></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Modal-Presentation/">Modal Presentation</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/System/iOS 程序启动原理/" title="iOS 程序启动原理" itemprop="url">iOS 程序启动原理</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在 main 方法中</p>
-<ol>
-<li>创建 UIApplication 对象</li>
-<li>创建 AppDelegate 对象，并成为 UIApplication 对象的代理属性</li>
-<li>开启主运行循环，监听事件</li>
-<li>加载 info.plist 文件，判断 info.plist 文件中是否指定了 nib 文件(xib, storyboard) 或 main.storyboard，若有，则加载指定文件</li>
-</ol>
-<p>makeKeyAndVisible 工作原理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">application.keyWindow = self.window;</span><br><span class="line">self.window.hidden = NO;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSNotification/">NSNotification</a><a href="/tags/NSNotificationCenter/">NSNotificationCenter</a>
   </div>
 
 </div>
@@ -724,7 +765,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>35</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>36</sup></a></li>
 			
 		
 			
@@ -744,23 +785,19 @@
 			
 		
 			
-				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python/" title="Python">Python<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/NSNotificationCenter/" title="NSNotificationCenter">NSNotificationCenter<sup>1</sup></a></li>
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 			
 		
 			
@@ -768,11 +805,19 @@
 			
 		
 			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Database/" title="Database">Database<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
 			
 		
 			
@@ -788,19 +833,15 @@
 			
 		
 			
-				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/NSNotification/" title="NSNotification">NSNotification<sup>1</sup></a></li>
 			
 		
 		</ul>

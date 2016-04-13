@@ -68,39 +68,35 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/25/iOS/Exercise/Ballon-like Animation/" title="在这个 Demo 里面，我知道了什么 #1" itemprop="url">在这个 Demo 里面，我知道了什么 #1</a>
+      <a href="/2016/04/13/iOS/iPhone Functionality/电话 短信 邮件/" title="快速拨打电话，发送邮件、短信" itemprop="url">快速拨打电话，发送邮件、短信</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    <time datetime="2016-04-12T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-13</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h1 id="在这个-Demo-里面，我知道了什么-1"><a href="#在这个-Demo-里面，我知道了什么-1" class="headerlink" title="在这个 Demo 里面，我知道了什么 #1"></a>在这个 Demo 里面，我知道了什么 #1</h1><p>这里是 Demo -&gt; <a href="https://github.com/Y-YYeung/Circles" target="_blank" rel="external">Circles</a></p>
-<h3 id="1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks"><a href="#1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks" class="headerlink" title="1. 使用 CAShapeLayer 对视图进行绘制，可以参考 这个 gitbooks"></a>1. 使用 <code>CAShapeLayer</code> 对视图进行绘制，可以参考 <a href="https://zsisme.gitbooks.io/ios-/content/chapter6/cashapelayer.html" target="_blank" rel="external">这个 gitbooks</a></h3><p>优点是：</p>
-<blockquote>
-<p>   •    渲染快速。CAShapeLayer使用了硬件加速，绘制同一图形会比用Core Graphics快很多。<br>    •    高效使用内存。一个CAShapeLayer不需要像普通CALayer一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存。<br>    •    不会被图层边界剪裁掉。一个CAShapeLayer可以在边界之外绘制。你的图层路径不会像在使用Core Graphics的普通CALayer一样被剪裁掉（如我们在第二章所见）。<br>    •    不会出现像素化。当你给CAShapeLayer做3D变换时，它不像一个有寄宿图的普通图层一样变得像素化。</p>
-</blockquote>
-<h3 id="2-如何生成随机数，可以看-NSHipster"><a href="#2-如何生成随机数，可以看-NSHipster" class="headerlink" title="2. 如何生成随机数，可以看 NSHipster"></a>2. 如何生成随机数，可以看 <a href="http://nshipster.cn/random/" target="_blank" rel="external">NSHipster</a></h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机整数 0 ~ N-1：</span></span><br><span class="line"><span class="built_in">NSUInteger</span> r = arc4random_uniform(N);</span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机浮点数 0 ~ 1, double 类型</span></span><br><span class="line">srand48(time(<span class="number">0</span>)); <span class="comment">// 生成种子，只运行一次, time(0) 当前时间</span></span><br><span class="line"><span class="keyword">double</span> r = drand48();</span><br></pre></td></tr></table></figure>
-<h3 id="3-关于-NSTimer"><a href="#3-关于-NSTimer" class="headerlink" title="3. 关于 NSTimer"></a>3. 关于 <code>NSTimer</code></h3><ul>
-<li><code>NSTimer</code> 实例会 retain target</li>
-<li>尽量指定 <code>NSTimer</code> 实例运行的 <code>RunLoop</code>, 特别与 <code>UITableView</code> 等控件一起用时</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSRunloop</span> currentRunLoop] addTimer:<span class="keyword">self</span>.timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br></pre></td></tr></table></figure>
-<ul>
-<li>暂停 <code>NSTimer</code>, 综合各种方法，其实就是把 <code>NSTimer</code> 实例杀了</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.timer invalidate];</span><br><span class="line"><span class="keyword">self</span>.timer = <span class="literal">nil</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow"><a href="#4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow" class="headerlink" title="4. 关于 NSMutableArray 的 KVC, 可以查看 stackoverflow"></a>4. 关于 <code>NSMutableArray</code> 的 KVC, 可以查看 <a href="http://stackoverflow.com/questions/10059279/observing-count-in-nsmutablearray" target="_blank" rel="external">stackoverflow</a></h3><p>得票最高的答案大致是：<br>由于其方法以及内容可变的原因， <code>NSMutableArray</code> 并不能进行 KVC。而解决方案是，使用 <code>proxying</code> 代理来进行（这有待进一步学习，代理模式），当然，设计继承于 <code>NSMutableArray</code> 也可以，但使用 <code>proxying</code> 可以更加简单。</p>
-<p><code>NSProxy</code> 是一个简单而强大的类。我们可以使用它来拦截那些发送到数组的消息，就像这个类就是数组自己一样。然后，我们再将此条信息传递给内部的数组。然而，这还是不能使用 KVC。但由于 KVC 是 <code>NSObject</code> 的一个特点，所以，我们可以利用这一点。（所以，这里应该还是利用的代理模式的思想罢了）</p>
-<p>这里，有两个比较亮点的方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br><span class="line"><span class="comment">// Send some message...</span></span><br><span class="line">[<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br></pre></td></tr></table></figure>
+        <h1 id="快速拨打电话，发送邮件、短信"><a href="#快速拨打电话，发送邮件、短信" class="headerlink" title="快速拨打电话，发送邮件、短信"></a>快速拨打电话，发送邮件、短信</h1><h3 id="快速拨打电话"><a href="#快速拨打电话" class="headerlink" title="快速拨打电话"></a>快速拨打电话</h3><p>根据 <a href="www.stackoverflow.com">stackoverflow</a> 人士建议，先使用 <code>telprompt://</code> 构造 URL 进行尝试，若不起效，使用 <code>tel://</code> 构造 URL，若还是不起效，就是设备不支持通话<br>后续，看到有使用 <code>telprompt://</code> 的 App 不能通过审核，那还是使用 <code>tel:</code> 吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (void)contactQuickPhoneCall:(NSString *)phoneNumber&#123;</span><br><span class="line">    // NSURL *phoneURL = [NSURL URLWithString:[@&quot;telprompt://&quot; stringByAppendingString:phoneNumber]];</span><br><span class="line">    NSURL *phoneFallbackURL = [NSURL URLWithString:[@&quot;tel://&quot; stringByAppendingString:phoneNumber]];</span><br><span class="line">    </span><br><span class="line">    // Try &quot;telpromt&quot; first, if it fails, try &quot;tel&quot;</span><br><span class="line">    /* if ([[UIApplication sharedApplication] canOpenURL:phoneURL]) &#123;</span><br><span class="line">        [[UIApplication sharedApplication] openURL:phoneURL];</span><br><span class="line">    &#125; else */</span><br><span class="line">    if ([[UIApplication sharedApplication] canOpenURL:phoneFallbackURL])&#123;</span><br><span class="line">        [[UIApplication sharedApplication] openURL:phoneFallbackURL];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">#if DEBUG</span><br><span class="line">        NSLog(@&quot;This device does not support phone call&quot;);</span><br><span class="line">#endif</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="发送邮件"><a href="#发送邮件" class="headerlink" title="发送邮件"></a>发送邮件</h3><ol>
+<li>导入头文件 <code>#import &lt;MessageUI/MFMailComposeViewController.h&gt;</code></li>
+<li>发送邮件逻辑，实现在一个直接继承自 <code>NSObject</code> 的类中 (code 2.1)</li>
+<li>实现协议 <code>MFMailComposeViewControllerDelegate</code> (code 2.2)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// code 2.1</span><br><span class="line">- (void)contactQuickEmail:(NSArray *)recipients&#123;</span><br><span class="line">    </span><br><span class="line">    if ([MFMailComposeViewController canSendMail]) &#123;</span><br><span class="line">        NSString *emailTitle = @&quot;&quot;;</span><br><span class="line">        NSString *emailBody = @&quot;&quot;;</span><br><span class="line">        NSArray *toRecipients = recipients;</span><br><span class="line">        </span><br><span class="line">        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];</span><br><span class="line">        mc.mailComposeDelegate = self;</span><br><span class="line">        [mc setSubject:emailTitle];</span><br><span class="line">        [mc setMessageBody:emailBody isHTML:NO];</span><br><span class="line">        [mc setToRecipients:toRecipients];</span><br><span class="line">        </span><br><span class="line">        // self.navi 是操作页面所在的导航控制器，用于页面跳转</span><br><span class="line">        [self.navi presentViewController:mc animated:YES completion:nil];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">#if DEBUG</span><br><span class="line">        NSLog(@&quot;This device cannot send email&quot;);</span><br><span class="line">#endif</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// code 2.2</span><br><span class="line">// 协议就只有一个委托方法</span><br><span class="line">- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error&#123;</span><br><span class="line">    // self.mailSendFinishBlock(...) 是一个自定义的 Block，调用方法只需定义邮件发送后的动作</span><br><span class="line">    self.mailSendFinishBlock(controller, result, error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="发送短信"><a href="#发送短信" class="headerlink" title="发送短信"></a>发送短信</h3><ol>
+<li>导入头文件 <code>#import &lt;MessageUI/MFMessageComposeViewController.h&gt;</code></li>
+<li>发送短信逻辑，实现在一个直接继承自 <code>NSObject</code> 的类中 (code 3.1)</li>
+<li>实现协议 <code>MFMessageComposeViewControllerDelegate</code> (code 3.2)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// code 3.1</span><br><span class="line">- (void)contactQuickMessage:(NSArray *)recipients&#123;</span><br><span class="line">    MFMessageComposeViewController *msgVC = [[MFMessageComposeViewController alloc] init];</span><br><span class="line">    if ([MFMessageComposeViewController canSendText]) &#123;</span><br><span class="line">        msgVC.body = @&quot;短信...&quot;;</span><br><span class="line">        msgVC.recipients = recipients;</span><br><span class="line">        msgVC.messageComposeDelegate = self;</span><br><span class="line">        </span><br><span class="line">        // self.navi 是操作页面所在的导航控制器，用于页面跳转</span><br><span class="line">        [self.navi presentViewController:msgVC animated:YES completion:nil];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">#if DEBUG</span><br><span class="line">        NSLog(@&quot;This device cannot send message&quot;);</span><br><span class="line">#endif</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// code 3.2</span><br><span class="line">// 协议就只有一个委托方法</span><br><span class="line">- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result&#123;</span><br><span class="line">    // self.messageSendFinishBlock(...) 是一个自定义的 Block，调用方法只需定义邮件发送后的动作</span><br><span class="line">    self.messageSendFinishBlock(controller, result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -115,76 +111,6 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/iOS/">iOS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/25/Python/`if __name__ == __main__`/" title="if __name__ == __main__" itemprop="url">if __name__ == __main__</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="if-name-main"><a href="#if-name-main" class="headerlink" title="if __name__ == __main__"></a><code>if __name__ == __main__</code></h1><ul>
-<li>Python 文件的后缀名为 <code>.py</code></li>
-<li><code>.py</code> 文件可直接执行，可作为（功能）模块被导入</li>
-<li><code>__name__</code> 是模块的内置属性，代表 <code>.py</code> 文件的调用方式</li>
-<li><code>__main__</code> 表示 <code>.py</code> 文件是直接执行的</li>
-<li>综上，<code>if __name__ == __main__</code> 表示：当前 <code>.py</code> 文件是作为直接调用的方式执行，而不是作为模块被调度执行</li>
-</ul>
-<h4 id="下面是来自官方文档对-main-的解释"><a href="#下面是来自官方文档对-main-的解释" class="headerlink" title="下面是来自官方文档对 __main__ 的解释"></a>下面是来自官方文档对 <code>__main__</code> 的解释</h4><blockquote>
-<p>‘<strong>main</strong>‘ is the name of the scope in which top-level code executes. A module’s <strong>name</strong> is set equal to ‘<strong>main</strong>‘ when read from standard input, a script, or from an interactive prompt.</p>
-<p>A module can discover whether or not it is running in the main scope by checking its own <strong>name</strong>, which allows a common idiom for conditionally executing code in a module when it is run as a script or with python -m but not when it is imported:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># execute only if run as a script</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<p>For a package, the same effect can be achieved by including a <strong>main</strong>.py module, the contents of which will be executed when the module is run with -m.</p>
-</blockquote>
-<h4 id="下面是来自官方文档对-name-的解释"><a href="#下面是来自官方文档对-name-的解释" class="headerlink" title="下面是来自官方文档对 __name__ 的解释"></a>下面是来自官方文档对 <code>__name__</code> 的解释</h4><blockquote>
-<p>The <strong>name</strong> attribute must be set to the fully-qualified name of the module. This name is used to uniquely identify the module in the import system.</p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Python/">Python</a>
   </div>
 
 </div>
@@ -399,6 +325,150 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/25/Python/`if __name__ == __main__`/" title="if __name__ == __main__" itemprop="url">if __name__ == __main__</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="if-name-main"><a href="#if-name-main" class="headerlink" title="if __name__ == __main__"></a><code>if __name__ == __main__</code></h1><ul>
+<li>Python 文件的后缀名为 <code>.py</code></li>
+<li><code>.py</code> 文件可直接执行，可作为（功能）模块被导入</li>
+<li><code>__name__</code> 是模块的内置属性，代表 <code>.py</code> 文件的调用方式</li>
+<li><code>__main__</code> 表示 <code>.py</code> 文件是直接执行的</li>
+<li>综上，<code>if __name__ == __main__</code> 表示：当前 <code>.py</code> 文件是作为直接调用的方式执行，而不是作为模块被调度执行</li>
+</ul>
+<h4 id="下面是来自官方文档对-main-的解释"><a href="#下面是来自官方文档对-main-的解释" class="headerlink" title="下面是来自官方文档对 __main__ 的解释"></a>下面是来自官方文档对 <code>__main__</code> 的解释</h4><blockquote>
+<p>‘<strong>main</strong>‘ is the name of the scope in which top-level code executes. A module’s <strong>name</strong> is set equal to ‘<strong>main</strong>‘ when read from standard input, a script, or from an interactive prompt.</p>
+<p>A module can discover whether or not it is running in the main scope by checking its own <strong>name</strong>, which allows a common idiom for conditionally executing code in a module when it is run as a script or with python -m but not when it is imported:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># execute only if run as a script</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>For a package, the same effect can be achieved by including a <strong>main</strong>.py module, the contents of which will be executed when the module is run with -m.</p>
+</blockquote>
+<h4 id="下面是来自官方文档对-name-的解释"><a href="#下面是来自官方文档对-name-的解释" class="headerlink" title="下面是来自官方文档对 __name__ 的解释"></a>下面是来自官方文档对 <code>__name__</code> 的解释</h4><blockquote>
+<p>The <strong>name</strong> attribute must be set to the fully-qualified name of the module. This name is used to uniquely identify the module in the import system.</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/25/iOS/Exercise/Ballon-like Animation/" title="在这个 Demo 里面，我知道了什么 #1" itemprop="url">在这个 Demo 里面，我知道了什么 #1</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="在这个-Demo-里面，我知道了什么-1"><a href="#在这个-Demo-里面，我知道了什么-1" class="headerlink" title="在这个 Demo 里面，我知道了什么 #1"></a>在这个 Demo 里面，我知道了什么 #1</h1><p>这里是 Demo -&gt; <a href="https://github.com/Y-YYeung/Circles" target="_blank" rel="external">Circles</a></p>
+<h3 id="1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks"><a href="#1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks" class="headerlink" title="1. 使用 CAShapeLayer 对视图进行绘制，可以参考 这个 gitbooks"></a>1. 使用 <code>CAShapeLayer</code> 对视图进行绘制，可以参考 <a href="https://zsisme.gitbooks.io/ios-/content/chapter6/cashapelayer.html" target="_blank" rel="external">这个 gitbooks</a></h3><p>优点是：</p>
+<blockquote>
+<p>   •    渲染快速。CAShapeLayer使用了硬件加速，绘制同一图形会比用Core Graphics快很多。<br>    •    高效使用内存。一个CAShapeLayer不需要像普通CALayer一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存。<br>    •    不会被图层边界剪裁掉。一个CAShapeLayer可以在边界之外绘制。你的图层路径不会像在使用Core Graphics的普通CALayer一样被剪裁掉（如我们在第二章所见）。<br>    •    不会出现像素化。当你给CAShapeLayer做3D变换时，它不像一个有寄宿图的普通图层一样变得像素化。</p>
+</blockquote>
+<h3 id="2-如何生成随机数，可以看-NSHipster"><a href="#2-如何生成随机数，可以看-NSHipster" class="headerlink" title="2. 如何生成随机数，可以看 NSHipster"></a>2. 如何生成随机数，可以看 <a href="http://nshipster.cn/random/" target="_blank" rel="external">NSHipster</a></h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机整数 0 ~ N-1：</span></span><br><span class="line"><span class="built_in">NSUInteger</span> r = arc4random_uniform(N);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机浮点数 0 ~ 1, double 类型</span></span><br><span class="line">srand48(time(<span class="number">0</span>)); <span class="comment">// 生成种子，只运行一次, time(0) 当前时间</span></span><br><span class="line"><span class="keyword">double</span> r = drand48();</span><br></pre></td></tr></table></figure>
+<h3 id="3-关于-NSTimer"><a href="#3-关于-NSTimer" class="headerlink" title="3. 关于 NSTimer"></a>3. 关于 <code>NSTimer</code></h3><ul>
+<li><code>NSTimer</code> 实例会 retain target</li>
+<li>尽量指定 <code>NSTimer</code> 实例运行的 <code>RunLoop</code>, 特别与 <code>UITableView</code> 等控件一起用时</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSRunloop</span> currentRunLoop] addTimer:<span class="keyword">self</span>.timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>暂停 <code>NSTimer</code>, 综合各种方法，其实就是把 <code>NSTimer</code> 实例杀了</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.timer invalidate];</span><br><span class="line"><span class="keyword">self</span>.timer = <span class="literal">nil</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow"><a href="#4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow" class="headerlink" title="4. 关于 NSMutableArray 的 KVC, 可以查看 stackoverflow"></a>4. 关于 <code>NSMutableArray</code> 的 KVC, 可以查看 <a href="http://stackoverflow.com/questions/10059279/observing-count-in-nsmutablearray" target="_blank" rel="external">stackoverflow</a></h3><p>得票最高的答案大致是：<br>由于其方法以及内容可变的原因， <code>NSMutableArray</code> 并不能进行 KVC。而解决方案是，使用 <code>proxying</code> 代理来进行（这有待进一步学习，代理模式），当然，设计继承于 <code>NSMutableArray</code> 也可以，但使用 <code>proxying</code> 可以更加简单。</p>
+<p><code>NSProxy</code> 是一个简单而强大的类。我们可以使用它来拦截那些发送到数组的消息，就像这个类就是数组自己一样。然后，我们再将此条信息传递给内部的数组。然而，这还是不能使用 KVC。但由于 KVC 是 <code>NSObject</code> 的一个特点，所以，我们可以利用这一点。（所以，这里应该还是利用的代理模式的思想罢了）</p>
+<p>这里，有两个比较亮点的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br><span class="line"><span class="comment">// Send some message...</span></span><br><span class="line">[<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
   </div>
 
 </div>
@@ -790,71 +860,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/14/iOS/UI/全屏滑动返回手势实现/" title="全屏滑动返回手势实现" itemprop="url">全屏滑动返回手势实现</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>链接 <a href="http://www.cocoachina.com/ios/20150811/12897.html" target="_blank" rel="external">这里</a></p>
-<h4 id="系统自身如何实现"><a href="#系统自身如何实现" class="headerlink" title="系统自身如何实现"></a>系统自身如何实现</h4><ul>
-<li>只能边缘触发</li>
-<li>系统本身已经实现，我们只需找出被调用的方法</li>
-</ul>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
-<li>创建手势时，需要绑定监听者，触发手势会调用 target 的 action</li>
-<li>打印导航器的 <code>self.interactivePopGestureRecognizer</code> 可以看到蛛丝马迹</li>
-<li>以后调用系统本身实现的方法可以通过这种方法来观察</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// 获取系统自带滑动手势的target对象</span></span><br><span class="line">    <span class="keyword">id</span> target = <span class="keyword">self</span>.interactivePopGestureRecognizer.delegate;</span><br><span class="line">    <span class="comment">// 创建全屏滑动手势，调用系统自带滑动手势的target的action方法</span></span><br><span class="line">    <span class="built_in">UIPanGestureRecognizer</span> *pan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:target action:<span class="keyword">@selector</span>(handleNavigationTransition:)];</span><br><span class="line">    <span class="comment">// 设置手势代理，拦截手势触发</span></span><br><span class="line">    pan.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="comment">// 给导航控制器的view添加全屏滑动手势</span></span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:pan];</span><br><span class="line">    <span class="comment">// 禁止使用系统自带的滑动手势</span></span><br><span class="line">    <span class="keyword">self</span>.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 什么时候调用：每次触发手势之前都会询问下代理，是否触发。</span></span><br><span class="line"><span class="comment">// 作用：拦截手势触发</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizerShouldBegin:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 注意：只有非根控制器才有滑动返回功能，根控制器没有。</span></span><br><span class="line">    <span class="comment">// 判断导航控制器是否只有一个子控制器，如果只有一个子控制器，肯定是根控制器</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.childViewControllers.count == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 表示用户在根控制器界面，就不需要触发滑动手势，</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UIGesture/">UIGesture</a><a href="/tags/Transition/">Transition</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/01/14/iOS/UI/UIImage 拉伸/" title="UIImage 拉伸" itemprop="url">UIImage 拉伸</a>
   </h1>
   <p class="article-author">By
@@ -945,7 +950,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>35</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>36</sup></a></li>
 			
 		
 			
@@ -965,23 +970,19 @@
 			
 		
 			
-				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python/" title="Python">Python<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/NSNotificationCenter/" title="NSNotificationCenter">NSNotificationCenter<sup>1</sup></a></li>
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 			
 		
 			
@@ -989,11 +990,19 @@
 			
 		
 			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Database/" title="Database">Database<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
 			
 		
 			
@@ -1009,19 +1018,15 @@
 			
 		
 			
-				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Multi-Thread/" title="Multi-Thread">Multi-Thread<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/NSNotification/" title="NSNotification">NSNotification<sup>1</sup></a></li>
 			
 		
 		</ul>
