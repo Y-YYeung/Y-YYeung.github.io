@@ -1,0 +1,537 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python 类相关 | Little Wiki of YYYeung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Wen Yongyang">
+    
+
+    
+    <meta name="description" content="Python 类
+属性名前加上双下划线 __ ，可变为私有变量
+强制访问私有变量：&amp;lt;a instance&amp;gt;._&amp;lt;class name&amp;gt;__&amp;lt;property name&amp;gt;，如：bart._Student__name
+双下划线开头，并以双下划线结尾，为特殊变量，可直接访问
+
+判断变量是否为某个类型isinstance()
+
+isinstance(a, list)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 类相关">
+<meta property="og:url" content="http://myeung.xyz/2016/04/19/Python/Python 类/index.html">
+<meta property="og:site_name" content="Little Wiki of YYYeung">
+<meta property="og:description" content="Python 类
+属性名前加上双下划线 __ ，可变为私有变量
+强制访问私有变量：&amp;lt;a instance&amp;gt;._&amp;lt;class name&amp;gt;__&amp;lt;property name&amp;gt;，如：bart._Student__name
+双下划线开头，并以双下划线结尾，为特殊变量，可直接访问
+
+判断变量是否为某个类型isinstance()
+
+isinstance(a, list)">
+<meta property="og:updated_time" content="2016-04-19T13:31:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 类相关">
+<meta name="twitter:description" content="Python 类
+属性名前加上双下划线 __ ，可变为私有变量
+强制访问私有变量：&amp;lt;a instance&amp;gt;._&amp;lt;class name&amp;gt;__&amp;lt;property name&amp;gt;，如：bart._Student__name
+双下划线开头，并以双下划线结尾，为特殊变量，可直接访问
+
+判断变量是否为某个类型isinstance()
+
+isinstance(a, list)">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
+				<h2 class="blog-motto">A wiki as a quick reference</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:myeung.xyz">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/19/Python/Python 类/" title="Python 类相关" itemprop="url">Python 类相关</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-19T13:31:00.000Z" itemprop="datePublished"> 发表于 2016-04-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-类"><span class="toc-number">1.</span> <span class="toc-text">Python 类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#判断变量是否为某个类型"><span class="toc-number">1.0.1.</span> <span class="toc-text">判断变量是否为某个类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断对象类型"><span class="toc-number">1.0.2.</span> <span class="toc-text">判断对象类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断类实例的类型，便于判断继承关系"><span class="toc-number">1.0.3.</span> <span class="toc-text">判断类实例的类型，便于判断继承关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获得对象的所有属性和方法"><span class="toc-number">1.0.4.</span> <span class="toc-text">获得对象的所有属性和方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直接操作一个对象的状态"><span class="toc-number">1.0.5.</span> <span class="toc-text">直接操作一个对象的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例属性，类属性"><span class="toc-number">1.0.6.</span> <span class="toc-text">实例属性，类属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slots"><span class="toc-number">1.0.7.</span> <span class="toc-text">__slots__</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用属性-property"><span class="toc-number">1.0.8.</span> <span class="toc-text">使用属性 @property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多重继承，Mixln"><span class="toc-number">1.0.9.</span> <span class="toc-text">多重继承，Mixln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊变量"><span class="toc-number">1.0.10.</span> <span class="toc-text">特殊变量</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="Python-类"><a href="#Python-类" class="headerlink" title="Python 类"></a>Python 类</h1><ul>
+<li>属性名前加上双下划线 <code>__</code> ，可变为<strong>私有变量</strong></li>
+<li>强制访问私有变量：<code>&lt;a instance&gt;._&lt;class name&gt;__&lt;property name&gt;</code>，如：<code>bart._Student__name</code></li>
+<li>双下划线开头，并以双下划线结尾，为<strong>特殊变量</strong>，可直接访问</li>
+</ul>
+<h3 id="判断变量是否为某个类型"><a href="#判断变量是否为某个类型" class="headerlink" title="判断变量是否为某个类型"></a>判断变量是否为某个类型</h3><p><code>isinstance()</code></p>
+<blockquote>
+<p>isinstance(a, list)</p>
+</blockquote>
+<h3 id="判断对象类型"><a href="#判断对象类型" class="headerlink" title="判断对象类型"></a>判断对象类型</h3><p><code>type()</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本类型可用</span></span><br><span class="line">type(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数变量或类的实例变量可用</span></span><br><span class="line">type(abs) <span class="comment"># 函数</span></span><br><span class="line">type(a) <span class="comment"># 类实例</span></span><br></pre></td></tr></table></figure>
+<p>types 模块中含已定义的常量，如：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">types.FunctionType</span><br><span class="line">types.BuiltinFunctionType</span><br></pre></td></tr></table></figure>
+<h3 id="判断类实例的类型，便于判断继承关系"><a href="#判断类实例的类型，便于判断继承关系" class="headerlink" title="判断类实例的类型，便于判断继承关系"></a>判断类实例的类型，便于判断继承关系</h3><p><code>isinstance()</code></p>
+<h3 id="获得对象的所有属性和方法"><a href="#获得对象的所有属性和方法" class="headerlink" title="获得对象的所有属性和方法"></a>获得对象的所有属性和方法</h3><p><code>dir()</code></p>
+<h3 id="直接操作一个对象的状态"><a href="#直接操作一个对象的状态" class="headerlink" title="直接操作一个对象的状态"></a>直接操作一个对象的状态</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可抛出 AttributeError 错误</span></span><br><span class="line">getattr()</span><br><span class="line">setattr()</span><br><span class="line">hasattr()</span><br></pre></td></tr></table></figure>
+<h3 id="实例属性，类属性"><a href="#实例属性，类属性" class="headerlink" title="实例属性，类属性"></a>实例属性，类属性</h3><p>实例属性通过 <code>self</code> 进行绑定，类属性直接在类中定义属性</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name <span class="comment"># 实例属性，实例属性优先级高于类属性</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    name = <span class="string">"Student"</span> <span class="comment"># 类属性，归类所有，所有实例都可以访问到</span></span><br></pre></td></tr></table></figure>
+<h3 id="slots"><a href="#slots" class="headerlink" title="__slots__"></a><code>__slots__</code></h3><p>限制动态绑定的实例属性，如，只允许对 <code>Student</code> 添加 <code>name</code> 和 <code>age</code> 属性</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'name'</span>, <span class="string">'age'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="使用属性-property"><a href="#使用属性-property" class="headerlink" title="使用属性 @property"></a>使用属性 <code>@property</code></h3><ul>
+<li>简化 getter 与 setter</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.score</span><br><span class="line">        </span><br><span class="line"><span class="meta">    @score.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(value, int):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must be an integer!'</span>)</span><br><span class="line">        <span class="keyword">if</span> value &lt; <span class="number">0</span> <span class="keyword">or</span> value &gt; <span class="number">100</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must between 0 ~ 100!'</span>)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure>
+<h3 id="多重继承，Mixln"><a href="#多重继承，Mixln" class="headerlink" title="多重继承，Mixln"></a>多重继承，Mixln</h3><ul>
+<li>主线单一即成，多重即成混入其他功能</li>
+</ul>
+<h3 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h3><p><code>__str__</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># print 调用 __repr__(), __repr__() 开发者式字符串</span></span><br><span class="line"><span class="comment"># __str__() 用户式字符串</span></span><br><span class="line"><span class="comment"># 偷懒方法</span></span><br><span class="line">__repr__ = __str__</span><br></pre></td></tr></table></figure>
+<p><code>__iter__</code></p>
+<blockquote>
+<p>如果一个类想被用于for … in循环，类似list或tuple那样，就必须实现一个<strong>iter</strong>()方法，该方法返回一个迭代对象，然后，Python的for循环就会不断调用该迭代对象的<strong>next</strong>()方法拿到循环的下一个值，直到遇到StopIteration错误时退出循环。</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fib</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.a, self.b = <span class="number">0</span>, <span class="number">1</span> <span class="comment"># 初始化两个计数器a，b</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self <span class="comment"># 实例本身就是迭代对象，故返回自己</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.a, self.b = self.b, self.a + self.b <span class="comment"># 计算下一个值</span></span><br><span class="line">        <span class="keyword">if</span> self.a &gt; <span class="number">100000</span>: <span class="comment"># 退出循环的条件</span></span><br><span class="line">            <span class="keyword">raise</span> StopIteration();</span><br><span class="line">        <span class="keyword">return</span> self.a <span class="comment"># 返回下一个值</span></span><br></pre></td></tr></table></figure>
+<p><code>__getitem__</code></p>
+<blockquote>
+<p>要表现得像list那样按照下标取出元素，需要实现<strong>getitem</strong>()方法</p>
+</blockquote>
+<p><code>__call__</code></p>
+<p>实例本身上直接调用方法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'My name is %s.'</span> % self.name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student(&apos;Michael&apos;)</span><br><span class="line">&gt;&gt;&gt; s() # self参数不要传入</span><br><span class="line">My name is Michael.</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://myeung.xyz/2016/04/19/Python/Python 类/" data-title="Python 类相关 | Little Wiki of YYYeung" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/13/iOS/iPhone Functionality/电话 短信 邮件/"  title="快速拨打电话，发送邮件、短信">
+ <strong>下一篇：</strong><br/> 
+ <span>快速拨打电话，发送邮件、短信
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-类"><span class="toc-number">1.</span> <span class="toc-text">Python 类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#判断变量是否为某个类型"><span class="toc-number">1.0.1.</span> <span class="toc-text">判断变量是否为某个类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断对象类型"><span class="toc-number">1.0.2.</span> <span class="toc-text">判断对象类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断类实例的类型，便于判断继承关系"><span class="toc-number">1.0.3.</span> <span class="toc-text">判断类实例的类型，便于判断继承关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获得对象的所有属性和方法"><span class="toc-number">1.0.4.</span> <span class="toc-text">获得对象的所有属性和方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直接操作一个对象的状态"><span class="toc-number">1.0.5.</span> <span class="toc-text">直接操作一个对象的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例属性，类属性"><span class="toc-number">1.0.6.</span> <span class="toc-text">实例属性，类属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slots"><span class="toc-number">1.0.7.</span> <span class="toc-text">__slots__</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用属性-property"><span class="toc-number">1.0.8.</span> <span class="toc-text">使用属性 @property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多重继承，Mixln"><span class="toc-number">1.0.9.</span> <span class="toc-text">多重继承，Mixln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊变量"><span class="toc-number">1.0.10.</span> <span class="toc-text">特殊变量</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="Y-YYeung" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>36</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UITableView/" title="UITableView">UITableView<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Design-Patterns/" title="Design Patterns">Design Patterns<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Faith without works is Dead. <br/>
+			Just keep young and simple.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/Y-YYeung" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:monwingyeung@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Wen Yongyang">Wen Yongyang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -50,7 +50,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:myeung.xyz">
 					</form>
 					
@@ -68,6 +68,71 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/14/iOS/UI/全屏滑动返回手势实现/" title="全屏滑动返回手势实现" itemprop="url">全屏滑动返回手势实现</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>链接 <a href="http://www.cocoachina.com/ios/20150811/12897.html" target="_blank" rel="external">这里</a></p>
+<h4 id="系统自身如何实现"><a href="#系统自身如何实现" class="headerlink" title="系统自身如何实现"></a>系统自身如何实现</h4><ul>
+<li>只能边缘触发</li>
+<li>系统本身已经实现，我们只需找出被调用的方法</li>
+</ul>
+<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
+<li>创建手势时，需要绑定监听者，触发手势会调用 target 的 action</li>
+<li>打印导航器的 <code>self.interactivePopGestureRecognizer</code> 可以看到蛛丝马迹</li>
+<li>以后调用系统本身实现的方法可以通过这种方法来观察</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// 获取系统自带滑动手势的target对象</span></span><br><span class="line">    <span class="keyword">id</span> target = <span class="keyword">self</span>.interactivePopGestureRecognizer.delegate;</span><br><span class="line">    <span class="comment">// 创建全屏滑动手势，调用系统自带滑动手势的target的action方法</span></span><br><span class="line">    <span class="built_in">UIPanGestureRecognizer</span> *pan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:target action:<span class="keyword">@selector</span>(handleNavigationTransition:)];</span><br><span class="line">    <span class="comment">// 设置手势代理，拦截手势触发</span></span><br><span class="line">    pan.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="comment">// 给导航控制器的view添加全屏滑动手势</span></span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:pan];</span><br><span class="line">    <span class="comment">// 禁止使用系统自带的滑动手势</span></span><br><span class="line">    <span class="keyword">self</span>.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 什么时候调用：每次触发手势之前都会询问下代理，是否触发。</span></span><br><span class="line"><span class="comment">// 作用：拦截手势触发</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizerShouldBegin:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 注意：只有非根控制器才有滑动返回功能，根控制器没有。</span></span><br><span class="line">    <span class="comment">// 判断导航控制器是否只有一个子控制器，如果只有一个子控制器，肯定是根控制器</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.childViewControllers.count == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 表示用户在根控制器界面，就不需要触发滑动手势，</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UIGesture/">UIGesture</a><a href="/tags/Transition/">Transition</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/14/iOS/UI/UIImage 拉伸/" title="UIImage 拉伸" itemprop="url">UIImage 拉伸</a>
   </h1>
   <p class="article-author">By
@@ -75,7 +140,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-14</time>
+    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-14</time>
     
   </p>
 </header>
@@ -134,132 +199,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/12/iOS/System/nil - Nil - NULL - NSNull/" title="空指针 / 空对象" itemprop="url">空指针 / 空对象</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="nil-Nil-NULL-NSNull"><a href="#nil-Nil-NULL-NSNull" class="headerlink" title="nil / Nil / NULL / NSNull"></a>nil / Nil / NULL / NSNull</h1><p>在 C 语言中，用 <code>0</code> 表示 <code>不存在</code> 的原始值，<code>NULL</code> 作为指针 <code>不存在</code> 的原始值</p>
-<p>Objective-C 在 C 的基础上增加 <code>nil</code>，<code>nil</code> 指向不存在的对象指针，与 <code>NULL</code> 技术上相等</p>
-<p>Foundation 定义了 <code>NSNull</code>，只有一个类方法 <code>+ null</code>，单例模式，返回一个 <code>NSNull</code> 对象，是一个实际的对象，与 <code>nil</code>, <code>NULL</code> 不同</p>
-<blockquote>
-<p>The NSNull class defines a singleton object used to represent null values in collection objects (which don’t allow nil values).</p>
-</blockquote>
-<h4 id="Something-about-nil"><a href="#Something-about-nil" class="headerlink" title="Something about nil"></a>Something about nil</h4><ul>
-<li>刚被分配的 NSObject 内容被设置为 0，该对象的所有指针都从 <code>nil</code> 开始</li>
-<li>向 <code>nil</code> 发送消息，返回 0 值，避免在使用 <code>nil</code> 前进行检查</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 举个例子，这个表达...</span></span><br><span class="line"><span class="keyword">if</span> (name != <span class="literal">nil</span> &amp;&amp; [name isEqualToString:<span class="string">@"Steve"</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// …可以被简化为：</span></span><br><span class="line"><span class="keyword">if</span> ([name isEqualToString:<span class="string">@"steve"</span>]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Something-about-NSNull"><a href="#Something-about-NSNull" class="headerlink" title="Something about NSNull"></a>Something about NSNull</h4><ul>
-<li>解决如NSArray和NSDictionary之类的集合不能有nil值的缺陷</li>
-<li>可以将NSNull理解为有效的将 <code>NULL</code> 或者 <code>nil</code> 值封装 boxing</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableDictionary</span> *mutableDictionary = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">mutableDictionary[<span class="string">@"someKey"</span>] = [<span class="built_in">NSNull</span> null]; <span class="comment">// Sets value of NSNull singleton for `someKey`</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [mutableDictionary allKeys]); <span class="comment">// @[@"someKey"]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/14525653795491.jpg" alt="A Picture"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Objective-C/">Objective-C</a><a href="/tags/pointer/">pointer</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/12/iOS/iPhone Functionality/控制闪光灯/" title="控制闪光灯" itemprop="url">控制闪光灯</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVCaptureDevice</span> *device = [<span class="built_in">AVCaptureDevice</span> defaultDeviceWithMediaType:<span class="built_in">AVMediaTypeVideo</span>];</span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line"><span class="keyword">if</span> (device.hasTorch) &#123;  <span class="comment">// 判断设备是否有散光灯</span></span><br><span class="line">    <span class="built_in">BOOL</span> b = [device lockForConfiguration:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (!b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            DLog(<span class="string">@"lock torch configuration error:%@"</span>, error.localizedDescription);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    device.torchMode =</span><br><span class="line">    (device.torchMode == <span class="built_in">AVCaptureTorchModeOff</span> ? <span class="built_in">AVCaptureTorchModeOn</span> : <span class="built_in">AVCaptureTorchModeOff</span>);</span><br><span class="line">    [device unlockForConfiguration];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Camera/">Camera</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/01/12/iOS/System/[RunLoop](http:--blog.ibireme.com-2015-05-18-runloop-)/" title="Run Loop" itemprop="url">Run Loop</a>
   </h1>
   <p class="article-author">By
@@ -267,7 +206,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
     
   </p>
 </header>
@@ -337,6 +276,61 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/12/iOS/iPhone Functionality/控制闪光灯/" title="控制闪光灯" itemprop="url">控制闪光灯</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVCaptureDevice</span> *device = [<span class="built_in">AVCaptureDevice</span> defaultDeviceWithMediaType:<span class="built_in">AVMediaTypeVideo</span>];</span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line"><span class="keyword">if</span> (device.hasTorch) &#123;  <span class="comment">// 判断设备是否有散光灯</span></span><br><span class="line">    <span class="built_in">BOOL</span> b = [device lockForConfiguration:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (!b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            DLog(<span class="string">@"lock torch configuration error:%@"</span>, error.localizedDescription);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    device.torchMode =</span><br><span class="line">    (device.torchMode == <span class="built_in">AVCaptureTorchModeOff</span> ? <span class="built_in">AVCaptureTorchModeOn</span> : <span class="built_in">AVCaptureTorchModeOff</span>);</span><br><span class="line">    [device unlockForConfiguration];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Camera/">Camera</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/12/iOS/UI/自定义 Tab Bar 步骤/" title="自定义 Tab Bar 步骤" itemprop="url">自定义 Tab Bar 步骤</a>
   </h1>
   <p class="article-author">By
@@ -344,7 +338,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-12</time>
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
     
   </p>
 </header>
@@ -403,6 +397,77 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/12/iOS/System/nil - Nil - NULL - NSNull/" title="空指针 / 空对象" itemprop="url">空指针 / 空对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="nil-Nil-NULL-NSNull"><a href="#nil-Nil-NULL-NSNull" class="headerlink" title="nil / Nil / NULL / NSNull"></a>nil / Nil / NULL / NSNull</h1><p>在 C 语言中，用 <code>0</code> 表示 <code>不存在</code> 的原始值，<code>NULL</code> 作为指针 <code>不存在</code> 的原始值</p>
+<p>Objective-C 在 C 的基础上增加 <code>nil</code>，<code>nil</code> 指向不存在的对象指针，与 <code>NULL</code> 技术上相等</p>
+<p>Foundation 定义了 <code>NSNull</code>，只有一个类方法 <code>+ null</code>，单例模式，返回一个 <code>NSNull</code> 对象，是一个实际的对象，与 <code>nil</code>, <code>NULL</code> 不同</p>
+<blockquote>
+<p>The NSNull class defines a singleton object used to represent null values in collection objects (which don’t allow nil values).</p>
+</blockquote>
+<h4 id="Something-about-nil"><a href="#Something-about-nil" class="headerlink" title="Something about nil"></a>Something about nil</h4><ul>
+<li>刚被分配的 NSObject 内容被设置为 0，该对象的所有指针都从 <code>nil</code> 开始</li>
+<li>向 <code>nil</code> 发送消息，返回 0 值，避免在使用 <code>nil</code> 前进行检查</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 举个例子，这个表达...</span></span><br><span class="line"><span class="keyword">if</span> (name != <span class="literal">nil</span> &amp;&amp; [name isEqualToString:<span class="string">@"Steve"</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// …可以被简化为：</span></span><br><span class="line"><span class="keyword">if</span> ([name isEqualToString:<span class="string">@"steve"</span>]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Something-about-NSNull"><a href="#Something-about-NSNull" class="headerlink" title="Something about NSNull"></a>Something about NSNull</h4><ul>
+<li>解决如NSArray和NSDictionary之类的集合不能有nil值的缺陷</li>
+<li>可以将NSNull理解为有效的将 <code>NULL</code> 或者 <code>nil</code> 值封装 boxing</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableDictionary</span> *mutableDictionary = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">mutableDictionary[<span class="string">@"someKey"</span>] = [<span class="built_in">NSNull</span> null]; <span class="comment">// Sets value of NSNull singleton for `someKey`</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [mutableDictionary allKeys]); <span class="comment">// @[@"someKey"]</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://7xqzwt.com1.z0.glb.clouddn.com/14525653795491.jpg" alt="A Picture"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Objective-C/">Objective-C</a><a href="/tags/pointer/">pointer</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/11/iOS/UI/就那么几行代码搞定系列/" title="就那么几行代码搞定系列" itemprop="url">就那么几行代码搞定系列</a>
   </h1>
   <p class="article-author">By
@@ -410,7 +475,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-11T05:50:00.000Z" itemprop="datePublished"> Published 2016-01-11</time>
+    <time datetime="2016-01-11T05:50:00.000Z" itemprop="datePublished"> 发表于 2016-01-11</time>
     
   </p>
 </header>
@@ -504,7 +569,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-04T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-05</time>
+    <time datetime="2016-01-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-05</time>
     
   </p>
 </header>
@@ -579,7 +644,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-02T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-03</time>
+    <time datetime="2016-01-02T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-03</time>
     
   </p>
 </header>
@@ -635,7 +700,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-09T16:00:00.000Z" itemprop="datePublished"> Published 2015-12-10</time>
+    <time datetime="2015-12-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-10</time>
     
   </p>
 </header>
@@ -684,83 +749,21 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/30/iOS/UI/去除 UINavigationBar 返回按钮文字/" title="去除 UINavigationBar 返回按钮文字" itemprop="url">去除 UINavigationBar 返回按钮文字</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>描述：页面A 向页面B 跳转，去除页面B 导航栏左上方的返回按钮的文字，即只保留箭头</p>
-<p>解决：</p>
-<ol>
-<li>在准备跳转处编写代码，若在 storyboard 中，则在 <code>- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender</code> 中编写</li>
-<li>添加代码：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@&quot;&quot; style:UIBarButtonItemStylePlain target:nil action:nil];</span><br></pre></td></tr></table></figure>
-<p>关键点：<br>代码编写在做 push 的 VC 中，而不是新的 VC 中，在这里，即编写在页面A 的控制器中。<br>新VC 的后退按钮文字是旧VC 的一个属性</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UINavigationBar/">UINavigationBar</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="Y-YYeung" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -772,11 +775,15 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
 				<li><a href="/tags/iOS/" title="iOS">iOS<sup>36</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>3</sup></a></li>
 			
 		
 			
@@ -788,11 +795,11 @@
 			
 		
 			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Python/" title="Python">Python<sup>2</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
@@ -800,23 +807,7 @@
 			
 		
 			
-				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/NSString/" title="NSString">NSString<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
 			
 		
 			
@@ -828,15 +819,27 @@
 			
 		
 			
-				<li><a href="/tags/Database/" title="Database">Database<sup>1</sup></a></li>
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
 			
 		
 			
@@ -844,7 +847,7 @@
 			
 		
 			
-				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
 			
 		
 			
@@ -852,7 +855,7 @@
 			
 		
 			
-				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
+				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -991,7 +994,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

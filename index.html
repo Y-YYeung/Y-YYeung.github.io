@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -50,7 +50,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:myeung.xyz">
 					</form>
 					
@@ -68,6 +68,102 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/19/Python/Python 类/" title="Python 类相关" itemprop="url">Python 类相关</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-19T13:31:00.000Z" itemprop="datePublished"> 发表于 2016-04-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Python-类"><a href="#Python-类" class="headerlink" title="Python 类"></a>Python 类</h1><ul>
+<li>属性名前加上双下划线 <code>__</code> ，可变为<strong>私有变量</strong></li>
+<li>强制访问私有变量：<code>&lt;a instance&gt;._&lt;class name&gt;__&lt;property name&gt;</code>，如：<code>bart._Student__name</code></li>
+<li>双下划线开头，并以双下划线结尾，为<strong>特殊变量</strong>，可直接访问</li>
+</ul>
+<h3 id="判断变量是否为某个类型"><a href="#判断变量是否为某个类型" class="headerlink" title="判断变量是否为某个类型"></a>判断变量是否为某个类型</h3><p><code>isinstance()</code></p>
+<blockquote>
+<p>isinstance(a, list)</p>
+</blockquote>
+<h3 id="判断对象类型"><a href="#判断对象类型" class="headerlink" title="判断对象类型"></a>判断对象类型</h3><p><code>type()</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本类型可用</span></span><br><span class="line">type(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数变量或类的实例变量可用</span></span><br><span class="line">type(abs) <span class="comment"># 函数</span></span><br><span class="line">type(a) <span class="comment"># 类实例</span></span><br></pre></td></tr></table></figure>
+<p>types 模块中含已定义的常量，如：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">types.FunctionType</span><br><span class="line">types.BuiltinFunctionType</span><br></pre></td></tr></table></figure>
+<h3 id="判断类实例的类型，便于判断继承关系"><a href="#判断类实例的类型，便于判断继承关系" class="headerlink" title="判断类实例的类型，便于判断继承关系"></a>判断类实例的类型，便于判断继承关系</h3><p><code>isinstance()</code></p>
+<h3 id="获得对象的所有属性和方法"><a href="#获得对象的所有属性和方法" class="headerlink" title="获得对象的所有属性和方法"></a>获得对象的所有属性和方法</h3><p><code>dir()</code></p>
+<h3 id="直接操作一个对象的状态"><a href="#直接操作一个对象的状态" class="headerlink" title="直接操作一个对象的状态"></a>直接操作一个对象的状态</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可抛出 AttributeError 错误</span></span><br><span class="line">getattr()</span><br><span class="line">setattr()</span><br><span class="line">hasattr()</span><br></pre></td></tr></table></figure>
+<h3 id="实例属性，类属性"><a href="#实例属性，类属性" class="headerlink" title="实例属性，类属性"></a>实例属性，类属性</h3><p>实例属性通过 <code>self</code> 进行绑定，类属性直接在类中定义属性</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name <span class="comment"># 实例属性，实例属性优先级高于类属性</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    name = <span class="string">"Student"</span> <span class="comment"># 类属性，归类所有，所有实例都可以访问到</span></span><br></pre></td></tr></table></figure>
+<h3 id="slots"><a href="#slots" class="headerlink" title="__slots__"></a><code>__slots__</code></h3><p>限制动态绑定的实例属性，如，只允许对 <code>Student</code> 添加 <code>name</code> 和 <code>age</code> 属性</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'name'</span>, <span class="string">'age'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="使用属性-property"><a href="#使用属性-property" class="headerlink" title="使用属性 @property"></a>使用属性 <code>@property</code></h3><ul>
+<li>简化 getter 与 setter</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.score</span><br><span class="line">        </span><br><span class="line"><span class="meta">    @score.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(value, int):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must be an integer!'</span>)</span><br><span class="line">        <span class="keyword">if</span> value &lt; <span class="number">0</span> <span class="keyword">or</span> value &gt; <span class="number">100</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must between 0 ~ 100!'</span>)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure>
+<h3 id="多重继承，Mixln"><a href="#多重继承，Mixln" class="headerlink" title="多重继承，Mixln"></a>多重继承，Mixln</h3><ul>
+<li>主线单一即成，多重即成混入其他功能</li>
+</ul>
+<h3 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h3><p><code>__str__</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># print 调用 __repr__(), __repr__() 开发者式字符串</span></span><br><span class="line"><span class="comment"># __str__() 用户式字符串</span></span><br><span class="line"><span class="comment"># 偷懒方法</span></span><br><span class="line">__repr__ = __str__</span><br></pre></td></tr></table></figure>
+<p><code>__iter__</code></p>
+<blockquote>
+<p>如果一个类想被用于for … in循环，类似list或tuple那样，就必须实现一个<strong>iter</strong>()方法，该方法返回一个迭代对象，然后，Python的for循环就会不断调用该迭代对象的<strong>next</strong>()方法拿到循环的下一个值，直到遇到StopIteration错误时退出循环。</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fib</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.a, self.b = <span class="number">0</span>, <span class="number">1</span> <span class="comment"># 初始化两个计数器a，b</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self <span class="comment"># 实例本身就是迭代对象，故返回自己</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.a, self.b = self.b, self.a + self.b <span class="comment"># 计算下一个值</span></span><br><span class="line">        <span class="keyword">if</span> self.a &gt; <span class="number">100000</span>: <span class="comment"># 退出循环的条件</span></span><br><span class="line">            <span class="keyword">raise</span> StopIteration();</span><br><span class="line">        <span class="keyword">return</span> self.a <span class="comment"># 返回下一个值</span></span><br></pre></td></tr></table></figure>
+<p><code>__getitem__</code></p>
+<blockquote>
+<p>要表现得像list那样按照下标取出元素，需要实现<strong>getitem</strong>()方法</p>
+</blockquote>
+<p><code>__call__</code></p>
+<p>实例本身上直接调用方法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'My name is %s.'</span> % self.name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student(&apos;Michael&apos;)</span><br><span class="line">&gt;&gt;&gt; s() # self参数不要传入</span><br><span class="line">My name is Michael.</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/13/iOS/iPhone Functionality/电话 短信 邮件/" title="快速拨打电话，发送邮件、短信" itemprop="url">快速拨打电话，发送邮件、短信</a>
   </h1>
   <p class="article-author">By
@@ -75,7 +171,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-04-12T16:00:00.000Z" itemprop="datePublished"> Published 2016-04-13</time>
+    <time datetime="2016-04-12T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-13</time>
     
   </p>
 </header>
@@ -142,76 +238,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/25/Python/`if __name__ == __main__`/" title="if __name__ == __main__" itemprop="url">if __name__ == __main__</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="if-name-main"><a href="#if-name-main" class="headerlink" title="if __name__ == __main__"></a><code>if __name__ == __main__</code></h1><ul>
-<li>Python 文件的后缀名为 <code>.py</code></li>
-<li><code>.py</code> 文件可直接执行，可作为（功能）模块被导入</li>
-<li><code>__name__</code> 是模块的内置属性，代表 <code>.py</code> 文件的调用方式</li>
-<li><code>__main__</code> 表示 <code>.py</code> 文件是直接执行的</li>
-<li>综上，<code>if __name__ == __main__</code> 表示：当前 <code>.py</code> 文件是作为直接调用的方式执行，而不是作为模块被调度执行</li>
-</ul>
-<h4 id="下面是来自官方文档对-main-的解释"><a href="#下面是来自官方文档对-main-的解释" class="headerlink" title="下面是来自官方文档对 __main__ 的解释"></a>下面是来自官方文档对 <code>__main__</code> 的解释</h4><blockquote>
-<p>‘<strong>main</strong>‘ is the name of the scope in which top-level code executes. A module’s <strong>name</strong> is set equal to ‘<strong>main</strong>‘ when read from standard input, a script, or from an interactive prompt.</p>
-<p>A module can discover whether or not it is running in the main scope by checking its own <strong>name</strong>, which allows a common idiom for conditionally executing code in a module when it is run as a script or with python -m but not when it is imported:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># execute only if run as a script</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<p>For a package, the same effect can be achieved by including a <strong>main</strong>.py module, the contents of which will be executed when the module is run with -m.</p>
-</blockquote>
-<h4 id="下面是来自官方文档对-name-的解释"><a href="#下面是来自官方文档对-name-的解释" class="headerlink" title="下面是来自官方文档对 __name__ 的解释"></a>下面是来自官方文档对 <code>__name__</code> 的解释</h4><blockquote>
-<p>The <strong>name</strong> attribute must be set to the fully-qualified name of the module. This name is used to uniquely identify the module in the import system.</p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Python/">Python</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/03/25/iOS/Exercise/Ballon-like Animation/" title="在这个 Demo 里面，我知道了什么 #1" itemprop="url">在这个 Demo 里面，我知道了什么 #1</a>
   </h1>
   <p class="article-author">By
@@ -219,7 +245,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
     
   </p>
 </header>
@@ -286,71 +312,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/25/Python/With 语句/" title="With 语句" itemprop="url">With 语句</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="With-语句"><a href="#With-语句" class="headerlink" title="With 语句"></a>With 语句</h1><ul>
-<li>with 语句需要与 Context Manager 一起</li>
-<li>with 语句规范一个动作进入与离开某个作用域是自动进行的一些动作</li>
-<li>如读写文件前后的打开或关闭文件操作，使用 <code>with</code> 语句就可以使得这两个动作自动进行，而不需要使用者繁琐地进行代码控制</li>
-<li><code>with</code> 语句自动调用 <code>__enter__()</code> 和 <code>__exit__()</code> 两个方法，因此，若我们需要为自己的类设置自动动作，则重写以上两个方法</li>
-<li><code>__enter__()</code> 返回一个供 <code>with</code> 语句使用的对象，通常也和 <code>as</code> 一起使用，如：</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">r'./python.txt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">	<span class="comment"># blah blah blab...</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>__exit__(self, exc_type, excc_value, traceback)</code> 三个参数分别为：异常类型，异常值，traceback，若执行 <code>with</code> 语句过程中没有产生异常，则3个参数都为 <code>None</code>，否则，则将3个参数的值返回给 <code>__exit__()</code> 使用</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Python/">Python</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/03/25/DataBase/SQL 基本语句/" title="SQL 基本语句" itemprop="url">SQL 基本语句</a>
   </h1>
   <p class="article-author">By
@@ -358,7 +319,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
     
   </p>
 </header>
@@ -500,6 +461,141 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/25/Python/With 语句/" title="With 语句" itemprop="url">With 语句</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="With-语句"><a href="#With-语句" class="headerlink" title="With 语句"></a>With 语句</h1><ul>
+<li>with 语句需要与 Context Manager 一起</li>
+<li>with 语句规范一个动作进入与离开某个作用域是自动进行的一些动作</li>
+<li>如读写文件前后的打开或关闭文件操作，使用 <code>with</code> 语句就可以使得这两个动作自动进行，而不需要使用者繁琐地进行代码控制</li>
+<li><code>with</code> 语句自动调用 <code>__enter__()</code> 和 <code>__exit__()</code> 两个方法，因此，若我们需要为自己的类设置自动动作，则重写以上两个方法</li>
+<li><code>__enter__()</code> 返回一个供 <code>with</code> 语句使用的对象，通常也和 <code>as</code> 一起使用，如：</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">r'./python.txt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">	<span class="comment"># blah blah blab...</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>__exit__(self, exc_type, excc_value, traceback)</code> 三个参数分别为：异常类型，异常值，traceback，若执行 <code>with</code> 语句过程中没有产生异常，则3个参数都为 <code>None</code>，否则，则将3个参数的值返回给 <code>__exit__()</code> 使用</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/25/Python/`if __name__ == __main__`/" title="if __name__ == __main__" itemprop="url">if __name__ == __main__</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="if-name-main"><a href="#if-name-main" class="headerlink" title="if __name__ == __main__"></a><code>if __name__ == __main__</code></h1><ul>
+<li>Python 文件的后缀名为 <code>.py</code></li>
+<li><code>.py</code> 文件可直接执行，可作为（功能）模块被导入</li>
+<li><code>__name__</code> 是模块的内置属性，代表 <code>.py</code> 文件的调用方式</li>
+<li><code>__main__</code> 表示 <code>.py</code> 文件是直接执行的</li>
+<li>综上，<code>if __name__ == __main__</code> 表示：当前 <code>.py</code> 文件是作为直接调用的方式执行，而不是作为模块被调度执行</li>
+</ul>
+<h4 id="下面是来自官方文档对-main-的解释"><a href="#下面是来自官方文档对-main-的解释" class="headerlink" title="下面是来自官方文档对 __main__ 的解释"></a>下面是来自官方文档对 <code>__main__</code> 的解释</h4><blockquote>
+<p>‘<strong>main</strong>‘ is the name of the scope in which top-level code executes. A module’s <strong>name</strong> is set equal to ‘<strong>main</strong>‘ when read from standard input, a script, or from an interactive prompt.</p>
+<p>A module can discover whether or not it is running in the main scope by checking its own <strong>name</strong>, which allows a common idiom for conditionally executing code in a module when it is run as a script or with python -m but not when it is imported:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># execute only if run as a script</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>For a package, the same effect can be achieved by including a <strong>main</strong>.py module, the contents of which will be executed when the module is run with -m.</p>
+</blockquote>
+<h4 id="下面是来自官方文档对-name-的解释"><a href="#下面是来自官方文档对-name-的解释" class="headerlink" title="下面是来自官方文档对 __name__ 的解释"></a>下面是来自官方文档对 <code>__name__</code> 的解释</h4><blockquote>
+<p>The <strong>name</strong> attribute must be set to the fully-qualified name of the module. This name is used to uniquely identify the module in the import system.</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/14/iOS/Demos/MVVM 以及 更轻量的 View Controller Demo/" title="MVVM 更轻量的 View Controller Demo" itemprop="url">MVVM 更轻量的 View Controller Demo</a>
   </h1>
   <p class="article-author">By
@@ -507,7 +603,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-14</time>
+    <time datetime="2016-03-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-14</time>
     
   </p>
 </header>
@@ -596,7 +692,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-18T15:53:01.000Z" itemprop="datePublished"> Published 2016-02-18</time>
+    <time datetime="2016-02-18T15:53:01.000Z" itemprop="datePublished"> 发表于 2016-02-18</time>
     
   </p>
 </header>
@@ -668,7 +764,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> Published 2016-02-17</time>
+    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-17</time>
     
   </p>
 </header>
@@ -753,7 +849,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-31T16:00:00.000Z" itemprop="datePublished"> Published 2016-02-01</time>
+    <time datetime="2016-01-31T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-01</time>
     
   </p>
 </header>
@@ -858,86 +954,21 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/14/iOS/UI/全屏滑动返回手势实现/" title="全屏滑动返回手势实现" itemprop="url">全屏滑动返回手势实现</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-01-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>链接 <a href="http://www.cocoachina.com/ios/20150811/12897.html" target="_blank" rel="external">这里</a></p>
-<h4 id="系统自身如何实现"><a href="#系统自身如何实现" class="headerlink" title="系统自身如何实现"></a>系统自身如何实现</h4><ul>
-<li>只能边缘触发</li>
-<li>系统本身已经实现，我们只需找出被调用的方法</li>
-</ul>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
-<li>创建手势时，需要绑定监听者，触发手势会调用 target 的 action</li>
-<li>打印导航器的 <code>self.interactivePopGestureRecognizer</code> 可以看到蛛丝马迹</li>
-<li>以后调用系统本身实现的方法可以通过这种方法来观察</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// 获取系统自带滑动手势的target对象</span></span><br><span class="line">    <span class="keyword">id</span> target = <span class="keyword">self</span>.interactivePopGestureRecognizer.delegate;</span><br><span class="line">    <span class="comment">// 创建全屏滑动手势，调用系统自带滑动手势的target的action方法</span></span><br><span class="line">    <span class="built_in">UIPanGestureRecognizer</span> *pan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:target action:<span class="keyword">@selector</span>(handleNavigationTransition:)];</span><br><span class="line">    <span class="comment">// 设置手势代理，拦截手势触发</span></span><br><span class="line">    pan.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="comment">// 给导航控制器的view添加全屏滑动手势</span></span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:pan];</span><br><span class="line">    <span class="comment">// 禁止使用系统自带的滑动手势</span></span><br><span class="line">    <span class="keyword">self</span>.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 什么时候调用：每次触发手势之前都会询问下代理，是否触发。</span></span><br><span class="line"><span class="comment">// 作用：拦截手势触发</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizerShouldBegin:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 注意：只有非根控制器才有滑动返回功能，根控制器没有。</span></span><br><span class="line">    <span class="comment">// 判断导航控制器是否只有一个子控制器，如果只有一个子控制器，肯定是根控制器</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.childViewControllers.count == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 表示用户在根控制器界面，就不需要触发滑动手势，</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UIGesture/">UIGesture</a><a href="/tags/Transition/">Transition</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="Y-YYeung" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -949,11 +980,15 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
 				<li><a href="/tags/iOS/" title="iOS">iOS<sup>36</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>3</sup></a></li>
 			
 		
 			
@@ -965,11 +1000,11 @@
 			
 		
 			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Python/" title="Python">Python<sup>2</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
@@ -977,23 +1012,7 @@
 			
 		
 			
-				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/NSString/" title="NSString">NSString<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
+				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
 			
 		
 			
@@ -1005,15 +1024,27 @@
 			
 		
 			
-				<li><a href="/tags/Database/" title="Database">Database<sup>1</sup></a></li>
+				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Camera/" title="Camera">Camera<sup>1</sup></a></li>
+				<li><a href="/tags/System-Configurations/" title="System Configurations">System Configurations<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Memory-Management/" title="Memory Management">Memory Management<sup>1</sup></a></li>
 			
 		
 			
@@ -1021,7 +1052,7 @@
 			
 		
 			
-				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
 			
 		
 			
@@ -1029,7 +1060,7 @@
 			
 		
 			
-				<li><a href="/tags/Persistence-Storage/" title="Persistence Storage">Persistence Storage<sup>1</sup></a></li>
+				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -1168,7 +1199,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
