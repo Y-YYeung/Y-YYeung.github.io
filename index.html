@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -50,7 +50,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:myeung.xyz">
 					</form>
 					
@@ -68,6 +68,76 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/19/Python/使用 Python 生成 JSON 数据/" title="生成 JSON 数据" itemprop="url">生成 JSON 数据</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-19T13:54:00.000Z" itemprop="datePublished"> Published 2016-04-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="使用-Python-生成-JSON-数据"><a href="#使用-Python-生成-JSON-数据" class="headerlink" title="使用 Python 生成 JSON 数据"></a>使用 Python 生成 JSON 数据</h1><p><a href="https://github.com/Y-YYeung/Python-Workshop/blob/master/Generator%201.py" target="_blank" rel="external">代码</a></p>
+<p>这个脚本本来是用来模拟返回的数据，想着最近学了一点 Python，就想通过用 Python 来生成一堆 JSON 格式的数据</p>
+<p>返回数据的需求：</p>
+<ol>
+<li>包含一个状态码字段，用来指示返回数据的状态，这里默认设为 <code>0000</code></li>
+<li>包含一个状态描述字段，用来描述返回数据的状态，这里默认设为 <code>服务执行成功</code></li>
+<li>包含一个内容的字段，这个字段包含我需要的东西，固然也是一个数组了</li>
+</ol>
+<p>于是，我们有了3个字段：<code>errorcode</code>, <code>errormsg</code>, ‘bodys’，分别对应上述的3个字段<br>其中，我们这个模拟数据所包含的内容是多个邮件的内容，而邮件里面包含了附件的信息，于是，使用类 <code>ReturnInfo</code> 来表示一次返回的数据的模型，<code>ReturnBody</code> 表示每一封邮件的信息，<code>AttachListInfo</code> 表示每一封邮件中的附件信息</p>
+<h3 id="关于类，我们可以在方法声明中，设置默认值"><a href="#关于类，我们可以在方法声明中，设置默认值" class="headerlink" title="关于类，我们可以在方法声明中，设置默认值"></a>关于类，我们可以在方法声明中，设置默认值</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ReturnInfo</span></span><br><span class="line"><span class="comment"># 默认 errorcode 为 0000，默认 errormsg 为 服务执行成功</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReturnInfo</span><span class="params">(object)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, bodys, errorcode=<span class="string">"0000"</span>, errormsg=<span class="string">"服务执行成功"</span>)</span>:</span></span><br><span class="line">		self.errorcode = errorcode</span><br><span class="line">		self.errormsg = errormsg</span><br><span class="line">		self.bodys = bodys</span><br></pre></td></tr></table></figure>
+<h3 id="生成时间"><a href="#生成时间" class="headerlink" title="生成时间"></a>生成时间</h3><p>在 <code>ReturnBody</code> 中，我们需要使用时间来设置 <code>senddate</code> 属性值</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要预先：</span></span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用：</span></span><br><span class="line">datetime.datetime.now()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从时间生成字符串，需要表明格式，与 OC 中一样</span></span><br><span class="line">datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="with-语句"><a href="#with-语句" class="headerlink" title="with 语句"></a><code>with</code> 语句</h3><p>文件操作本来需要我们手动打开文件与关闭文件，但是可以使用 <code>with</code> 语句来进行管理</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"/Users/Mon/Desktop/returnInfo.json"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write() <span class="comment"># 写数据</span></span><br></pre></td></tr></table></figure>
+<h3 id="生成-JSON-数据"><a href="#生成-JSON-数据" class="headerlink" title="生成 JSON 数据"></a>生成 JSON 数据</h3><p> Python 内置 JSON 相关操作的库</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要预先</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用：</span></span><br><span class="line">json.dumps(returnInfo, default=<span class="keyword">lambda</span> obj: obj.__dict__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># json.dumps 注意后有 s, 表明将对象转存为 字符串</span></span><br><span class="line"><span class="comment"># json.dump  没有 s，表明将对象转存为 文件</span></span><br><span class="line"><span class="comment"># default 后的 lambda 表达式表明转存方法</span></span><br><span class="line"><span class="comment"># __dict__ 是每一个对象都会有的属性，其中存储的对象的所有属性及其属性值</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python/">Python</a><a href="/tags/JSON/">JSON</a><a href="/tags/What-have-I-learnt-from-this-Demo/">What have I learnt from this Demo</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/19/Python/Python 类/" title="Python 类相关" itemprop="url">Python 类相关</a>
   </h1>
   <p class="article-author">By
@@ -75,7 +145,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-04-19T13:31:00.000Z" itemprop="datePublished"> 发表于 2016-04-19</time>
+    <time datetime="2016-04-19T13:31:00.000Z" itemprop="datePublished"> Published 2016-04-19</time>
     
   </p>
 </header>
@@ -171,7 +241,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-04-12T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-13</time>
+    <time datetime="2016-04-12T16:00:00.000Z" itemprop="datePublished"> Published 2016-04-13</time>
     
   </p>
 </header>
@@ -238,39 +308,35 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/25/iOS/Exercise/Ballon-like Animation/" title="在这个 Demo 里面，我知道了什么 #1" itemprop="url">在这个 Demo 里面，我知道了什么 #1</a>
+      <a href="/2016/03/25/Python/`if __name__ == __main__`/" title="if __name__ == __main__" itemprop="url">if __name__ == __main__</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h1 id="在这个-Demo-里面，我知道了什么-1"><a href="#在这个-Demo-里面，我知道了什么-1" class="headerlink" title="在这个 Demo 里面，我知道了什么 #1"></a>在这个 Demo 里面，我知道了什么 #1</h1><p>这里是 Demo -&gt; <a href="https://github.com/Y-YYeung/Circles" target="_blank" rel="external">Circles</a></p>
-<h3 id="1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks"><a href="#1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks" class="headerlink" title="1. 使用 CAShapeLayer 对视图进行绘制，可以参考 这个 gitbooks"></a>1. 使用 <code>CAShapeLayer</code> 对视图进行绘制，可以参考 <a href="https://zsisme.gitbooks.io/ios-/content/chapter6/cashapelayer.html" target="_blank" rel="external">这个 gitbooks</a></h3><p>优点是：</p>
-<blockquote>
-<p>   •    渲染快速。CAShapeLayer使用了硬件加速，绘制同一图形会比用Core Graphics快很多。<br>    •    高效使用内存。一个CAShapeLayer不需要像普通CALayer一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存。<br>    •    不会被图层边界剪裁掉。一个CAShapeLayer可以在边界之外绘制。你的图层路径不会像在使用Core Graphics的普通CALayer一样被剪裁掉（如我们在第二章所见）。<br>    •    不会出现像素化。当你给CAShapeLayer做3D变换时，它不像一个有寄宿图的普通图层一样变得像素化。</p>
+        <h1 id="if-name-main"><a href="#if-name-main" class="headerlink" title="if __name__ == __main__"></a><code>if __name__ == __main__</code></h1><ul>
+<li>Python 文件的后缀名为 <code>.py</code></li>
+<li><code>.py</code> 文件可直接执行，可作为（功能）模块被导入</li>
+<li><code>__name__</code> 是模块的内置属性，代表 <code>.py</code> 文件的调用方式</li>
+<li><code>__main__</code> 表示 <code>.py</code> 文件是直接执行的</li>
+<li>综上，<code>if __name__ == __main__</code> 表示：当前 <code>.py</code> 文件是作为直接调用的方式执行，而不是作为模块被调度执行</li>
+</ul>
+<h4 id="下面是来自官方文档对-main-的解释"><a href="#下面是来自官方文档对-main-的解释" class="headerlink" title="下面是来自官方文档对 __main__ 的解释"></a>下面是来自官方文档对 <code>__main__</code> 的解释</h4><blockquote>
+<p>‘<strong>main</strong>‘ is the name of the scope in which top-level code executes. A module’s <strong>name</strong> is set equal to ‘<strong>main</strong>‘ when read from standard input, a script, or from an interactive prompt.</p>
+<p>A module can discover whether or not it is running in the main scope by checking its own <strong>name</strong>, which allows a common idiom for conditionally executing code in a module when it is run as a script or with python -m but not when it is imported:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># execute only if run as a script</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>For a package, the same effect can be achieved by including a <strong>main</strong>.py module, the contents of which will be executed when the module is run with -m.</p>
 </blockquote>
-<h3 id="2-如何生成随机数，可以看-NSHipster"><a href="#2-如何生成随机数，可以看-NSHipster" class="headerlink" title="2. 如何生成随机数，可以看 NSHipster"></a>2. 如何生成随机数，可以看 <a href="http://nshipster.cn/random/" target="_blank" rel="external">NSHipster</a></h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机整数 0 ~ N-1：</span></span><br><span class="line"><span class="built_in">NSUInteger</span> r = arc4random_uniform(N);</span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机浮点数 0 ~ 1, double 类型</span></span><br><span class="line">srand48(time(<span class="number">0</span>)); <span class="comment">// 生成种子，只运行一次, time(0) 当前时间</span></span><br><span class="line"><span class="keyword">double</span> r = drand48();</span><br></pre></td></tr></table></figure>
-<h3 id="3-关于-NSTimer"><a href="#3-关于-NSTimer" class="headerlink" title="3. 关于 NSTimer"></a>3. 关于 <code>NSTimer</code></h3><ul>
-<li><code>NSTimer</code> 实例会 retain target</li>
-<li>尽量指定 <code>NSTimer</code> 实例运行的 <code>RunLoop</code>, 特别与 <code>UITableView</code> 等控件一起用时</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSRunloop</span> currentRunLoop] addTimer:<span class="keyword">self</span>.timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br></pre></td></tr></table></figure>
-<ul>
-<li>暂停 <code>NSTimer</code>, 综合各种方法，其实就是把 <code>NSTimer</code> 实例杀了</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.timer invalidate];</span><br><span class="line"><span class="keyword">self</span>.timer = <span class="literal">nil</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow"><a href="#4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow" class="headerlink" title="4. 关于 NSMutableArray 的 KVC, 可以查看 stackoverflow"></a>4. 关于 <code>NSMutableArray</code> 的 KVC, 可以查看 <a href="http://stackoverflow.com/questions/10059279/observing-count-in-nsmutablearray" target="_blank" rel="external">stackoverflow</a></h3><p>得票最高的答案大致是：<br>由于其方法以及内容可变的原因， <code>NSMutableArray</code> 并不能进行 KVC。而解决方案是，使用 <code>proxying</code> 代理来进行（这有待进一步学习，代理模式），当然，设计继承于 <code>NSMutableArray</code> 也可以，但使用 <code>proxying</code> 可以更加简单。</p>
-<p><code>NSProxy</code> 是一个简单而强大的类。我们可以使用它来拦截那些发送到数组的消息，就像这个类就是数组自己一样。然后，我们再将此条信息传递给内部的数组。然而，这还是不能使用 KVC。但由于 KVC 是 <code>NSObject</code> 的一个特点，所以，我们可以利用这一点。（所以，这里应该还是利用的代理模式的思想罢了）</p>
-<p>这里，有两个比较亮点的方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br><span class="line"><span class="comment">// Send some message...</span></span><br><span class="line">[<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br></pre></td></tr></table></figure>
+<h4 id="下面是来自官方文档对-name-的解释"><a href="#下面是来自官方文档对-name-的解释" class="headerlink" title="下面是来自官方文档对 __name__ 的解释"></a>下面是来自官方文档对 <code>__name__</code> 的解释</h4><blockquote>
+<p>The <strong>name</strong> attribute must be set to the fully-qualified name of the module. This name is used to uniquely identify the module in the import system.</p>
+</blockquote>
 
         
         
@@ -284,7 +350,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a>
+  <span></span> <a href="/tags/Python/">Python</a>
   </div>
 
 </div>
@@ -319,7 +385,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
     
   </p>
 </header>
@@ -468,7 +534,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
     
   </p>
 </header>
@@ -526,35 +592,39 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/25/Python/`if __name__ == __main__`/" title="if __name__ == __main__" itemprop="url">if __name__ == __main__</a>
+      <a href="/2016/03/25/iOS/Exercise/Ballon-like Animation/" title="在这个 Demo 里面，我知道了什么 #1" itemprop="url">在这个 Demo 里面，我知道了什么 #1</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-25</time>
+    <time datetime="2016-03-24T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-25</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h1 id="if-name-main"><a href="#if-name-main" class="headerlink" title="if __name__ == __main__"></a><code>if __name__ == __main__</code></h1><ul>
-<li>Python 文件的后缀名为 <code>.py</code></li>
-<li><code>.py</code> 文件可直接执行，可作为（功能）模块被导入</li>
-<li><code>__name__</code> 是模块的内置属性，代表 <code>.py</code> 文件的调用方式</li>
-<li><code>__main__</code> 表示 <code>.py</code> 文件是直接执行的</li>
-<li>综上，<code>if __name__ == __main__</code> 表示：当前 <code>.py</code> 文件是作为直接调用的方式执行，而不是作为模块被调度执行</li>
+        <h1 id="在这个-Demo-里面，我知道了什么-1"><a href="#在这个-Demo-里面，我知道了什么-1" class="headerlink" title="在这个 Demo 里面，我知道了什么 #1"></a>在这个 Demo 里面，我知道了什么 #1</h1><p>这里是 Demo -&gt; <a href="https://github.com/Y-YYeung/Circles" target="_blank" rel="external">Circles</a></p>
+<h3 id="1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks"><a href="#1-使用-CAShapeLayer-对视图进行绘制，可以参考-这个-gitbooks" class="headerlink" title="1. 使用 CAShapeLayer 对视图进行绘制，可以参考 这个 gitbooks"></a>1. 使用 <code>CAShapeLayer</code> 对视图进行绘制，可以参考 <a href="https://zsisme.gitbooks.io/ios-/content/chapter6/cashapelayer.html" target="_blank" rel="external">这个 gitbooks</a></h3><p>优点是：</p>
+<blockquote>
+<p>   •    渲染快速。CAShapeLayer使用了硬件加速，绘制同一图形会比用Core Graphics快很多。<br>    •    高效使用内存。一个CAShapeLayer不需要像普通CALayer一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存。<br>    •    不会被图层边界剪裁掉。一个CAShapeLayer可以在边界之外绘制。你的图层路径不会像在使用Core Graphics的普通CALayer一样被剪裁掉（如我们在第二章所见）。<br>    •    不会出现像素化。当你给CAShapeLayer做3D变换时，它不像一个有寄宿图的普通图层一样变得像素化。</p>
+</blockquote>
+<h3 id="2-如何生成随机数，可以看-NSHipster"><a href="#2-如何生成随机数，可以看-NSHipster" class="headerlink" title="2. 如何生成随机数，可以看 NSHipster"></a>2. 如何生成随机数，可以看 <a href="http://nshipster.cn/random/" target="_blank" rel="external">NSHipster</a></h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机整数 0 ~ N-1：</span></span><br><span class="line"><span class="built_in">NSUInteger</span> r = arc4random_uniform(N);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机浮点数 0 ~ 1, double 类型</span></span><br><span class="line">srand48(time(<span class="number">0</span>)); <span class="comment">// 生成种子，只运行一次, time(0) 当前时间</span></span><br><span class="line"><span class="keyword">double</span> r = drand48();</span><br></pre></td></tr></table></figure>
+<h3 id="3-关于-NSTimer"><a href="#3-关于-NSTimer" class="headerlink" title="3. 关于 NSTimer"></a>3. 关于 <code>NSTimer</code></h3><ul>
+<li><code>NSTimer</code> 实例会 retain target</li>
+<li>尽量指定 <code>NSTimer</code> 实例运行的 <code>RunLoop</code>, 特别与 <code>UITableView</code> 等控件一起用时</li>
 </ul>
-<h4 id="下面是来自官方文档对-main-的解释"><a href="#下面是来自官方文档对-main-的解释" class="headerlink" title="下面是来自官方文档对 __main__ 的解释"></a>下面是来自官方文档对 <code>__main__</code> 的解释</h4><blockquote>
-<p>‘<strong>main</strong>‘ is the name of the scope in which top-level code executes. A module’s <strong>name</strong> is set equal to ‘<strong>main</strong>‘ when read from standard input, a script, or from an interactive prompt.</p>
-<p>A module can discover whether or not it is running in the main scope by checking its own <strong>name</strong>, which allows a common idiom for conditionally executing code in a module when it is run as a script or with python -m but not when it is imported:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># execute only if run as a script</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<p>For a package, the same effect can be achieved by including a <strong>main</strong>.py module, the contents of which will be executed when the module is run with -m.</p>
-</blockquote>
-<h4 id="下面是来自官方文档对-name-的解释"><a href="#下面是来自官方文档对-name-的解释" class="headerlink" title="下面是来自官方文档对 __name__ 的解释"></a>下面是来自官方文档对 <code>__name__</code> 的解释</h4><blockquote>
-<p>The <strong>name</strong> attribute must be set to the fully-qualified name of the module. This name is used to uniquely identify the module in the import system.</p>
-</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSRunloop</span> currentRunLoop] addTimer:<span class="keyword">self</span>.timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>暂停 <code>NSTimer</code>, 综合各种方法，其实就是把 <code>NSTimer</code> 实例杀了</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.timer invalidate];</span><br><span class="line"><span class="keyword">self</span>.timer = <span class="literal">nil</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow"><a href="#4-关于-NSMutableArray-的-KVC-可以查看-stackoverflow" class="headerlink" title="4. 关于 NSMutableArray 的 KVC, 可以查看 stackoverflow"></a>4. 关于 <code>NSMutableArray</code> 的 KVC, 可以查看 <a href="http://stackoverflow.com/questions/10059279/observing-count-in-nsmutablearray" target="_blank" rel="external">stackoverflow</a></h3><p>得票最高的答案大致是：<br>由于其方法以及内容可变的原因， <code>NSMutableArray</code> 并不能进行 KVC。而解决方案是，使用 <code>proxying</code> 代理来进行（这有待进一步学习，代理模式），当然，设计继承于 <code>NSMutableArray</code> 也可以，但使用 <code>proxying</code> 可以更加简单。</p>
+<p><code>NSProxy</code> 是一个简单而强大的类。我们可以使用它来拦截那些发送到数组的消息，就像这个类就是数组自己一样。然后，我们再将此条信息传递给内部的数组。然而，这还是不能使用 KVC。但由于 KVC 是 <code>NSObject</code> 的一个特点，所以，我们可以利用这一点。（所以，这里应该还是利用的代理模式的思想罢了）</p>
+<p>这里，有两个比较亮点的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br><span class="line"><span class="comment">// Send some message...</span></span><br><span class="line">[<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"aProperty"</span>];</span><br></pre></td></tr></table></figure>
 
         
         
@@ -568,7 +638,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Python/">Python</a>
+  <span></span> <a href="/tags/iOS/">iOS</a>
   </div>
 
 </div>
@@ -603,7 +673,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-14</time>
+    <time datetime="2016-03-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-03-14</time>
     
   </p>
 </header>
@@ -657,7 +727,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/Design-Patterns/">Design Patterns</a><a href="/tags/Demo/">Demo</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/What-have-I-learnt-from-this-Demo/">What have I learnt from this Demo</a><a href="/tags/Design-Patterns/">Design Patterns</a><a href="/tags/Demo/">Demo</a>
   </div>
 
 </div>
@@ -692,7 +762,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-18T15:53:01.000Z" itemprop="datePublished"> 发表于 2016-02-18</time>
+    <time datetime="2016-02-18T15:53:01.000Z" itemprop="datePublished"> Published 2016-02-18</time>
     
   </p>
 </header>
@@ -764,7 +834,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-17</time>
+    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> Published 2016-02-17</time>
     
   </p>
 </header>
@@ -836,139 +906,21 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/01/Reading/Objective-C 高级编程/Chapter 1/" title="Objective-C 高级编程 Chapter 1" itemprop="url">Objective-C 高级编程 Chapter 1</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-31T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="内存管理思考方式"><a href="#内存管理思考方式" class="headerlink" title="内存管理思考方式"></a>内存管理思考方式</h3><pre><code>自己：对象的使用环境
-
-- 自己生成的对象，自己持有
-- 非自己生成的对象，自己也能持有
-- 不再需要自己持有的对象时释放
-- 非自己持有的对象无法释放
-</code></pre><ul>
-<li><p>对象操作及其对应方法</p>
-<ul>
-<li>生成并持有 | alloc/new/copy/mutableCopy</li>
-<li>持有 | retain</li>
-<li>释放 | release</li>
-<li>废弃 | dealloc</li>
-</ul>
-</li>
-</ul>
-<h3 id="autorelease"><a href="#autorelease" class="headerlink" title="autorelease"></a>autorelease</h3><pre><code>- 使用方法
-    - 生成并持有 NSAutoreleasePool 对象
-    - 调用已分配对象的 autorelease 实例方法
-    - 废弃 NSAuroreleasePool 对象 （对对象逐一调用 release 方法）
-
-- NSAutoreleasePool 生命周期相当于 C 语言的变量作用域 （NSRunLoop 的一次周期）
-
-- 可手动嵌入多个 NSAutoreleasePool，如在图像处理过程中
-
-- 可通过 NSAutoreleasePool 中调试用的非公开类方法 `showPools` 确认已被 autorelease 的对象状况 (仅适用于 iOS)
-- 也可使用 `_objc_autoreleasePoolPrint`
-</code></pre><h3 id="ARC-规则"><a href="#ARC-规则" class="headerlink" title="ARC 规则"></a>ARC 规则</h3><ul>
-<li>一个项目中，可以以文件为单位指定 ARC 有效或无效</li>
-<li><p>ARC 式的内存管理属于编译器的工作</p>
-</li>
-<li><p>设置 ARC 有效的方法</p>
-<ul>
-<li>使用 clang(LLVM编译器) 3.0 或以上版本</li>
-<li>指定编译器属性为 “-fobjc-arc”</li>
-<li>Xcode 4.2 默认对所有文件为 ARC 有效</li>
-</ul>
-</li>
-<li><p>ARC 有效时的所有权修饰符</p>
-<ul>
-<li>__strong</li>
-<li>__weak</li>
-<li>__unsafe_unretained</li>
-<li>__autorelease</li>
-</ul>
-</li>
-<li><p>__strong</p>
-<ul>
-<li>id 类型和对象类型默认</li>
-</ul>
-</li>
-<li><p>__unsafe_unretained</p>
-<ul>
-<li>该变量不属于编译器的内存管理对象</li>
-<li>作用与 __weak 一样</li>
-<li>对象指针不会自动置 nil，会成为悬垂指针</li>
-<li>适配 iOS4 和 OS X Snow Leopard</li>
-</ul>
-</li>
-<li><p>__autorelease<br>  使用区块</p>
-  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@autorelease &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>- 编译器会检查方法名是否以 alloc/new/copy/mutableCopy 开始，若不是，自动将返回值的对象注册到 autoreleasepool
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Objective-C/">Objective-C</a><a href="/tags/Memory-Management/">Memory Management</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="Y-YYeung" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -980,7 +932,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -988,11 +940,7 @@
 			
 		
 			
-				<li><a href="/tags/Python/" title="Python">Python<sup>3</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
 			
 		
 			
@@ -1000,11 +948,11 @@
 			
 		
 			
-				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
+				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+				<li><a href="/tags/What-have-I-learnt-from-this-Demo/" title="What have I learnt from this Demo">What have I learnt from this Demo<sup>2</sup></a></li>
 			
 		
 			
@@ -1012,19 +960,27 @@
 			
 		
 			
-				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/Database/" title="Database">Database<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
 			
 		
 			
@@ -1036,11 +992,15 @@
 			
 		
 			
-				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Masonry/" title="Masonry">Masonry<sup>1</sup></a></li>
 			
 		
 			
@@ -1048,19 +1008,11 @@
 			
 		
 			
-				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+				<li><a href="/tags/ContentInsets/" title="ContentInsets">ContentInsets<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+				<li><a href="/tags/UIImage/" title="UIImage">UIImage<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -1199,7 +1151,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

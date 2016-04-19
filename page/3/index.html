@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Little Wiki of YYYeung">Little Wiki of YYYeung</a></h1>
 				<h2 class="blog-motto">A wiki as a quick reference</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -50,7 +50,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:myeung.xyz">
 					</form>
 					
@@ -68,6 +68,68 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/12/10/iOS/UI/ContentInset 解析/" title="ContentInset 解析" itemprop="url">ContentInset 解析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-09T16:00:00.000Z" itemprop="datePublished"> Published 2015-12-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="http://stackoverflow.com/a/10049782/5211544" target="_blank" rel="external">stackoverflow.com 上的解析</a></p>
+<p>翻译：</p>
+<p>虽然 jball 的答案很好地描述了什么是 content insets，但这个答案并没有回答问题所提出的疑惑：什么时候要用到它。下面，我借他的图来说明一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  _|←_cW_→_|_↓_</span><br><span class="line">   |       | </span><br><span class="line">---------------</span><br><span class="line">   |content| ↑</span><br><span class="line"> ↑ |content| contentInset.top</span><br><span class="line">cH |content|</span><br><span class="line"> ↓ |content| contentInset.bottom</span><br><span class="line">   |content| ↓</span><br><span class="line">---------------</span><br><span class="line">   |content|    </span><br><span class="line">-------------↑-</span><br></pre></td></tr></table></figure>
+<p>上图是当你使用 content insets 时候得到的效果，但它的作用只有在滚动的时候才会体现出来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  _|←_cW_→_|_↓_</span><br><span class="line">   |content| ← content is still visible</span><br><span class="line">---------------</span><br><span class="line">   |content| ↑</span><br><span class="line"> ↑ |content| contentInset.top</span><br><span class="line">cH |content|</span><br><span class="line"> ↓ |content| contentInset.bottom</span><br><span class="line">   |content| ↓</span><br><span class="line">---------------</span><br><span class="line">  _|_______|___ </span><br><span class="line">             ↑</span><br></pre></td></tr></table></figure>
+<p>上面最顶的一组 content 仍然是可见的，因为它还在 scroll view 的 frame 中。我们可以这样想象一下 top offset （顶部的位移）是什么样子的：当我们把视图滚动到最顶部的时候，我们要把多大的区域移下点。</p>
+<p>想要看这个属性的应用场景，我们可以打开 iPhone 的原生应用 Photos。导航栏和状态栏是透明的，在它们下面的 scroll view 的内容是可见的。这是因为 scroll view 的 frame 延伸到了导航栏与状态栏的区域。但如果没有 content inset 这属性的话，当你想上划的时候，你是不会在导航栏和状态栏的区域看到 scroll view 的顶部内容。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/ContentInsets/">ContentInsets</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/30/iOS/UI/去除 UINavigationBar 返回按钮文字/" title="去除 UINavigationBar 返回按钮文字" itemprop="url">去除 UINavigationBar 返回按钮文字</a>
   </h1>
   <p class="article-author">By
@@ -75,7 +137,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-30</time>
+    <time datetime="2015-11-29T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-30</time>
     
   </p>
 </header>
@@ -137,7 +199,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-29</time>
+    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-29</time>
     
   </p>
 </header>
@@ -205,7 +267,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-29</time>
+    <time datetime="2015-11-28T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-29</time>
     
   </p>
 </header>
@@ -297,7 +359,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-23T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-24</time>
+    <time datetime="2015-11-23T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-24</time>
     
   </p>
 </header>
@@ -357,6 +419,61 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/23/OS X/Mac 下删除 MySQL/" title="Mac 下删除 MySQL" itemprop="url">Mac 下删除 MySQL</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/local/mysql</span><br><span class="line">sudo rm -rf /usr/local/mysql*</span><br><span class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">sudo rm -rf /Library/PreferencePanes/My*</span><br><span class="line">vim /etc/hostconfig and removed the line MYSQLCOM=-YES-rm -rf ~/Library/PreferencePanes/My*</span><br><span class="line">sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">sudo rm -rf /var/db/receipts/com.mysql.*</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Mac/">Mac</a><a href="/tags/MySQL/">MySQL</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/23/Linux/Linux 中 profile, bashrc, bash.profile/" title="Linux 中 profile, bashrc, bash.profile" itemprop="url">Linux 中 profile, bashrc, bash.profile</a>
   </h1>
   <p class="article-author">By
@@ -364,7 +481,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-23</time>
+    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-23</time>
     
   </p>
 </header>
@@ -446,61 +563,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/23/OS X/Mac 下删除 MySQL/" title="Mac 下删除 MySQL" itemprop="url">Mac 下删除 MySQL</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-22T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/local/mysql</span><br><span class="line">sudo rm -rf /usr/local/mysql*</span><br><span class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">sudo rm -rf /Library/PreferencePanes/My*</span><br><span class="line">vim /etc/hostconfig and removed the line MYSQLCOM=-YES-rm -rf ~/Library/PreferencePanes/My*</span><br><span class="line">sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">sudo rm -rf /var/db/receipts/com.mysql.*</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Mac/">Mac</a><a href="/tags/MySQL/">MySQL</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/11/22/iOS/检验 Xcode 合法性/" title="检验 Xcode 合法性" itemprop="url">检验 Xcode 合法性</a>
   </h1>
   <p class="article-author">By
@@ -508,7 +570,7 @@
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
     
   </p>
 </header>
@@ -562,53 +624,27 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/22/iOS/UI/实现可伸缩的 tableViewCell/" title="实现可伸缩的 tableViewCell" itemprop="url">实现可伸缩的 tableViewCell</a>
+      <a href="/2015/11/22/iOS/适用 QuickTime 进行屏幕录制/" title="使用 QuickTime 进行屏幕录制" itemprop="url">使用 QuickTime 进行屏幕录制</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>大致描述：<br>点击其中一个 Cell，实现在该 Cell 下伸展出更大的视图，展示更多的细节</p>
-<p>思路：</p>
+        <p>可用于展示 iOS 模拟器上 Demo</p>
 <ol>
-<li>所谓可伸缩的 Cell，其实是 header 与 cell 共同配合的结果</li>
-<li>点击 header，伸展出该 header 下的 cell</li>
-<li>使用 UIButton 覆盖 header，并在点击 UIButton 时实现伸缩效果</li>
+<li>打开 QuickTime</li>
+<li>File -&gt; New Screen Recording</li>
+<li>此时，弹出窗口</li>
+<li>点击红点进行开始录制</li>
+<li>根据出现在屏幕中央的提示，选择进行全屏录制 还是 局部录制</li>
 </ol>
-<p>当 UITableView 展示 cell 时，代理方法的调用顺序大致为：</p>
-<ul>
-<li><code>- (NSInteger)tableView: numberOfRowsInSection: // 查询要展示多少个 row</code></li>
-<li><code>- (CGFloat)tableView: heightForRowAtIndexPath: // 查询每个 row 的高度</code></li>
-<li><code>- (UITableViewCell *)tableView: cellForRowAtIndexPath: // 查询每个 row 长什么样子</code></li>
-<li><code>- (void)tableView: didSelectRowAtIndexPath: // 监听每个 Cell 的点击事件</code></li>
-</ul>
-<p>可以推出，tableView 的每一个 header 也是按照相同的顺序</p>
-<p>数据源问题：<br>每一个 Cell 长什么样子，展示什么内容，必定是从数据源中获取，通常为数组</p>
-<p>然而，在此例子中，我们还需要记录下每个 Cell 展开/收缩的状态，也许，我们可以另外新建一个数组来记录 cell 的状态，<br>但，我们还可以使用 字典 这个东西，将 <code>数组</code> 与 <code>字典</code> 配合使用</p>
-<ol>
-<li>整个数据源的基础，我们还是利用 数组 (<code>NSMutableArray</code>) 来实现，我们称它为 cellDatas</li>
-<li>而在 cellDatas 中，每一个元素便是 字典 (<code>NSMutableDictionary</code>)</li>
-<li>在这个字典中，我们添加的字段有：数据的信息 (<code>objInfo</code>)，cell 的展开状态 (<code>expanded</code>)</li>
-</ol>
-<p>在 <code>- (NSInteger)numbersOfSectionsInTableView:</code> 中：<br>我们返回的是 cellDatas 的个数</p>
-<p>在 <code>- (CGFloat)tableView: heightForHeaderInSection:</code> 中：<br>我们返回的是 header 的高度</p>
-<p>在 <code>- (UIView *)tableView: viewForHeaderInSection:</code> 中：<br>我们返回的是 我们自定义的 header，即那个带有 UIButton 的View</p>
-<p>在 - (NSInteger)tableView: numberOfRowsInSection: 中：<br>我们 根据 cellDatas 中，特定位置的 cellData 的 expanded 键值 (YES/NO) 来返回<br>如果返回的是 NO，即当前 cell 并没有展开，于是我们返回 我们需要的值，以便在 reloadData 时展开<br>如果返回的是 YES，即当前 cell 已经展开了，于是我们返回 0，以便在 reloadData 时收缩<br>为此，我们可以通过一个自定义方法 - (BOOL)isExpanded:(NSInteger)section 来判断，要注意的是，在该方法中，我们需要判断 cellData 中 expanded 键值是否为空，否则会崩溃</p>
-<p>而关于 cell 的高度，以及展示样式，与 header 类似<br>要注意的时，当我们在 - (NSInteger)tableView: numberOfRowsInSection: 中返回 0 时，tableView 便不再访问其 高度，样式，因此，我们不需要在 该两个委托 中，检验是否展开了！</p>
-<p>而后，<br>当我们点击 header 上的大按钮时，我们就要对 tableView 进行重新加载，展开/收缩 cell<br>为此，我们可以自定义一个方法 - (void)btnClicked，<br>在该方法中，我们需要对 cellData 的 expanded 键值进行设置，控制展开/收缩<br>为此，我们可以又自定义一个方法 - (void)collapseOrExpand:(NSIteger)section，<br>于是，在 - (void)btnClicked 中，我们首先 collapseOrExpand: 设置新的 cell 状态，然后 reloadData 根据 cell 的新状态重新加载 tableView，最后，可伸缩的 tableViewCell 就实现了</p>
-<p>然而，问题又来了，在向上滑动 tableView 时，我们会看到每一个 section  的 header 浮动在最顶端<br>为了解决这个问题，我们需要实现 UIScrollView 的一个委托方法：</p>
-<h2 id="void-scrollViewDidScroll-UIScrollView-scrollView"><a href="#void-scrollViewDidScroll-UIScrollView-scrollView" class="headerlink" title="- (void)scrollViewDidScroll:(UIScrollView *)scrollView"></a>- (void)scrollViewDidScroll:(UIScrollView *)scrollView</h2><p><strong>更新，这里设置 <code>tableView</code> 的样式为 <code>group</code></strong></p>
-<p>在这个委托方法中，我们的思路是：<br>判断条件A：scrollView.contentOffset.y &lt;= header 的高度 &amp;&amp; scrollView.contentOffset.y &gt;= 0<br>判断条件B：若 A 不满足，则若 scrollView.contentOffset.y &gt;= header 的高度</p>
-<p>场景解析：<br>A：scrollView 向上滑动的距离小于或等于 header 高度这个长度，并且 scrollView 是在向上滑动<br>B：当 A 不满足时，我们滑动的距离已经大于了 header 高度这个长度，也许第二节的数据也已经滑出了显示界面</p>
-<p>在 A 成立的情况下，scrollView.contentInset = [UIEdgeInsetsMake(-scrollView.contentOffset,y, 0, 0, 0)]<br>在 B 成立的情况下，scrollView.contentInset = [UIEdgeInsetsMake(-header 的高度, 0, 0, 0)]</p>
-<p>之后，问题又来了：<br>加载数据的圈圈只能在滑动的时候显示出来</p>
 
         
         
@@ -622,7 +658,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/UITableView/">UITableView</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/QuickTime/">QuickTime</a>
   </div>
 
 </div>
@@ -650,28 +686,20 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/22/iOS/System/iOS 程序启动原理/" title="iOS 程序启动原理" itemprop="url">iOS 程序启动原理</a>
+      <a href="/2015/11/22/iOS/UI/验证输入是否为 数字 或者 小数点/" title="验证输入是否为 数字 或者 小数点" itemprop="url">验证输入是否为 数字 或者 小数点</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
+    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> Published 2015-11-22</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>在 main 方法中</p>
-<ol>
-<li>创建 UIApplication 对象</li>
-<li>创建 AppDelegate 对象，并成为 UIApplication 对象的代理属性</li>
-<li>开启主运行循环，监听事件</li>
-<li>加载 info.plist 文件，判断 info.plist 文件中是否指定了 nib 文件(xib, storyboard) 或 main.storyboard，若有，则加载指定文件</li>
-</ol>
-<p>makeKeyAndVisible 工作原理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">application.keyWindow = self.window;</span><br><span class="line">self.window.hidden = NO;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)validateNumber:(<span class="built_in">NSString</span>*)number &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> res = <span class="literal">YES</span>;</span><br><span class="line">    <span class="built_in">NSCharacterSet</span>* tmpSet = [<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@"0123456789."</span>];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; number.length) &#123;</span><br><span class="line">        <span class="built_in">NSString</span> * string = [number substringWithRange:<span class="built_in">NSMakeRange</span>(i, <span class="number">1</span>)];</span><br><span class="line">        <span class="built_in">NSRange</span> range = [string rangeOfCharacterFromSet:tmpSet];</span><br><span class="line">        <span class="keyword">if</span> (range.length == <span class="number">0</span>) &#123;</span><br><span class="line">            res = <span class="literal">NO</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
         
@@ -685,63 +713,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/22/iOS/System/每一个类的罕见方法/" title="每一个类的罕见方法" itemprop="url">每一个类的罕见方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Wen Yongyang" target="_blank" itemprop="author">Wen Yongyang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>程序一启动时，将所有类加载到内存，比 main 更先执行<br><code>+ (void)load</code></p>
-<p>第一次使用这个类或子类时调用<br><code>+ (void)initialize</code><br>在其中设置改类的全局配置，如共同的外观</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/NSString/">NSString</a>
   </div>
 
 </div>
@@ -769,15 +741,15 @@
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="Y-YYeung" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -789,7 +761,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -797,11 +769,7 @@
 			
 		
 			
-				<li><a href="/tags/Python/" title="Python">Python<sup>3</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
 			
 		
 			
@@ -809,11 +777,11 @@
 			
 		
 			
-				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
+				<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+				<li><a href="/tags/What-have-I-learnt-from-this-Demo/" title="What have I learnt from this Demo">What have I learnt from this Demo<sup>2</sup></a></li>
 			
 		
 			
@@ -821,19 +789,27 @@
 			
 		
 			
-				<li><a href="/tags/pointer/" title="pointer">pointer<sup>1</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+				<li><a href="/tags/Documentation/" title="Documentation">Documentation<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/Database/" title="Database">Database<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Regular-Expression/" title="Regular Expression">Regular Expression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
 			
 		
 			
@@ -845,11 +821,15 @@
 			
 		
 			
-				<li><a href="/tags/QuickTime/" title="QuickTime">QuickTime<sup>1</sup></a></li>
+				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+				<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Masonry/" title="Masonry">Masonry<sup>1</sup></a></li>
 			
 		
 			
@@ -857,19 +837,11 @@
 			
 		
 			
-				<li><a href="/tags/Block/" title="Block">Block<sup>1</sup></a></li>
+				<li><a href="/tags/ContentInsets/" title="ContentInsets">ContentInsets<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Demo/" title="Demo">Demo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Json/" title="Json">Json<sup>1</sup></a></li>
+				<li><a href="/tags/UIImage/" title="UIImage">UIImage<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -1008,7 +980,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
